@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
-  const [ setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
- 
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
+  // Removed unused inputText state
+  // Removed unused translatedText state
+  // Removed unused isLoading state
+
   useEffect(() => {
   (window as any).handleTranslate = async () => {
     const input = (document.getElementById('inputText') as HTMLTextAreaElement)?.value;
