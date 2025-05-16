@@ -7,39 +7,50 @@ const App: React.FC = () => {
   // Removed unused isLoading state
 
   useEffect(() => {
-  (window as any).handleTranslate = async () => {
-    const input = (document.getElementById('inputText') as HTMLTextAreaElement)?.value;
-    const target = (document.getElementById('language') as HTMLSelectElement)?.value;
+    (window as any).handleTranslate = async () => {
+      const input = (document.getElementById('inputText') as HTMLTextAreaElement)?.value;
+      const target = (document.getElementById('language') as HTMLSelectElement)?.value;
+      const button = document.getElementById('translateBtn') as HTMLButtonElement;
 
-    if (!target || !input) {
-      alert('Please select a language and enter text.');
-      return;
-    }
-
-    try {
-      const response = await fetch('https://afri-intelligence.onrender.com/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q: input, target }),
-      });
-
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`Backend error: ${response.status} - ${errText}`);
+      if (!target || !input) {
+        alert('Please select a language and enter text.');
+        return;
       }
 
-      const data = await response.json();
-      const translated = data?.data?.translations?.[0]?.translatedText || '';
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Translating...';
+      }
 
-      const outputEl = document.getElementById('outputText') as HTMLTextAreaElement;
-      if (outputEl) outputEl.value = translated;
+      try {
+        const response = await fetch('https://afri-intelligence.onrender.com/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ q: input, target }),
+        });
 
-    } catch (error: any) {
-      console.error('Translation failed:', error.message);
-      alert('Translation failed. See console for details.');
-    }
-  };
-}, []);
+        if (!response.ok) {
+          const errText = await response.text();
+          throw new Error(`Backend error: ${response.status} - ${errText}`);
+        }
+
+        const data = await response.json();
+        const translated = data?.data?.translations?.[0]?.translatedText || '';
+
+        const outputEl = document.getElementById('outputText') as HTMLTextAreaElement;
+        if (outputEl) outputEl.value = translated;
+
+      } catch (error: any) {
+        console.error('Translation failed:', error.message);
+        alert('Translation failed. See console for details.');
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.textContent = 'Translate';
+        }
+      }
+    };
+  }, []);
 
 
 
