@@ -3,5 +3,8 @@ import './index.css'
 import App from './App.tsx'
 
 const domNode = document.getElementById('root');
+if (!domNode) {
+  throw new Error("Root element not found");
+}
 const root = createRoot(domNode);
 root.render(<App />);
