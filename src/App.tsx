@@ -13,7 +13,7 @@ const App: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/translate', {
+      const response = await fetch('https://afri-intelligence.onrender.com/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ q: '', target: selectedLanguage }), // No inputText, send empty string or adjust as needed
@@ -52,7 +52,7 @@ const App: React.FC = () => {
     el.setAttribute('data-original', originalText);
 
     try {
-      const response = await fetch('http://localhost:3000/translate', {
+      const response = await fetch('https://afri-intelligence.onrender.com/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ q: originalText, target: targetLang }),
