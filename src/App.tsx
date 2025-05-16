@@ -103,7 +103,7 @@ if (form) {
       loadingOverlay.style.display = 'block'; // Show overlay
     }
 
-    const formData = new FormData(form);
+    const formData = new FormData(form as HTMLFormElement);
     try {
       const res = await fetch('http://localhost:3000/translate-file', {
         method: 'POST',
