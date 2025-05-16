@@ -102,7 +102,7 @@ if (form) {
 
     const formData = new FormData(form as HTMLFormElement);
     try {
-      const res = await fetch('http://localhost:3000/translate-file', {
+      const res = await fetch('https://afri-intelligence.onrender.com/translate-file', {
         method: 'POST',
         body: formData,
       });
