@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
+  const [setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
   // Removed unused inputText state
   // Removed unused translatedText state
   // Removed unused isLoading state
