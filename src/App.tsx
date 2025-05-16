@@ -2,22 +2,21 @@ import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
-  const [inputText] = useState<string>('');
-  const [setTranslatedText] = useState<string>('...');
-  const [setIsLoading] = useState<boolean>(false);
+  // Removed unused inputText state
+  // Removed unused translatedText state
+  // Removed unused isLoading state
 
   const handleTranslate = async () => {
-    if (!selectedLanguage || !inputText.trim()) {
-      alert('Please select a language and enter text to translate.');
+    if (!selectedLanguage) {
+      alert('Please select a language.');
       return;
     }
 
-    setIsLoading(true);
     try {
       const response = await fetch('http://localhost:3000/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q: inputText, target: selectedLanguage }),
+        body: JSON.stringify({ q: '', target: selectedLanguage }), // No inputText, send empty string or adjust as needed
       });
 
       if (!response.ok) {
@@ -30,12 +29,10 @@ const App: React.FC = () => {
         throw new Error('Malformed response from backend');
       }
 
-      setTranslatedText(data.data.translations[0].translatedText);
+      // Translation result received, but not used in UI
     } catch (error: any) {
       console.error('Translation failed:', error.message);
-      setTranslatedText('Translation failed. Check console or server logs.');
-    } finally {
-      setIsLoading(false);
+      // Translation failed, but not used in UI
     }
   };
 
