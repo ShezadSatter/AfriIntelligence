@@ -6,9 +6,13 @@ const App: React.FC = () => {
   // Removed unused translatedText state
   // Removed unused isLoading state
 
-  const handleTranslate = async () => {
-    if (!selectedLanguage) {
-      alert('Please select a language.');
+  useEffect(() => {
+  (window as any).handleTranslate = async () => {
+    const input = (document.getElementById('inputText') as HTMLTextAreaElement)?.value;
+    const target = (document.getElementById('language') as HTMLSelectElement)?.value;
+
+    if (!target || !input) {
+      alert('Please select a language and enter text.');
       return;
     }
 
@@ -16,7 +20,7 @@ const App: React.FC = () => {
       const response = await fetch('https://afri-intelligence.onrender.com/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q: '', target: selectedLanguage }), // No inputText, send empty string or adjust as needed
+        body: JSON.stringify({ q: input, target }),
       });
 
       if (!response.ok) {
@@ -25,20 +29,18 @@ const App: React.FC = () => {
       }
 
       const data = await response.json();
-      if (!data.data || !data.data.translations || !data.data.translations[0]) {
-        throw new Error('Malformed response from backend');
-      }
+      const translated = data?.data?.translations?.[0]?.translatedText || '';
 
-      // Translation result received, but not used in UI
+      const outputEl = document.getElementById('outputText') as HTMLTextAreaElement;
+      if (outputEl) outputEl.value = translated;
+
     } catch (error: any) {
       console.error('Translation failed:', error.message);
-      // Translation failed, but not used in UI
+      alert('Translation failed. See console for details.');
     }
   };
+}, []);
 
-  useEffect(() => {
-    (window as any).handleTranslate = handleTranslate;
-  }, []);
 
 
  const translatePage = async (targetLang: string) => {
