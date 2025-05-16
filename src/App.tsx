@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
+  // Removed unused selectedLanguage state
   // Removed unused inputText state
   // Removed unused translatedText state
   // Removed unused isLoading state
@@ -78,7 +78,6 @@ useEffect(() => {
 
   const handleLangChange = (e: Event) => {
     const lang = (e.target as HTMLSelectElement).value;
-    setSelectedLanguage(lang);
     translatePage(lang);
   };
 
@@ -131,12 +130,7 @@ if (form) {
   });
 }
 
-return(
-  <div >
-    <div>test1</div>
-    <div>Selected language: {selectedLanguage}</div>
-  </div>
-)
+return null; 
 
 }
 
