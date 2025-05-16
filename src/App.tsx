@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('zu'); // Default to Zulu
-  const [inputText, setInputText] = useState<string>('');
-  const [translatedText, setTranslatedText] = useState<string>('...');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputText] = useState<string>('');
+  const [setTranslatedText] = useState<string>('...');
+  const [setIsLoading] = useState<boolean>(false);
 
   const handleTranslate = async () => {
     if (!selectedLanguage || !inputText.trim()) {
