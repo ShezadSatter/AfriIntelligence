@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 const App: React.FC = () => {
   // Removed unused selectedLanguage state
