@@ -1,0 +1,251 @@
+body {
+  font-size: 1em;
+}
+/*hero*/
+.home_body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: max-content;
+  background: rgba(19,57,31,1);
+  opacity: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.card_info {
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+  height: 80%;
+  background: rgba(255,255,248,0.8199999928474426);
+  opacity: 1;
+  position: absolute;
+  top: 5rem;
+  border: 1px solid rgba(35,103,56,1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+}
+
+.name {
+  color: #fff;
+}
+
+.logo_card {
+  width: 80%;
+  height: 97px;
+  opacity: 1;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 5rem;
+  border: 1px solid rgba(0,0,0,1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+}
+
+.logo_img{
+  
+ max-width: 40vw;
+ height: 15vh;
+}
+
+.key_features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 46%;
+  background: rgba(19,57,31,1);
+  opacity: 1;
+  position: absolute;
+  top: 233px;
+  border: 1px solid rgba(0,0,0,1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+}
+
+.button_cevron {
+  width: 90px;
+  height: 25px;
+  background: url("../images/v9_102.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 24px;
+  right: 2vw;
+  overflow: hidden;
+}
+
+.lang_dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  background: rgba(35,103,56,1);
+  opacity: 1;
+  position: relative;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  overflow: hidden;
+}
+
+.lang_button_text {
+  color: rgba(255,255,255,1);
+  position: absolute;
+  font-family: League Spartan;
+  font-weight: Bold;
+  font-size: 10px;
+  opacity: 1;
+  text-align: center;
+}
+
+.name {
+  color: #fff;
+}
+
+.v9_110 {
+  width: 240px;
+  color: rgba(19,57,31,1);
+  position: absolute;
+  top: 367px;
+  left: 80px;
+  font-family: League Spartan;
+  font-weight: Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+
+.key_features_head {
+  width: 100%;
+  color: rgba(255,255,255,1);
+  position: relative;
+  font-family: League Spartan;
+  font-weight: Bold;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+
+.key_features_text {
+  width: 100%;
+  color: rgba(255,255,255,1);
+  position: relative;
+  top: 1rem;
+  font-family: League Spartan;
+  font-weight: Bold;
+  font-size: 14px;
+  opacity: 1;
+  text-align: center;
+}
+
+.v9_115 {
+  width: 303px;
+  height: 303px;
+  background: url("../images/v9_115.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 103px;
+  overflow: hidden;
+}
+
+.home {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: url("4e9558c75ba1bfda1c46ce35a8d5c14ea4cadd03.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/*translate text*/
+
+    select, textarea, button {
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .language-selector {
+      margin: 1rem 0;
+    }
+
+    textarea {
+      width: 80%;
+      height: 100px;
+      padding: 1rem;
+      background: rgb(37, 117, 63);
+      color: white;
+      border: 1px solid rgb(57, 72, 62);
+      border-radius: 4px;
+      margin: 1rem 0;
+      resize: vertical;
+    }
+
+    button {
+      padding: 0.5rem 1.5rem;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+/*spinner*/
+  #loadingOverlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 20%;
+  }
+
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #4CAF50;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 1rem auto;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
