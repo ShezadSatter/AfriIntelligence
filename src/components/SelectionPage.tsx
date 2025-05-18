@@ -1,7 +1,7 @@
 // src/components/SelectionPage.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./selectionstyle.css";
+import "../pages/selectionstyle.css";
 
 const SelectionPage: React.FC = () => {
   const navigate = useNavigate();
