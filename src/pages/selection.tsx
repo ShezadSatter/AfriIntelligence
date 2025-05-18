@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "/selectionstyle.css";
+import "./selectionstyle.css";
 
 const SelectionPage: React.FC = () => {
   return (
