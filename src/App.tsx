@@ -141,6 +141,76 @@ if (form) {
   });
 }
 
+useEffect(() => {
+  const speakBtn = document.getElementById('speakBtn');
+  let voices: SpeechSynthesisVoice[] = [];
+
+  const loadVoices = () => {
+    voices = speechSynthesis.getVoices();
+  };
+
+  // Some browsers delay voice loading
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  loadVoices(); // Try loading immediately too
+
+const getFallbackVoice = (voices: SpeechSynthesisVoice[], langCode: string) => {
+  const langMap: Record<string, string[]> = {
+    zu: ['en-ZA'], // No Zulu? Use English South Africa or UK
+    xh: ['en-ZA'],
+    st: ['en-ZA'],
+    en: ['en-US' ],
+  };
+
+  const preferredLangs = langMap[langCode] || ['en-US'];
+
+  for (const code of preferredLangs) {
+    const match = voices.find(v => v.lang.toLowerCase().startsWith(code.toLowerCase()));
+    if (match) return match;
+  }
+
+  return voices[0]; // Absolute fallback
+};
+
+
+const handleSpeak = () => {
+  const outputTextEl = document.getElementById('outputText') as HTMLTextAreaElement;
+  if (!outputTextEl || !outputTextEl.value) return;
+
+  const utterance = new SpeechSynthesisUtterance(outputTextEl.value);
+
+  // speech rate (1.0 is normal, 0.5 is slower)
+  utterance.rate = 0.5;
+
+  // pitch and volume
+  utterance.pitch = 1;   // Normal pitch
+  utterance.volume = 1;  // Max volume
+
+  // Get available voices
+  const selectedLang = (document.getElementById('language') as HTMLSelectElement)?.value || 'en';
+
+ const fallbackVoice = getFallbackVoice(voices, selectedLang);
+
+
+  if (fallbackVoice) {
+    utterance.voice = fallbackVoice;
+  }
+
+  speechSynthesis.speak(utterance);
+};
+
+
+  speakBtn?.addEventListener('click', handleSpeak);
+
+  return () => {
+    speakBtn?.removeEventListener('click', handleSpeak);
+  };
+}, []);
+
+
+
 return null; 
 
 }
