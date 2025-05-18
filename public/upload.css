@@ -6,7 +6,7 @@ html, body {
   font-family: 'League Spartan', sans-serif;
   background: #133a1f;
   overflow: hidden;
-  background-image: url('bg.png');
+  background-image: url('/assets/bg.png');
   background-size: cover;
   
 }
