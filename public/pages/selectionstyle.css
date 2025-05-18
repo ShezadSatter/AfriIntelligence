@@ -1,0 +1,90 @@
+.body {
+  background-color: #133A1F;
+  background-image: url('bg.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.title {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title img {
+  width: 100px;
+  height: 100px;
+  border-radius: 30px;
+}
+
+.title h1 {
+  color: white;
+  font-family: League Spartan;
+}
+
+.title hr {
+    margin-top: -5px;
+  width: 350px;
+}
+
+.selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+
+.selection-bg{
+     width: 80%;
+background-color: #FFFFF8;
+  opacity: 0.8;
+  margin-top: 2rem;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+  border-radius: 30px;
+display: flex;
+  flex-direction: column;
+    align-items: center;
+}
+
+.selection button {
+  width: 300px;
+  height: 50px;
+  border-radius: 30px;
+  margin-top: 20px;
+  font-family: League Spartan;
+    font-size: 20px;
+}
+
+.selection div h1{
+  font-family: League Spartan;
+  font-size: 36px;
+}
+
+.selection p{
+    font-size: 20px;
+    margin-top: -10px;
+
+}
+
+.selection div button {
+  background-color: #133A1F;
+  color: white;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.translation-status {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
