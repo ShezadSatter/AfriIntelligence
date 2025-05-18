@@ -181,7 +181,7 @@ html, body {
 .button_cevron {
   width: 6rem;
   height: 25px;
-  background: url("/images/v9_102.png");
+  background: url("/assets/images/v9_102.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
