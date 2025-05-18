@@ -156,7 +156,7 @@ html, body {
   width: 50%;
   height: 80%;
   position: relative;
-  background-image: url("/src/assets/images/Volume 2.svg");
+  background-image: url("/assets/images/Volume 2.svg");
   background-repeat: no-repeat;
     background-position: center center;
 }
@@ -181,7 +181,7 @@ html, body {
 .button_cevron {
   width: 6rem;
   height: 25px;
-  background: url("../images/v9_102.png");
+  background: url("/images/v9_102.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
