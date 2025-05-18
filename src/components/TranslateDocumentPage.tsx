@@ -1,6 +1,6 @@
 // src/components/TranslateDocumentPage.tsx
 import React, { useEffect } from "react";
-import "./upload.css";
+import "../pages/upload.css";
 
 const TranslateDocumentPage: React.FC = () => {
   useEffect(() => {
