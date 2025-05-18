@@ -1,18 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SelectionPage from "./pages/selection";
-import TranslateDocument from "./pages/translateDocument";
-import TTSPage from "./pages/tts"; // if available
+// src/App.tsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import SelectionPage from "./components/SelectionPage";
+import TranslateDocumentPage from "./components/TranslateDocumentPage";
+import TTSPage from "./components/TTSPage";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<SelectionPage />} />
-        <Route path="/translate-document" element={<TranslateDocument />} />
-        <Route path="/tts" element={<TTSPage />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<SelectionPage />} />
+      <Route path="/translate" element={<TranslateDocumentPage />} />
+      <Route path="/tts" element={<TTSPage />} />
+    </Routes>
   );
-}
+};
 
 export default App;

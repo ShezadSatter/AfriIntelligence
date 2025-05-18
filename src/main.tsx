@@ -1,10 +1,14 @@
-import { createRoot } from 'react-dom/client'
-import './pages/index.css'
-import App from './App.tsx'
+// src/main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import "./styles/global.css"; // If you have global styles
 
-const domNode = document.getElementById('root');
-if (!domNode) {
-  throw new Error("Root element not found");
-}
-const root = createRoot(domNode);
-root.render(<App />);
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
