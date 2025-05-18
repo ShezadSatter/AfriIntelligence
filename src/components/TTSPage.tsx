@@ -1,6 +1,6 @@
 // src/components/TTSPage.tsx
 import React, { useEffect } from "react";
-import "./styles.css"; // or the equivalent CSS
+import "../pages/styles.css"; // or the equivalent CSS
 
 const TTSPage: React.FC = () => {
   useEffect(() => {
