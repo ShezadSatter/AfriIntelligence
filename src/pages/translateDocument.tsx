@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./upload.css";
+import "/upload.css";
 
 const TranslateDocument: React.FC = () => {
   const [loading, setLoading] = useState(false);
