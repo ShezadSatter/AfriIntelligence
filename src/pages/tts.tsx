@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "/styles.css";
+import "./styles.css";
 
 const TextToSpeech = () => {
   const [language, setLanguage] = useState("zu");
