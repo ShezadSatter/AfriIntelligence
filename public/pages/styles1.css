@@ -1,6 +1,6 @@
 .body {
   background-color: #133A1F;
-  background-image: url('bg.png');
+  background-image: url('/assets/images/bg.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
