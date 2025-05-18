@@ -59,9 +59,9 @@ const TextToSpeech = () => {
 
   return (
     <div className="container">
-      <img className="background-img" src="/src/assets/images/bg3.png" />
+      <img className="background-img" src="/assets/images/bg3.png"/>
       <div className="header">
-        <img className="app-icon" src="/src/assets/images/logo.jpg" />
+        <img className="app-icon" src="/assets/images/logo.jpg" />
         <div className="title">Exam Paper Translator</div>
         <div className="underline"></div>
       </div>

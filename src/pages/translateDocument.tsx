@@ -45,7 +45,7 @@ const TranslateDocument: React.FC = () => {
   return (
     <>
       <section className="title">
-        <img src="/assets/images/logo.jpg" alt="logo" />
+        <img src="./assets/images/logo.jpg" alt="logo" />
         <h1>Exam Paper Translation</h1>
         <hr />
       </section>
