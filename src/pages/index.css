@@ -181,8 +181,8 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-/*translate text*/
+/*
+/*translate text
 
     select, textarea, button {
       font-family: inherit;
@@ -219,7 +219,7 @@ body {
       opacity: 0.7;
       cursor: not-allowed;
     }
-
+*/
 /*spinner*/
   #loadingOverlay {
     display: none;

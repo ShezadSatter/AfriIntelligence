@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate Document</title>
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+     <section class="title"><img src="/src/assets/images/logo.jpg" alt="logo" />
+    <h1>Exam Paper Translation</h1>
+    <hr />
+</section>
+
+    <section class="container">
+
+  <div class="main-card">
+    <div class="section-label">Upload Document</div>
+
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <p>Translating, please wait...</p>
+</div>
+
+<form id="uploadForm" enctype="multipart/form-data">
+  <input type="file" id="file-upload" name="file" accept=".pdf,.docx" required />
+  <select name="target">
+    <option value="zu">Zulu</option>
+    <option value="xh">Xhosa</option>
+    <option value="en">English</option>
+  </select>
+<button type="submit" class="submit-button">
+      <div class="inner-button">Translate</div>
+    </button>
+  </form>
+
+
+
+    
+
+<div class="file-icon" id="file-icon">
+  <div class="folded-corner">
+    <div id="translationStatus" class="translation-status"></div>
+
+  </div>
+</div>
+
+  </div>
+    </section>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+
+</body>
+</html>

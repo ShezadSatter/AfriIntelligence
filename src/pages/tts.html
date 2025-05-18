@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Paper Translator</title>
+   
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <img class="background-img" src="/src/assets/images/bg3.png" />
+      <div class="header">
+        <img class="app-icon" src="/src/assets/images/logo.jpg" />
+        <div data-i18n class="title"><span>Exam Paper Translator</span></div>
+        <div class="underline"></div>
+      </div>
+
+      <div class="main-card">
+        <div data-i18n class="section-label"><span>Text - To - Speech</span></div>
+
+  <div class="language-selector">
+    <label data-i18n for="language">Select Target Language:</label>
+    <select id="language" class="lang-drop">
+      <option value="zu">Zulu</option>
+      <option value="xh">Xhosa</option>
+      <option value="st">Sesotho</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+        <div class="label-type">
+          <textarea
+            id="inputText"
+            placeholder="Enter text to translate..."
+            data-i18n
+          ></textarea>
+        </div>
+        <div class="label-translated">
+          <div><button onclick="handleTranslate()" id="translateBtn" data-i18n>Translate</button></div>
+        </div>
+        <div class="label-placeholder">
+          <textarea data-i18n
+            id="outputText"
+            placeholder="Translation will appear here..."
+            readonly
+          ></textarea>
+
+        </div>
+        
+
+         <div class="submit-button">
+    <button id="speakBtn">Speak</button>
+  </div>
+
+
+        <div class="language-badge">
+          <div class="button_cevron">
+            <select class="lang_dropdown">
+              <option value="en">English</option>
+              <option value="af">Afrikaans</option>
+              <option value="zu">Zulu</option>
+              <option value="st">Sesotho</option>
+              <option value="xh">Xhosa</option>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+<div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
