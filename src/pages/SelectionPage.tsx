@@ -18,18 +18,6 @@ const SelectionPage: React.FC = () => {
           <h1>Select Source Language</h1>
           <p>Choose the language of the text you want to translate.</p>
 
-          <div className="options">
-            <div className="language-selector" id="dropdown">
-              <label htmlFor="language">Select Target Language:</label>
-              <select id="language" className="button">
-                <option value="zu">Zulu</option>
-                <option value="xh">Xhosa</option>
-                <option value="st">Sesotho</option>
-                <option value="en">English</option>
-              </select>
-            </div>
-          </div>
-
           <button onClick={() => navigate("/tts")}>
             Text-to-Speech
           </button>
