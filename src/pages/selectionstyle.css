@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
 .body {
   background-color: #133A1F;
-  background-image: url('bg.png');
+  background-image: url('../assets/images/bg.png');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: auto;
+   min-height: 100vh;
+  overflow-y: auto;
 }
 
 .title {

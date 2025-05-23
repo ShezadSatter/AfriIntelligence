@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
 html, body {
   height: 100%;
   margin: 0;
@@ -8,11 +11,13 @@ html, body {
 }
 
 .container {
-  height: auto;
+  height: 100vh;
   background: #133a1f;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
 /* Background Image */
@@ -56,8 +61,8 @@ html, body {
   width: 80%;
   height: 60vh;
   position: absolute;
-  top: 185px;
-  /*left: 41px;*/
+  top: 250px;
+ left: 25vw;
   background: rgba(255, 255, 248, 0.82);
   border: 1px solid #236738;
   border-radius: 10px;
@@ -71,7 +76,7 @@ html, body {
 .section-label {
   /*width: 114px;*/
   position: relative;
-  top: 20px;
+  top: 35px;
   text-align: center;
   color: black;
   font-size: 13px;
@@ -95,7 +100,7 @@ html, body {
 
 .label-type {
   position: absolute;
-  top: 12vh;
+  top: 15vh;
   text-align: center;
   color: black;
   font-size: 13px;
@@ -107,7 +112,7 @@ html, body {
 
 .label-translated {
   position: absolute;
-  top: 25vh;
+  top: 28vh;
   /*left: 157px;*/
   text-align: center;
   color: black;
@@ -118,7 +123,7 @@ html, body {
 
 .label-placeholder {
   position: absolute;
-  top: 32vh;
+  top: 35vh;
   /*left: 105px;*/
   text-align: center;
   color: black;
@@ -156,7 +161,7 @@ html, body {
   width: 50%;
   height: 80%;
   position: relative;
-  background-image: url("/src/assets/images/Volume 2.svg");
+  background-image: url("../assets/images/Volume 2.svg");
   background-repeat: no-repeat;
     background-position: center center;
 }
@@ -253,7 +258,10 @@ select, textarea, button {
 }
 
 .language-selector {
-  margin: 1rem 0;
+  margin: -4rem 0;
+   position: relative; /* ensures visibility inside absolute contexts */
+  z-index: 10; 
+  
 }
 
 textarea {
