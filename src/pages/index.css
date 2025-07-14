@@ -78,7 +78,7 @@ body {
 
 .button_cevron {
   width: 90px;
-  height: 25px;
+  height: 35px;
   background: url("../images/v9_102.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -95,7 +95,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 25px;
+  height: 30px;
   background: rgba(35,103,56,1);
   opacity: 1;
   position: relative;
