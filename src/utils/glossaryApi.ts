@@ -5,17 +5,12 @@ export type Translation = {
   ve: string;
 };
 
-export async function fetchSubjectList(): Promise<string[]> {
-  try {
-    const res = await fetch("https://afri-intelligence.onrender.com/glossary/index.json");
-    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-    const data = await res.json();
-    return data.subjects ?? [];
-  } catch (err) {
-    console.error("Failed to fetch subjects:", err);
-    return []; // fallback to empty list
-  }
-}
+export const fetchSubjectList = async (): Promise<string[]> => {
+  const response = await fetch("/glossary/index.json");
+  if (!response.ok) throw new Error("Failed to load subjects");
+  const data = await response.json();
+  return Object.keys(data);
+};
 
 
 
