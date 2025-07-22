@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "11",
+  "title": "Quadratic Equations",
+  "id": "QuadraticEquations",
+  "terms": [
+    {
+      "term": "Standard form",
+      "definition": "ax^2 + bx + c = 0",
+      "context": "Necessary for deriving quadratic formula.",
+      "example": "x^2 – 5x + 6 = 0."
+    },
+    {
+      "term": "Discriminant",
+      "definition": "b² – 4ac",
+      "context": "Determines nature of roots.",
+      "example": "For x^2 – 4x + 3, Δ = 4."
+    },
+    {
+      "term": "Roots",
+      "definition": "Solutions to the equation (x-intercepts)",
+      "context": "Where the graph touches x-axis.",
+      "example": "Roots at x = 1 and 3."
+    },
+    {
+      "term": "Nature of roots",
+      "definition": "Real & distinct, equal or complex",
+      "context": "Based on discriminant value.",
+      "example": "Δ < 0 gives complex roots."
+    },
+    {
+      "term": "Factorisation",
+      "definition": "Expressing quadratic as product of binomials",
+      "context": "Alternate method to find roots.",
+      "example": "x^2 – 5x + 6 = (x–2)(x–3)."
+    }
+  ]
+}

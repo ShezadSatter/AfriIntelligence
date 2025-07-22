@@ -1,0 +1,20 @@
+
+{
+    "subject": "Life Science",
+"grade": "11",
+ "topic": "Biomolecules",
+  "id": "Biomolecules",
+  
+  "terms": [
+
+    
+    
+        {"term":"Carbohydrates","definition":"Sugars and starches","context":"Primary energy source.","example":"Glucose provides energy."},
+        {"term":"Proteins","definition":"Polymers of amino acids","context":"Structure/function in cells.","example":"Enzymes are proteins."},
+        {"term":"Lipids","definition":"Fats and oils","context":"Energy storage and membranes.","example":"Phospholipids in cell membranes."},
+        {"term":"Nucleic acids","definition":"DNA and RNA","context":"Genetic information carriers.","example":"DNA in nucleus."},
+        {"term":"Enzymes","definition":"Biological catalysts","context":"Speed up metabolic reactions.","example":"Lactase breaks down lactose."}
+      ]
+  
+  }
+  

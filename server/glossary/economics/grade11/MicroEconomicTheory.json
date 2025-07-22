@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "11",
+  "title": "Microeconomic Theory",
+  "id": "MicroEconomicTheory",
+  "terms": [
+    {
+      "term": "Utility",
+      "definition": "Satisfaction from consumption",
+      "context": "Consumer behaviour analysis.",
+      "example": "More coffee gives diminishing utility."
+    },
+    {
+      "term": "Marginal utility",
+      "definition": "Additional satisfaction per extra unit",
+      "context": "Law of diminishing utility.",
+      "example": "Second burger tastes less enjoyable."
+    },
+    {
+      "term": "Consumer equilibrium",
+      "definition": "Maximized total utility under budget constraint",
+      "context": "Optimal spending.",
+      "example": "Spend budget where MU/P is equal across goods."
+    },
+    {
+      "term": "Budget line",
+      "definition": "Combinations of two goods affordable",
+      "context": "Consumer choice.",
+      "example": "Graph showing pizza and soda options."
+    },
+    {
+      "term": "Indifference curve",
+      "definition": "Combinations giving same utility",
+      "context": "Analysing trade-offs.",
+      "example": "Curve for coffee vs tea."
+    }
+  ]
+}

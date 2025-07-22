@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "10",
+  "title": "Statistics",
+  "id": "Statistics",
+  "terms": [
+    {
+      "term": "Mean",
+      "definition": "Average of data set.",
+      "context": "Measures centre.",
+      "example": "Mean of 2,4,6 is 4."
+    },
+    {
+      "term": "Median",
+      "definition": "Middle value when ordered.",
+      "context": "Robust centre measure.",
+      "example": "Median of 2,3,4,8,10 is 4."
+    },
+    {
+      "term": "Mode",
+      "definition": "Most frequent value.",
+      "context": "Useful in categorical data.",
+      "example": "Mode of {1,2,2,3} is 2."
+    },
+    {
+      "term": "Range",
+      "definition": "Difference between max and min.",
+      "context": "Simple spread measure.",
+      "example": "Range of 1–7 is 6."
+    },
+    {
+      "term": "Outlier",
+      "definition": "Value significantly different from others.",
+      "context": "Can skew mean.",
+      "example": "100 in {1,2,3,100} is an outlier."
+    }
+  ]
+}

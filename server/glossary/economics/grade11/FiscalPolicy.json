@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "11",
+  "title": "Fiscal Policy",
+  "id": "FiscalPolicy",
+  "terms": [
+    {
+      "term": "Budget deficit",
+      "definition": "When government spending > revenue",
+      "context": "Public finance.",
+      "example": "Gov spends R1000, collects R900."
+    },
+    {
+      "term": "Public debt",
+      "definition": "Accumulated deficits over time",
+      "context": "National economy health.",
+      "example": "SA government bond debt."
+    },
+    {
+      "term": "Progressive tax",
+      "definition": "Higher earners pay higher rate",
+      "context": "Redistributive policy.",
+      "example": "Income tax brackets."
+    },
+    {
+      "term": "Regressive tax",
+      "definition": "Lower earners pay a higher share",
+      "context": "Equity concerns.",
+      "example": "VAT on basic goods."
+    },
+    {
+      "term": "Transfer payments",
+      "definition": "Non‑contributory government payments",
+      "context": "Social support.",
+      "example": "Child support grant."
+    }
+  ]
+}

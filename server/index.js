@@ -1,5 +1,3 @@
-// server.js or index.ts
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const translate = require('@iamtraction/google-translate');
@@ -8,6 +6,7 @@ const multer = require('multer');
 const fs = require('fs-extra');
 const pdfParse = require('pdf-parse');
 const { Document, Packer, Paragraph } = require('docx');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -37,9 +36,7 @@ app.post('/translate', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Translation server running at http://localhost:${PORT}`);
-});
+
 
 
 
@@ -102,3 +99,9 @@ app.post('/translate-file', upload.single('file'), async (req, res) => {
   }
 });
 
+// Serve static glossary files
+app.use('/glossary', express.static(path.join(__dirname, 'glossary')));
+
+app.listen(PORT, () => {
+  console.log(`Translation server running at http://localhost:${PORT}`);
+});

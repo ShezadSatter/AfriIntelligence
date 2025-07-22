@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "10",
+  "title": "Linear Equations",
+  "id": "LinearEquations",
+  "terms": [
+    {
+      "term": "Linear equation",
+      "definition": "An equation making a straight line when graphed.",
+      "context": "Solving for unknowns in one variable.",
+      "example": "4x–8=0."
+    },
+    {
+      "term": "Solution",
+      "definition": "Value(s) that satisfy an equation.",
+      "context": "Key goal in algebra problem-solving.",
+      "example": "x=2 solves 4x–8=0."
+    },
+    {
+      "term": "Substitution",
+      "definition": "Replacement of a variable with a value.",
+      "context": "Testing solutions or simplifying expressions.",
+      "example": "Plug x=2 into 3x+1."
+    },
+    {
+      "term": "Isolation",
+      "definition": "Method to get the variable alone.",
+      "context": "Used to solve equations.",
+      "example": "Add 8 to both sides in x–8=3."
+    },
+    {
+      "term": "Inverse operation",
+      "definition": "Operation that reverses another.",
+      "context": "Used to isolate variables.",
+      "example": "Subtracting undoes addition."
+    }
+  ]
+}

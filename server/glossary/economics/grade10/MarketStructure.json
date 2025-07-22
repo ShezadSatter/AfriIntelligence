@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "10",
+  "title": "Market Structures",
+  "id": "MarketStructures",
+  "terms": [
+    {
+      "term": "Perfect competition",
+      "definition": "Many firms, identical products.",
+      "context": "Theoretical pricing model.",
+      "example": "Farmers’ markets."
+    },
+    {
+      "term": "Monopoly",
+      "definition": "Single firm controls market.",
+      "context": "Price-setting power.",
+      "example": "Local utility company."
+    },
+    {
+      "term": "Oligopoly",
+      "definition": "Few firms dominate.",
+      "context": "Strategic pricing.",
+      "example": "Telecom providers."
+    },
+    {
+      "term": "Monopolistic competition",
+      "definition": "Many firms with similar but differentiated products.",
+      "context": "Marketing strategies.",
+      "example": "Fast food chains."
+    },
+    {
+      "term": "Price maker",
+      "definition": "Firm that sets its own price.",
+      "context": "Characterises monopoly.",
+      "example": "Company controlling rare resource."
+    }
+  ]
+}

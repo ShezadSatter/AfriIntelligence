@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "10",
+  "title": "Elasticity",
+  "id": "Elasticity",
+  "terms": [
+    {
+      "term": "Price elasticity of demand",
+      "definition": "Responsiveness of quantity demanded to price.",
+      "context": "Pricing strategy.",
+      "example": "Elastic demand for luxury goods."
+    },
+    {
+      "term": "Elastic",
+      "definition": "Large change in demand from price change.",
+      "context": "Used in tax policy.",
+      "example": "Luxury cars schedule."
+    },
+    {
+      "term": "Inelastic",
+      "definition": "Small change in demand.",
+      "context": "Often for necessities.",
+      "example": "Salt demand remains."
+    },
+    {
+      "term": "Unitary elasticity",
+      "definition": "Proportional change.",
+      "context": "Break-even in revenue.",
+      "example": "Revenue same when price ↑ 10%."
+    },
+    {
+      "term": "Cross elasticity",
+      "definition": "Response of demand for one good to price change of another.",
+      "context": "Substitutes/compliments.",
+      "example": "Butter and margarine are substitutes."
+    }
+  ]
+}

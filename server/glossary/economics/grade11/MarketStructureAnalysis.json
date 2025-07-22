@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "11",
+  "title": "Market Structure Analysis",
+  "id": "MarketStructureAnalysis",
+  "terms": [
+    {
+      "term": "Perfect competition",
+      "definition": "Many firms; identical products",
+      "context": "Price takers.",
+      "example": "Grain farming."
+    },
+    {
+      "term": "Monopoly",
+      "definition": "Sole firm controls supply",
+      "context": "Price makers.",
+      "example": "Single utility provider."
+    },
+    {
+      "term": "Oligopoly",
+      "definition": "Few large firms dominate market",
+      "context": "Strategic interaction.",
+      "example": "Telecom industry players."
+    },
+    {
+      "term": "Price discrimination",
+      "definition": "Charging different prices to different consumers",
+      "context": "Maximizing revenue.",
+      "example": "Student vs adult cinema tickets."
+    },
+    {
+      "term": "Cartel",
+      "definition": "Firms collude to fix prices/production",
+      "context": "Illicit oligopoly behaviour.",
+      "example": "OPEC oil strategies."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "11",
+  "title": "Trigonometric Equations",
+  "id": "TrigonometricEquations",
+  "terms": [
+    {
+      "term": "Solve sinθ = k",
+      "definition": "Find θ satisfying value",
+      "context": "Within a given domain (0°–360°).",
+      "example": "sinθ = 0.5 → θ = 30°, 150°."
+    },
+    {
+      "term": "General solution",
+      "definition": "All possible solutions",
+      "context": "Express infinite roots.",
+      "example": "θ = 30° + 360n, 150° + 360n."
+    },
+    {
+      "term": "Principal value",
+      "definition": "Solution within primary domain",
+      "context": "Initial solution.",
+      "example": "θ = 45°."
+    },
+    {
+      "term": "Quadrants",
+      "definition": "Location of angles 0°–360°",
+      "context": "Determines sign of trig values.",
+      "example": "sin positive in I & II."
+    },
+    {
+      "term": "Periodic function",
+      "definition": "Repeats values over fixed interval",
+      "context": "Trig graphs.",
+      "example": "sinθ repeats every 360°."
+    }
+  ]
+}

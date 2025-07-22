@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "12",
+  "title": "Calculus: Integration",
+  "id": "CalculusIntegration",
+  "terms": [
+    {
+      "term": "Integral",
+      "definition": "Anti-derivative of a function.",
+      "context": "Calculating area under curve.",
+      "example": "∫2x dx = x² + C."
+    },
+    {
+      "term": "Definite integral",
+      "definition": "Integral with limits.",
+      "context": "Exact area between x‑bounds.",
+      "example": "∫₀² 2x dx = 4."
+    },
+    {
+      "term": "Indefinite integral",
+      "definition": "General integral including constant.",
+      "context": "Find family of antiderivatives.",
+      "example": "∫x² dx = x³/3 + C."
+    },
+    {
+      "term": "Fundamental Theorem of Calculus",
+      "definition": "Connects differentiation and integration.",
+      "context": "Evaluate definite integrals using antiderivative.",
+      "example": "∫₀¹ f′(x) dx = f(1) – f(0)."
+    },
+    {
+      "term": "Integration by substitution",
+      "definition": "u‑sub method.",
+      "context": "Simplify complex integrals.",
+      "example": "∫2x e^{x²} dx; let u=x²."
+    }
+  ]
+}

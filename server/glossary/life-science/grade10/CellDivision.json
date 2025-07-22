@@ -1,0 +1,38 @@
+{
+    "subject": "Life Science",
+    "grade": "10",
+    "title": "Cell Structure",
+    "id": "CellStructure",
+    "terms": [
+    {
+      "term": "Mitosis",
+      "definition": "Division into two identical nuclei.",
+      "context": "Growth & repair.",
+      "example": "Skin cells regrow via mitosis."
+    },
+    {
+      "term": "Meiosis",
+      "definition": "Division reducing chromosome number.",
+      "context": "Gamete production.",
+      "example": "Produces sperm & egg."
+    },
+    {
+      "term": "Chromosome",
+      "definition": "DNA packaging unit.",
+      "context": "Visible during division.",
+      "example": "Humans have 46 chromosomes."
+    },
+    {
+      "term": "Centromere",
+      "definition": "Attachment point of chromatids.",
+      "context": "During mitosis/meiosis.",
+      "example": "Spindle fibres attach here."
+    },
+    {
+      "term": "Spindle fibre",
+      "definition": "Protein fibres separating chromosomes.",
+      "context": "Pull chromatids apart.",
+      "example": "Mitotic spindle in anaphase."
+    }
+  ]
+}

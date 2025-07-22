@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "10",
+  "title": "Quadratic Functions",
+  "id": "QuadraticFunctions",
+  "terms": [
+    {
+      "term": "Quadratic expression",
+      "definition": "Expression with x^2 term.",
+      "context": "Found in curves modeling.",
+      "example": "x^2+5x+6."
+    },
+    {
+      "term": "Vertex",
+      "definition": "Peak or lowest point on a parabola.",
+      "context": "Used in graph analysis.",
+      "example": "Vertex of y=x^2 is (0,0)."
+    },
+    {
+      "term": "Axis of symmetry",
+      "definition": "Vertical line dividing a parabola.",
+      "context": "Helps sketch quadratic graphs.",
+      "example": "x=–b/(2a)."
+    },
+    {
+      "term": "Roots",
+      "definition": "Solutions where y=0.",
+      "context": "Where parabola crosses x-axis.",
+      "example": "Roots of x^2–5x+6 are 2 and 3."
+    },
+    {
+      "term": "Discriminant",
+      "definition": "b^2–4ac in ax^2+bx+c.",
+      "context": "Determines nature of roots.",
+      "example": "Discriminant of x^2–5x+6 is 1."
+    }
+  ]
+}
