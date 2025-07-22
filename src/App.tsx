@@ -10,7 +10,7 @@ import { handleTranslate } from "./utils/handleTranslate";
 import { translatePage } from "./utils/translatePage";
 import { initFileUpload } from "./utils/fileUploadHandler";
 import { initSpeech } from "./utils/speechHandler";
-import { fetchSubjectList } from "./utils/glossaryApi";
+//import { fetchSubjectList } from "./utils/glossaryApi";
 
 const App: React.FC = () => {
   useEffect(() => {
