@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "10",
+  "title": "Production Costs",
+  "id": "ProductionCosts",
+  "terms": [
+    {
+      "term": "Fixed cost",
+      "definition": "Cost unchanged with output.",
+      "context": "Budgeting in firms.",
+      "example": "Factory rent."
+    },
+    {
+      "term": "Variable cost",
+      "definition": "Changes with output.",
+      "context": "Calculating marginal cost.",
+      "example": "Raw materials."
+    },
+    {
+      "term": "Total cost",
+      "definition": "Fixed + variable cost.",
+      "context": "Pricing decisions.",
+      "example": "TC=FC+VC."
+    },
+    {
+      "term": "Marginal cost",
+      "definition": "Cost of producing one more unit.",
+      "context": "Production decisions.",
+      "example": "Cost to make 101st chair."
+    },
+    {
+      "term": "Average cost",
+      "definition": "Total cost/output.",
+      "context": "Efficiency analysis.",
+      "example": "AC when producing 100 units."
+    }
+  ]
+}

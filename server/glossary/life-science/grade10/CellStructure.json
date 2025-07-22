@@ -1,0 +1,39 @@
+{
+  "grade": "10",
+  "subject": "Life Science",
+  "id": "CellStructure",
+  "title": "Cell Structure",
+  "description": "Key terms related to cell structure in Life Sciences.",
+  "terms": [
+    {
+      "term": "Cell membrane",
+      "definition": "Semipermeable boundary",
+      "context": "Controls substance movement.",
+      "example": "Osmosis across membrane."
+    },
+    {
+      "term": "Cytoplasm",
+      "definition": "Jelly-like interior",
+      "context": "Medium for organelles.",
+      "example": "Metabolic reactions occur there."
+    },
+    {
+      "term": "Nucleus",
+      "definition": "Control centre with DNA.",
+      "context": "Regulates cellular activities.",
+      "example": "DNA replication in nucleus."
+    },
+    {
+      "term": "Mitochondrion",
+      "definition": "ATP production site.",
+      "context": "Cellular respiration.",
+      "example": "High mitochondria in muscle cells."
+    },
+    {
+      "term": "Ribosome",
+      "definition": "Protein synthesis site.",
+      "context": "Translates mRNA.",
+      "example": "Rough ER packed with ribosomes."
+    }
+  ]
+}

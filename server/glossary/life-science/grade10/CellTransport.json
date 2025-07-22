@@ -1,0 +1,39 @@
+{
+  "grade": "10",
+  "subject": "Life Science",
+  "id": "CellStructure",
+  "title": "Cell Structure",
+  "description": "Key terms related to cell structure in Life Sciences.",
+  "terms": [
+    {
+      "term": "Diffusion",
+      "definition": "Movement from high to low concentration.",
+      "context": "Transport of gases.",
+      "example": "Oxygen diffuses into cells."
+    },
+    {
+      "term": "Osmosis",
+      "definition": "Water diffusion through membrane.",
+      "context": "Maintains cell turgor.",
+      "example": "Plants wilting due to osmosis."
+    },
+    {
+      "term": "Active transport",
+      "definition": "Moves substances against gradient.",
+      "context": "Requires ATP.",
+      "example": "Root uptake of mineral ions."
+    },
+    {
+      "term": "Facilitated diffusion",
+      "definition": "Diffusion via carrier proteins.",
+      "context": "For large molecules.",
+      "example": "Glucose enters cells this way."
+    },
+    {
+      "term": "Semi-permeable",
+      "definition": "Allows some molecules through.",
+      "context": "Basis of osmosis/diffusion.",
+      "example": "Cell membrane selectivity."
+    }
+  ]
+}

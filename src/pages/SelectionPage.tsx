@@ -25,6 +25,10 @@ const SelectionPage: React.FC = () => {
           <button onClick={() => navigate("/translate")}>
             Upload Document
           </button>
+
+           <button onClick={() => navigate("/glossary")}>
+            Glossary
+          </button>
         </div>
       </section>
     </div>

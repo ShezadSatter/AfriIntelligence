@@ -1,0 +1,39 @@
+{
+  "grade": "10",
+  "subject": "Life Science",
+  "id": "CellStructure",
+  "title": "Cell Structure",
+  "description": "Key terms related to cell structure in Life Sciences.",
+  "terms": [
+    {
+      "term": "Chloroplast",
+      "definition": "Organelle for photosynthesis.",
+      "context": "Plants convert light to energy.",
+      "example": "Contains chlorophyll."
+    },
+    {
+      "term": "Chlorophyll",
+      "definition": "Green pigment absorbing light.",
+      "context": "Captures light energy.",
+      "example": "Absorbs blue/red light."
+    },
+    {
+      "term": "Stomata",
+      "definition": "Leaf pores for gas exchange.",
+      "context": "CO₂ in, O₂ out.",
+      "example": "Open during day."
+    },
+    {
+      "term": "Thylakoid",
+      "definition": "Membrane sac in chloroplast.",
+      "context": "Where light reactions occur.",
+      "example": "Contains chlorophyll clusters."
+    },
+    {
+      "term": "Glucose",
+      "definition": "Product of photosynthesis.",
+      "context": "Energy source in plants.",
+      "example": "C₆H₁₂O₆ made in leaves."
+    }
+  ]
+}

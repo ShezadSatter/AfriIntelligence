@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "11",
+  "title": "Sequences and Series",
+  "id": "SequencesAndSeries",
+  "terms": [
+    {
+      "term": "Arithmetic sequence",
+      "definition": "Constant difference between terms",
+      "context": "Used in pattern recognition.",
+      "example": "2,5,8,11… d = 3."
+    },
+    {
+      "term": "Geometric sequence",
+      "definition": "Constant ratio between terms",
+      "context": "Modelling compound growth.",
+      "example": "3,6,12… r = 2."
+    },
+    {
+      "term": "Nth term formula",
+      "definition": "General term expression",
+      "context": "To find any term directly.",
+      "example": "a_n = a + (n–1)d."
+    },
+    {
+      "term": "Sum of series",
+      "definition": "Sum of arithmetic/geometric terms",
+      "context": "Find totals.",
+      "example": "S_n = n/2(2a + (n–1)d)."
+    },
+    {
+      "term": "Common ratio",
+      "definition": "Multiplier in geometric sequence",
+      "context": "Growth patterns.",
+      "example": "6/3 = 2."
+    }
+  ]
+}

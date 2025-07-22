@@ -1,0 +1,14 @@
+{
+    "subject": "Mathematics",
+    "grade": "10",
+    "topic": "Algebraic Expressions",
+    "id": "AlgebraicExpressions"
+
+    "terms": [
+        {"term":"Variable","definition":"A symbol representing an unknown value.","context":"Used in equations and expressions.","example":"In 3x+4, x is a variable."},
+        {"term":"Coefficient","definition":"Numeric factor attached to a variable.","context":"Important for simplifying and comparing like terms.","example":"In 5xy, 5 is the coefficient."},
+        {"term":"Constant","definition":"A fixed numerical value.","context":"Appears in expressions without variables.","example":"In x+7, 7 is the constant."},
+        {"term":"Like terms","definition":"Terms with identical variable parts.","context":"Used when simplifying expressions.","example":"2x and 5x are like terms."},
+        {"term":"Term","definition":"A single mathematical expression separated by + or –.","context":"Fundamental unit in algebraic expressions.","example":"In x^2 + 3x – 5, each part is a term."}
+      ]
+}

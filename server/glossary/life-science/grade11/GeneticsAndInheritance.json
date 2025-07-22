@@ -1,0 +1,19 @@
+
+{
+    "subject": "Life Science",
+"grade": "11",
+ "topic": "Genetics And Inheritance",
+  "id": "GeneticsAndInheritance",
+  
+  "terms": [
+
+      
+        {"term":"Mendel’s laws","definition":"Law of segregation and independent assortment","context":"Predict inheritance.","example":"Monohybrid/dihybrid crosses."},
+        {"term":"Genotype","definition":"Allele combination","context":"Determines phenotype.","example":"Aa, AA, aa."},
+        {"term":"Phenotype","definition":"Observable trait","context":"Expression of genotype.","example":"Tall vs short plant."},
+        {"term":"Codominance","definition":"Both alleles expressed","context":"Inheritance variation.","example":"AB blood group."},
+        {"term":"Sex-linked inheritance","definition":"Genes on sex chromosomes","context":"Traits linked to gender.","example":"Colour blindness in males."}
+      ]
+  
+  }
+

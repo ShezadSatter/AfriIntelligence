@@ -4,11 +4,13 @@ import SelectionPage from "./pages/SelectionPage";
 import TranslateDocument from "./pages/TranslateDocument";
 import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
+import GlossaryPage from "./pages/GlossaryPage"; 
 
 import { handleTranslate } from "./utils/handleTranslate";
 import { translatePage } from "./utils/translatePage";
 import { initFileUpload } from "./utils/fileUploadHandler";
 import { initSpeech } from "./utils/speechHandler";
+import { fetchSubjectList } from "./utils/glossaryApi";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -44,6 +46,7 @@ const App: React.FC = () => {
         <Route path="/selection" element={<SelectionPage />} />
         <Route path="/tts" element={<TextToSpeech />} />
         <Route path="/translate" element={<TranslateDocument />} />
+        <Route path="/glossary" element={<GlossaryPage />} />
       </Routes>
     </Router>
   );

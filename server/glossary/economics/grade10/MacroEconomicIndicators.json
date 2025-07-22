@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "10",
+  "title": "Macroeconomic Indicators",
+  "id": "MacroeconomicIndicators",
+  "terms": [
+    {
+      "term": "GDP",
+      "definition": "Total value of goods/services produced.",
+      "context": "Measures national output.",
+      "example": "SA’s GDP per annum."
+    },
+    {
+      "term": "Unemployment rate",
+      "definition": "% of labour force without jobs.",
+      "context": "Economic health indicator.",
+      "example": "SA’s 25% youth unemployment."
+    },
+    {
+      "term": "Inflation",
+      "definition": "General price increase.",
+      "context": "Impacts purchasing power.",
+      "example": "CPI rises by 4%."
+    },
+    {
+      "term": "Balance of payments",
+      "definition": "Record of country’s transactions with world.",
+      "context": "Foreign exchange analysis.",
+      "example": "Exports – imports."
+    },
+    {
+      "term": "Exchange rate",
+      "definition": "Value of one currency vs another.",
+      "context": "International trade.",
+      "example": "R15 = $1."
+    }
+  ]
+}

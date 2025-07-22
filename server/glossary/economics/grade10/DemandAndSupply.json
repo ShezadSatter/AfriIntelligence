@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "10",
+  "title": "Demand and Supply",
+  "id": "DemandAndSupply",
+  "terms": [
+    {
+      "term": "Demand",
+      "definition": "Quantity consumers want at various prices.",
+      "context": "Core microeconomics.",
+      "example": "Higher price lowers demand."
+    },
+    {
+      "term": "Supply",
+      "definition": "Quantity producers sell at various prices.",
+      "context": "Market modeling.",
+      "example": "Supply increases with price."
+    },
+    {
+      "term": "Equilibrium",
+      "definition": "Point where supply equals demand.",
+      "context": "Determines market price.",
+      "example": "Goods sold at R50."
+    },
+    {
+      "term": "Surplus",
+      "definition": "Supply > demand at a price.",
+      "context": "Leads to price drop.",
+      "example": "Excess stock of toys."
+    },
+    {
+      "term": "Shortage",
+      "definition": "Demand > supply.",
+      "context": "Leads to price rise.",
+      "example": "High demand for concert tickets."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "11",
+  "title": "Macroeconomic Goals",
+  "id": "MacroeconomicGoals",
+  "terms": [
+    {
+      "term": "Economic growth",
+      "definition": "Sustained increase in GDP",
+      "context": "Development goals.",
+      "example": "SA aims for >5% growth."
+    },
+    {
+      "term": "Full employment",
+      "definition": "Max labour force employed",
+      "context": "Social stability.",
+      "example": "Low unemployment target."
+    },
+    {
+      "term": "Price stability",
+      "definition": "Low and stable inflation",
+      "context": "Preserving purchasing power.",
+      "example": "Inflation between 3–6%."
+    },
+    {
+      "term": "Equitable distribution",
+      "definition": "Fair share of income/resources",
+      "context": "Social cohesion.",
+      "example": "Reducing Gini coefficient."
+    },
+    {
+      "term": "Environmental sustainability",
+      "definition": "Economic development within ecological limits",
+      "context": "Long‑term planning.",
+      "example": "Use of renewable energy."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+
+{
+    "subject": "Life Science",
+"grade": "11",
+ "topic": "Ecology And Ecosystems",
+  "id": "EcologyAndEcosystems",
+  
+  "terms": [
+
+      
+        {"term":"Biotic factors","definition":"Living components in ecosystem","context":"Influence species interactions.","example":"Predators, competitors."},
+        {"term":"Abiotic factors","definition":"Non‑living components","context":"Affect ecosystem structure.","example":"pH, temperature."},
+        {"term":"Carrying capacity","definition":"Maximum sustainable population size","context":"Population dynamics.","example":"Too many deer exceed food supply."},
+        {"term":"Niche","definition":"Role of organism in ecosystem","context":"Includes habitat, diet.","example":"Bees pollinate flowers."},
+        {"term":"Trophic levels","definition":"Feeding levels in food chain","context":"Energy flow.","example":"Producers → consumers → decomposers."}
+      ],
+  
+}
