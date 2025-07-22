@@ -1,23 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   fetchIndex,
-  fetchTopic
+  fetchTopic,
+  fetchSubjectList,
 } from "../utils/glossaryApi";
-import type { IndexFile } from "../utils/glossaryApi";
-import type { TopicMeta } from "../utils/glossaryApi";
-import type { Term } from "../utils/glossaryApi";
+import type { IndexFile, TopicMeta, Term } from "../utils/glossaryApi";
 
-const subjects = ["life-science"]; // Add more later if needed
+interface GlossaryExplorerProps {
+  initialSubject?: string;
+  initialGrade?: string;
+  initialTopic?: string;
+}
 
-const GlossaryExplorer: React.FC = () => {
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedGrade, setSelectedGrade] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
+const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
+  initialSubject = "",
+  initialGrade = "",
+  initialTopic = "",
+}) => {
+  const [selectedSubject, setSelectedSubject] = useState(initialSubject);
+  const [selectedGrade, setSelectedGrade] = useState(initialGrade);
+  const [selectedTopic, setSelectedTopic] = useState(initialTopic);
 
+  const [subjects, setSubjects] = useState<string[]>([]);
   const [grades, setGrades] = useState<string[]>([]);
   const [topics, setTopics] = useState<TopicMeta[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
   const [indexData, setIndexData] = useState<IndexFile | null>(null);
+
+  const navigate = useNavigate();
+
+  // Update URL when selections change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (selectedSubject) params.set("subject", selectedSubject);
+    if (selectedGrade) params.set("grade", selectedGrade);
+    if (selectedTopic) params.set("topic", selectedTopic);
+    navigate(`/glossary?${params.toString()}`, { replace: true });
+  }, [selectedSubject, selectedGrade, selectedTopic, navigate]);
+
+  // Load available subjects
+  useEffect(() => {
+    fetchSubjectList()
+      .then(setSubjects)
+      .catch(console.error);
+  }, []);
 
   // Load index.json when subject changes
   useEffect(() => {
@@ -32,24 +59,26 @@ const GlossaryExplorer: React.FC = () => {
         } else {
           setGrades([]);
         }
-        setSelectedGrade("");
-        setSelectedTopic("");
+
+        // Reset or use initial props
+        setSelectedGrade(initialGrade || "");
+        setSelectedTopic(initialTopic || "");
         setTopics([]);
         setTerms([]);
       })
       .catch(console.error);
   }, [selectedSubject]);
 
-  // Update topic options when grade is selected
+  // Load topic list when grade changes
   useEffect(() => {
     if (!indexData || !selectedSubject || !selectedGrade) return;
     const gradeTopics = indexData[selectedSubject][selectedGrade] || [];
     setTopics(gradeTopics);
-    setSelectedTopic("");
+    if (!initialTopic) setSelectedTopic("");
     setTerms([]);
   }, [selectedGrade, indexData, selectedSubject]);
 
-  // Load topic terms when topic is selected
+  // Load glossary terms when topic changes
   useEffect(() => {
     const topicMeta = topics.find((t) => t.id === selectedTopic);
     if (!topicMeta) return;
@@ -66,11 +95,14 @@ const GlossaryExplorer: React.FC = () => {
       {/* Subject Dropdown */}
       <label>
         Subject:
-        <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
+        <select
+          value={selectedSubject}
+          onChange={(e) => setSelectedSubject(e.target.value)}
+        >
           <option value="">Select Subject</option>
           {subjects.map((subject) => (
             <option key={subject} value={subject}>
-              {subject}
+              {subject.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
             </option>
           ))}
         </select>
@@ -80,7 +112,10 @@ const GlossaryExplorer: React.FC = () => {
       {grades.length > 0 && (
         <label>
           Grade:
-          <select value={selectedGrade} onChange={(e) => setSelectedGrade(e.target.value)}>
+          <select
+            value={selectedGrade}
+            onChange={(e) => setSelectedGrade(e.target.value)}
+          >
             <option value="">Select Grade</option>
             {grades.map((grade) => (
               <option key={grade} value={grade}>
@@ -95,7 +130,10 @@ const GlossaryExplorer: React.FC = () => {
       {topics.length > 0 && (
         <label>
           Topic:
-          <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
+          <select
+            value={selectedTopic}
+            onChange={(e) => setSelectedTopic(e.target.value)}
+          >
             <option value="">Select Topic</option>
             {topics.map((topic) => (
               <option key={topic.id} value={topic.id}>
@@ -107,6 +145,10 @@ const GlossaryExplorer: React.FC = () => {
       )}
 
       {/* Glossary Terms */}
+      {selectedTopic && terms.length === 0 && (
+        <p>No terms found for this topic.</p>
+      )}
+
       {terms.length > 0 && (
         <div style={{ marginTop: "2rem" }}>
           <h2>{selectedTopic}</h2>
@@ -114,10 +156,18 @@ const GlossaryExplorer: React.FC = () => {
             <div key={idx} style={{ marginBottom: "1rem" }}>
               <strong>{term.term}:</strong> {term.definition}
               <ul>
-                <li><strong>Afrikaans:</strong> {term.translations.af}</li>
-                <li><strong>isiZulu:</strong> {term.translations.zu}</li>
-                <li><strong>Sepedi:</strong> {term.translations.nso}</li>
-                <li><strong>Tshivenda:</strong> {term.translations.ve}</li>
+                <li>
+                  <strong>Afrikaans:</strong> {term.translations.af}
+                </li>
+                <li>
+                  <strong>isiZulu:</strong> {term.translations.zu}
+                </li>
+                <li>
+                  <strong>Sepedi:</strong> {term.translations.nso}
+                </li>
+                <li>
+                  <strong>Tshivenda:</strong> {term.translations.ve}
+                </li>
               </ul>
             </div>
           ))}
