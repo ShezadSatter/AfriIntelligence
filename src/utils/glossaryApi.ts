@@ -21,6 +21,8 @@ export type Term = {
   term: string;
   definition: string;
   translations: Translation;
+  context: string;
+  example: string;
 };
 
 export type TopicFile = {
