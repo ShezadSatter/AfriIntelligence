@@ -9,7 +9,7 @@ const { Document, Packer, Paragraph } = require('docx');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -99,9 +99,23 @@ app.post('/translate-file', upload.single('file'), async (req, res) => {
   }
 });
 
-// Serve static glossary files
-app.use('/glossary', express.static(path.join(__dirname, 'glossary')));
+// Serve glossary index file
+app.get("/api/glossary/:subject/index.json", (req, res) => {
+  const { subject } = req.params;
+  const filePath = path.join(__dirname, "glossary", subject, "index.json");
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "File not found" });
+  }
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to read file" });
+    }
+    res.type("application/json").send(data);
+  });
+});
 
 app.listen(PORT, () => {
-  console.log(`Translation server running at http://localhost:${PORT}`);
+  console.log(`Translation server running at ${PORT}`);
 });
