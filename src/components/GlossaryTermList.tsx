@@ -9,6 +9,11 @@ type Term = {
   example: string;
 };
 
+type GlossaryTermListProps = {
+  terms: Term[];
+  selectedTopic: string;
+};
+
 const languageOptions = [
   { label: "Afrikaans", code: "af" },
   { label: "isiZulu", code: "zu" },
@@ -16,10 +21,8 @@ const languageOptions = [
   { label: "Xhosa", code: "xh" },
 ];
 
-const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
-  terms,
-  selectedTopic,
-}) => {
+const GlossaryTermList: React.FC<GlossaryTermListProps> = ({ terms, selectedTopic }) => 
+  {
   const [selectedLanguage, setSelectedLanguage] = useState("af");
   const [translatedTerms, setTranslatedTerms] = useState<{
     [index: number]: {
