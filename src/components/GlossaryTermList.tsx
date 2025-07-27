@@ -9,6 +9,7 @@ type Term = {
   example: string;
 };
 
+
 const languageOptions = [
   { label: "Afrikaans", code: "af" },
   { label: "isiZulu", code: "zu" },
