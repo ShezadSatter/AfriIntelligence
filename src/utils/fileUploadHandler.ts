@@ -11,12 +11,11 @@ export function initFileUpload() {
     if (loadingOverlay) loadingOverlay.style.display = "block";
 
     const formData = new FormData(form as HTMLFormElement);
-
-    try {
-      const res = await fetch("https://afri-intelligence.onrender.com/translate-file", {
-        method: "POST",
-        body: formData,
-      });
+try{
+   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
+  method: "POST",
+  body: formData,
+});
 
       if (res.ok) {
         const blob = await res.blob();

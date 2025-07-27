@@ -6,12 +6,15 @@ import {
   fetchSubjectList,
 } from "../utils/glossaryApi";
 import type { IndexFile, TopicMeta, Term } from "../utils/glossaryApi";
+import GlossaryTermList from "../components/GlossaryTermList";
+
 
 interface GlossaryExplorerProps {
   initialSubject?: string;
   initialGrade?: string;
   initialTopic?: string;
 }
+
 
 const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   initialSubject = "",
@@ -83,10 +86,10 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
     const topicMeta = topics.find((t) => t.id === selectedTopic);
     if (!topicMeta) return;
 
-    fetchTopic(selectedSubject, topicMeta.file)
+    fetchTopic(selectedSubject, selectedGrade, topicMeta.file)
       .then((data) => setTerms(data.terms))
       .catch(console.error);
-  }, [selectedTopic, topics, selectedSubject]);
+}, [selectedTopic, topics, selectedSubject, selectedGrade]);
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -149,30 +152,11 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
         <p>No terms found for this topic.</p>
       )}
 
-      {terms.length > 0 && (
-        <div style={{ marginTop: "2rem" }}>
-          <h2>{selectedTopic}</h2>
-          {terms.map((term, idx) => (
-            <div key={idx} style={{ marginBottom: "1rem" }}>
-              <strong>{term.term}:</strong> {term.definition}
-              <ul>
-                <li>
-                  <strong>Afrikaans:</strong> {term.translations.af}
-                </li>
-                <li>
-                  <strong>isiZulu:</strong> {term.translations.zu}
-                </li>
-                <li>
-                  <strong>Sepedi:</strong> {term.translations.nso}
-                </li>
-                <li>
-                  <strong>Tshivenda:</strong> {term.translations.ve}
-                </li>
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+     {terms.length > 0 && (
+  <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
+)}
+
+
     </div>
   );
 };
