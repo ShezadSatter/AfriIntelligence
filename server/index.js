@@ -11,7 +11,21 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:3000",                      // Dev
+  "https://afri-intelligence.vercel.app",       // Prod frontend
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for this origin"));
+    }
+  }
+}));
+
 app.use(bodyParser.json());
 
 app.post('/translate', async (req, res) => {
@@ -148,6 +162,10 @@ app.get("/api/glossary/:subject/:grade/:fileName", (req, res) => {
 app.use((req, res) => {
   console.log(`Unhandled request: ${req.method} ${req.url}`);
   res.status(404).send('Not found');
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
 });
 
 
