@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+//const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
 export type Translation = {
@@ -9,7 +9,7 @@ export type Translation = {
 };
 
 export const fetchSubjectList = async (): Promise<string[]> => {
-  const res = await fetch(`${baseUrl}/server/glossary/index.json`);
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/server/glossary/index.json`);
   const data = await res.json();
   return data.subjects || [];
 };
@@ -46,7 +46,7 @@ export type IndexFile = {
 
 export async function fetchIndex(subject: string) {
   try {
-    const res = await fetch(`${baseUrl}/server/glossary/${subject}/index.json`);
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/server/glossary/${subject}/index.json`);
     if (!res.ok) {
       throw new Error(`Failed to fetch index.json for subject: ${subject}`);
     }
@@ -59,7 +59,7 @@ export async function fetchIndex(subject: string) {
 }
 
 export async function fetchTopic(subject: string, grade: string, fileName: string): Promise<TopicFile> {
-  const res = await fetch(`${baseUrl}/server/glossary/${subject}/${grade}/${fileName}`);
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/server/glossary/${subject}/${grade}/${fileName}`);
   if (!res.ok) throw new Error("Failed to load topic file");
   return await res.json();
 }
