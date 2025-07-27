@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import { handleMultiTranslate } from "../utils/handleMultipleTranslate";
+import type { Term } from "../utils/glossaryApi";
+
 
 // Term type
-type Term = {
-  term: string;
-  definition: string;
-  context: string;
-  example: string;
-};
-
-type GlossaryTermListProps = {
-  terms: Term[];
-  selectedTopic: string;
-};
+// (Removed local Term type definition, using imported Term type instead)
 
 const languageOptions = [
   { label: "Afrikaans", code: "af" },
@@ -21,8 +13,10 @@ const languageOptions = [
   { label: "Xhosa", code: "xh" },
 ];
 
-const GlossaryTermList: React.FC<GlossaryTermListProps> = ({ terms, selectedTopic }) => 
-  {
+const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
+  terms,
+  selectedTopic,
+}) => {
   const [selectedLanguage, setSelectedLanguage] = useState("af");
   const [translatedTerms, setTranslatedTerms] = useState<{
     [index: number]: {
