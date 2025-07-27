@@ -11,6 +11,10 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 
 const allowedOrigins = [
   "http://localhost:3000",                      // Dev
@@ -163,11 +167,6 @@ app.use((req, res) => {
   console.log(`Unhandled request: ${req.method} ${req.url}`);
   res.status(404).send('Not found');
 });
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});
-
 
 
 app.listen(PORT, () => {
