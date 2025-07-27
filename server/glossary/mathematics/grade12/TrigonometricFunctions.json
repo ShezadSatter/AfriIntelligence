@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "12",
+  "title": "Trigonometric Functions",
+  "id": "TrigonometricFunctions",
+  "terms": [
+    {
+      "term": "Amplitude",
+      "definition": "Maximum deviation from centre line.",
+      "context": "Sine/cosine wave properties.",
+      "example": "Amplitude of 3 in y=3sinx."
+    },
+    {
+      "term": "Period",
+      "definition": "Interval before repeat.",
+      "context": "Sine/cosine pattern length.",
+      "example": "Period = 2π for y=sinx."
+    },
+    {
+      "term": "Phase shift",
+      "definition": "Horizontal shift of graph.",
+      "context": "Adjust graph position.",
+      "example": "y=sin(x–π/2) shifted right."
+    },
+    {
+      "term": "Vertical shift",
+      "definition": "Up/down movement.",
+      "context": "Graph positioning.",
+      "example": "y=sinx + 2 shifts upward."
+    },
+    {
+      "term": "Harmonic motion",
+      "definition": "Periodic oscillations modelled by sine/cosine.",
+      "context": "Physics applications.",
+      "example": "y = A sin ωt."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "12",
+  "title": "Calculus: Differentiation",
+  "id": "CalculusDifferentiation",
+  "terms": [
+    {
+      "term": "Derivative",
+      "definition": "Rate of change of a function with respect to a variable.",
+      "context": "Finding gradients, instantaneous rate.",
+      "example": "d/dx (x²)=2x."
+    },
+    {
+      "term": "Differentiation rules",
+      "definition": "Standard formulas (product, quotient, chain).",
+      "context": "Compute derivatives efficiently.",
+      "example": "d(uv)/dx = u′v + uv′."
+    },
+    {
+      "term": "Critical point",
+      "definition": "x-value where derivative is zero or undefined.",
+      "context": "Locating maxima/minima.",
+      "example": "f′(x)=0 at local max."
+    },
+    {
+      "term": "Stationary point",
+      "definition": "Derivative equals zero.",
+      "context": "Could be max, min or point of inflection.",
+      "example": "At x=1, f′(1)=0."
+    },
+    {
+      "term": "Inflection point",
+      "definition": "Curve changes concavity.",
+      "context": "Analyzing curvature behaviour.",
+      "example": "At f″(x)=0 crossing."
+    }
+  ]
+}

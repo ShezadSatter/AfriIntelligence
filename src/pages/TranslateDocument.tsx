@@ -30,7 +30,7 @@ const TranslateDocument: React.FC = () => {
       const formData = new FormData(form);
 
       try {
-        const res = await fetch("https://afri-intelligence.onrender.com/translate-file", {
+        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/translate-file', {
           method: "POST",
           body: formData,
         });

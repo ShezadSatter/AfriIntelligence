@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "12",
+  "title": "Functions and Transformations",
+  "id": "FunctionsAndTransformations",
+  "terms": [
+    {
+      "term": "Composite function",
+      "definition": "Applying one function inside another.",
+      "context": "Function combination.",
+      "example": "f(g(x))."
+    },
+    {
+      "term": "Inverse function",
+      "definition": "Reverses original function.",
+      "context": "Used in solving equations.",
+      "example": "If f(x)=2x+3, f⁻¹(y)=(y–3)/2."
+    },
+    {
+      "term": "Domain restriction",
+      "definition": "Values for which function is defined.",
+      "context": "Avoid undefined expressions.",
+      "example": "Exclude x=2 when denominator zero."
+    },
+    {
+      "term": "Range determination",
+      "definition": "Possible output values.",
+      "context": "After transformations.",
+      "example": "Range of y=√(x–1) is y≥0."
+    },
+    {
+      "term": "Transformation parameter",
+      "definition": "Shifts, stretches, reflections.",
+      "context": "Sketching functions.",
+      "example": "y = –2f(x – 3) reflects and shifts."
+    }
+  ]
+}

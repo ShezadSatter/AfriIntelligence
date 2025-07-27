@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "11",
+  "title": "Trigonometric Identities",
+  "id": "TrigonometricIdentities",
+  "terms": [
+    {
+      "term": "Sin²θ + Cos²θ = 1",
+      "definition": "Fundamental identity",
+      "context": "Simplifying expressions.",
+      "example": "Find sinθ given cosθ."
+    },
+    {
+      "term": "Tanθ = sinθ/cosθ",
+      "definition": "Definition of tangent",
+      "context": "Solving trig equations.",
+      "example": "tan45° = 1."
+    },
+    {
+      "term": "Reciprocal identities",
+      "definition": "Secθ = 1/cosθ, cscθ = 1/sinθ",
+      "context": "Alternative forms.",
+      "example": "csc30° = 2."
+    },
+    {
+      "term": "Angle sum identities",
+      "definition": "sin(A±B), cos(A±B) formulas",
+      "context": "Expanding compound angles.",
+      "example": "cos(α+β) = cosα cosβ – sinα sinβ."
+    },
+    {
+      "term": "Double-angle identities",
+      "definition": "sin2θ, cos2θ etc.",
+      "context": "Simplify integrals or expressions.",
+      "example": "cos2θ = cos²θ – sin²θ."
+    }
+  ]
+}

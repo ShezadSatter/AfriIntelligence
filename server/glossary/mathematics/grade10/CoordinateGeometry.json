@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "10",
+  "title": "Coordinate Geometry",
+  "id": "CoordinateGeometry",
+  "terms": [
+    {
+      "term": "Coordinate plane",
+      "definition": "2D grid with x- and y-axes.",
+      "context": "Graphing points and equations.",
+      "example": "Plot (2,3)."
+    },
+    {
+      "term": "Quadrants",
+      "definition": "Four regions in coordinate plane.",
+      "context": "Describing point locations.",
+      "example": "(–1,2) is in quadrant II."
+    },
+    {
+      "term": "Distance formula",
+      "definition": "√[(x2–x1)^2+(y2–y1)^2].",
+      "context": "Calculating the distance between two points.",
+      "example": "Distance between (1,1) and (4,5)."
+    },
+    {
+      "term": "Midpoint",
+      "definition": "Point exactly halfway between two points.",
+      "context": "Useful in geometry proofs.",
+      "example": "Midpoint of (0,0) and (4,4) is (2,2)."
+    },
+    {
+      "term": "Gradient",
+      "definition": "Slope of a line = rise/run.",
+      "context": "Describing line steepness.",
+      "example": "Slope of line through (1,2),(3,6) is 2."
+    }
+  ]
+}

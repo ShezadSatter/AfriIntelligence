@@ -1,0 +1,39 @@
+{
+  "grade": "10",
+  "subject": "Life Science",
+  "id": "CellStructure",
+  "title": "Cell Structure",
+  "description": "Key terms related to cell structure in Life Sciences.",
+  "terms": [
+    {
+      "term": "Gene",
+      "definition": "Unit of heredity on DNA.",
+      "context": "Codes for proteins.",
+      "example": "Gene for flower colour."
+    },
+    {
+      "term": "Allele",
+      "definition": "Form of a gene.",
+      "context": "Leads to variation.",
+      "example": "Alleles A or a."
+    },
+    {
+      "term": "Genotype",
+      "definition": "Genetic makeup.",
+      "context": "Determines traits.",
+      "example": "Aa for heterozygous."
+    },
+    {
+      "term": "Phenotype",
+      "definition": "Physical expression of genotype.",
+      "context": "Observable traits.",
+      "example": "Tall or short plant."
+    },
+    {
+      "term": "Dominant allele",
+      "definition": "Expressed in heterozygote.",
+      "context": "Mendelian genetics.",
+      "example": "A shows over a."
+    }
+  ]
+}

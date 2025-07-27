@@ -1,0 +1,38 @@
+{
+  "subject": "Economics",
+  "grade": "11",
+  "title": "Production Costs and Revenue",
+  "id": "ProductionCostsAndRevenue",
+  "terms": [
+    {
+      "term": "Total revenue",
+      "definition": "Price × quantity sold",
+      "context": "Firm’s income.",
+      "example": "Selling 10 units at R50 yields TR = R500."
+    },
+    {
+      "term": "Marginal revenue",
+      "definition": "Change in TR per extra unit sold",
+      "context": "Profit maximisation.",
+      "example": "Selling more adds R to revenue."
+    },
+    {
+      "term": "Average revenue",
+      "definition": "TR per unit",
+      "context": "For pricing strategy.",
+      "example": "AR = TR/Q."
+    },
+    {
+      "term": "Break-even point",
+      "definition": "TR = TC",
+      "context": "Profit planning.",
+      "example": "Firm covers costs at certain output."
+    },
+    {
+      "term": "Profit maximisation",
+      "definition": "Equating MR=MC",
+      "context": "Firm’s decision making.",
+      "example": "Produce where MR and MC intersect."
+    }
+  ]
+}

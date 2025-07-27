@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "11",
+  "title": "Functions and Graphs",
+  "id": "FunctionsAndGraphs",
+  "terms": [
+    {
+      "term": "Inverse function",
+      "definition": "Function reversing y = f(x) to x = f⁻¹(y)",
+      "context": "Useful in solving equations.",
+      "example": "f(x)=2x → f⁻¹(x)=x/2."
+    },
+    {
+      "term": "Composite function",
+      "definition": "f(g(x))",
+      "context": "Combining transformations.",
+      "example": "f(x)=x+1, g(x)=2x → f(g(x))=2x+1."
+    },
+    {
+      "term": "Exponential function",
+      "definition": "y = a·bˣ",
+      "context": "Growth/decay modelling.",
+      "example": "Population growth: y = 100·1.04ˣ."
+    },
+    {
+      "term": "Logarithmic function",
+      "definition": "Inverse of exponential",
+      "context": "Solving exponential equations.",
+      "example": "log₁₀100 = 2."
+    },
+    {
+      "term": "Asymptote",
+      "definition": "Line graph approaches but never touches",
+      "context": "Graphs of hyperbolas/logarithms.",
+      "example": "y = 1/x has y=0 as asymptote."
+    }
+  ]
+}

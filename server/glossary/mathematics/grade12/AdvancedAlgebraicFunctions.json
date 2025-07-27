@@ -1,0 +1,38 @@
+{
+  "subject": "Mathematics",
+  "grade": "12",
+  "title": "Advanced Algebraic Functions",
+  "id": "AdvancedAlgebraicFunctions",
+  "terms": [
+    {
+      "term": "Polynomial function",
+      "definition": "Sum of power terms with real coefficients.",
+      "context": "Modelling behaviour and roots.",
+      "example": "f(x)=x³ – 4x + 2."
+    },
+    {
+      "term": "Rational function",
+      "definition": "Ratio of two polynomials.",
+      "context": "Identifying asymptotes/domain restrictions.",
+      "example": "f(x)=(x²‑1)/(x‑2)."
+    },
+    {
+      "term": "Asymptote",
+      "definition": "Line curve approaches.",
+      "context": "Describes end‑behaviour of rational functions.",
+      "example": "Vertical asymptote at x=2."
+    },
+    {
+      "term": "Oblique asymptote",
+      "definition": "Diagonal approach line.",
+      "context": "When degree numerator exceeds denominator.",
+      "example": "f(x)≈x+1 for large x."
+    },
+    {
+      "term": "Behaviour at infinity",
+      "definition": "Dominant term determines end behaviour.",
+      "context": "Limits analysis.",
+      "example": "f(x)=x⁴ – … → ∞ as x→∞."
+    }
+  ]
+}
