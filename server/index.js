@@ -130,6 +130,25 @@ app.get("/api/glossary/:subject/index.json", (req, res) => {
   });
 });
 
+app.get("/api/glossary/:subject/:grade/:fileName", (req, res) => {
+  const { subject, grade, fileName } = req.params;
+  const filePath = path.join(__dirname, "glossary", subject, grade, fileName);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "Topic file not found" });
+  }
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to read topic file" });
+    }
+    res.type("application/json").send(data);
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Translation server running at ${PORT}`);
