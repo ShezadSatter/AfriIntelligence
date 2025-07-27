@@ -1,4 +1,3 @@
-// src/utils/handleTranslate.ts
 export async function handleTranslate() {
   const input = (document.getElementById("inputText") as HTMLTextAreaElement)?.value;
   const target = (document.getElementById("language") as HTMLSelectElement)?.value;

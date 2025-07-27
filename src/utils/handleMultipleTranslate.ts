@@ -1,4 +1,3 @@
-// src/utils/handleMultiTranslate.ts
 export async function handleMultiTranslate(
   texts: string[],
   target: string

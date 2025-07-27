@@ -1,4 +1,3 @@
-// src/utils/fileUploadHandler.ts
 export function initFileUpload() {
   const form = document.getElementById("uploadForm");
   const loadingOverlay = document.getElementById("loadingOverlay");

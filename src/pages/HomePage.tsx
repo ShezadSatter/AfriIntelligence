@@ -1,7 +1,6 @@
-// src/pages/HomePage.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles1.css"; // assuming you want to reuse styles
+import "./styles1.css"; 
 
 const HomePage: React.FC = () => {
   return (
