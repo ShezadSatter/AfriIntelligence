@@ -145,9 +145,11 @@ app.get("/api/glossary/:subject/:grade/:fileName", (req, res) => {
   });
 });
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
+app.use((req, res) => {
+  console.log(`Unhandled request: ${req.method} ${req.url}`);
+  res.status(404).send('Not found');
 });
+
 
 
 app.listen(PORT, () => {
