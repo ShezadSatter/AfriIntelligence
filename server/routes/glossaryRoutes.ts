@@ -4,6 +4,8 @@ import fs from "fs";
 
 const router = express.Router();
 
+
+
 // Load glossary index.json
 router.get("/glossary/:subject/index.json", (req, res) => {
   const { subject } = req.params;

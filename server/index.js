@@ -99,6 +99,20 @@ app.post('/translate-file', upload.single('file'), async (req, res) => {
   }
 });
 
+app.get("/api/glossary/index.json", (req, res) => {
+  const filePath = path.join(__dirname, "glossary", "index.json");
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "File not found" });
+  }
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to read file" });
+    }
+    res.type("application/json").send(data);
+  });
+});
+
+
 // Serve glossary index file
 app.get("/api/glossary/:subject/index.json", (req, res) => {
   const { subject } = req.params;
