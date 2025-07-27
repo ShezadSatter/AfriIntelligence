@@ -99,36 +99,37 @@ app.post('/translate-file', upload.single('file'), async (req, res) => {
   }
 });
 
+// Serve glossary/index.json (lists all subjects)
 app.get("/api/glossary/index.json", (req, res) => {
   const filePath = path.join(__dirname, "glossary", "index.json");
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "File not found" });
+    return res.status(404).json({ error: "Master index file not found" });
   }
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: "Failed to read file" });
+      return res.status(500).json({ error: "Failed to read master index file" });
     }
     res.type("application/json").send(data);
   });
 });
 
 
-// Serve glossary index file
+
+// Serve glossary/{subject}/index.json
 app.get("/api/glossary/:subject/index.json", (req, res) => {
   const { subject } = req.params;
   const filePath = path.join(__dirname, "glossary", subject, "index.json");
-
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "File not found" });
+    return res.status(404).json({ error: `Index file not found for subject: ${subject}` });
   }
-
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: "Failed to read file" });
+      return res.status(500).json({ error: "Failed to read subject index file" });
     }
     res.type("application/json").send(data);
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`Translation server running at ${PORT}`);
