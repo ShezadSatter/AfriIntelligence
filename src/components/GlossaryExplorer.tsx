@@ -5,7 +5,7 @@ import {
   fetchTopic,
   fetchSubjectList,
 } from "../utils/glossaryApi";
-import type { IndexFile, TopicMeta, Term } from "../utils/glossaryApi";
+import type { SubjectIndex, TopicMeta, Term } from "../utils/glossaryApi";
 import GlossaryTermList from "../components/GlossaryTermList";
 
 interface GlossaryExplorerProps {
@@ -27,7 +27,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   const [grades, setGrades] = useState<string[]>([]);
   const [topics, setTopics] = useState<TopicMeta[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
-  const [indexData, setIndexData] = useState<IndexFile | null>(null);
+  const [indexData, setIndexData] = useState<SubjectIndex | null>(null);
 
   const navigate = useNavigate();
 
@@ -52,17 +52,11 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
     if (!selectedSubject) return;
 
     fetchIndex(selectedSubject)
-      .then((subjectIndex) => {
-        // Wrap in subject key to match IndexFile type
-        const wrappedIndex: IndexFile = { [selectedSubject]: subjectIndex };
-        setIndexData(wrappedIndex);
+      .then((data) => {
+        setIndexData(data);
+        setGrades(Object.keys(data));
 
-        if (subjectIndex) {
-          setGrades(Object.keys(subjectIndex));
-        } else {
-          setGrades([]);
-        }
-
+        // Reset state to initial props or empty
         setSelectedGrade(initialGrade || "");
         setSelectedTopic(initialTopic || "");
         setTopics([]);
@@ -73,14 +67,13 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
   // Load topic list when grade changes
   useEffect(() => {
-    if (!indexData || !selectedSubject || !selectedGrade) return;
+    if (!indexData || !selectedGrade) return;
 
-    const subjectIndex = indexData[selectedSubject];
-    const gradeTopics = subjectIndex?.[selectedGrade] || [];
+    const gradeTopics = indexData[selectedGrade] || [];
     setTopics(gradeTopics);
     if (!initialTopic) setSelectedTopic("");
     setTerms([]);
-  }, [selectedGrade, indexData, selectedSubject]);
+  }, [selectedGrade, indexData]);
 
   // Load glossary terms when topic changes
   useEffect(() => {
