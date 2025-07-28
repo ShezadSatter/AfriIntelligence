@@ -5,14 +5,16 @@ import {
   fetchTopic,
   fetchSubjectList,
 } from "../utils/glossaryApi";
-import type { SubjectIndex, TopicMeta, Term } from "../utils/glossaryApi";
+import type { TopicMeta, Term, SubjectIndex } from "../utils/glossaryApi";
 import GlossaryTermList from "../components/GlossaryTermList";
+
 
 interface GlossaryExplorerProps {
   initialSubject?: string;
   initialGrade?: string;
   initialTopic?: string;
 }
+
 
 const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   initialSubject = "",
@@ -27,7 +29,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   const [grades, setGrades] = useState<string[]>([]);
   const [topics, setTopics] = useState<TopicMeta[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
-  const [indexData, setIndexData] = useState<SubjectIndex | null>(null);
+  const [indexData, setIndexData] = useState<Record<string, SubjectIndex> | null>(null);
 
   const navigate = useNavigate();
 
@@ -53,10 +55,15 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
     fetchIndex(selectedSubject)
       .then((data) => {
-        setIndexData(data);
-        setGrades(Object.keys(data));
+        setIndexData({ [selectedSubject]: data });
+        const subjectIndex = data;
+        if (subjectIndex) {
+          setGrades(Object.keys(subjectIndex));
+        } else {
+          setGrades([]);
+        }
 
-        // Reset state to initial props or empty
+        // Reset or use initial props
         setSelectedGrade(initialGrade || "");
         setSelectedTopic(initialTopic || "");
         setTopics([]);
@@ -67,13 +74,12 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
   // Load topic list when grade changes
   useEffect(() => {
-    if (!indexData || !selectedGrade) return;
-
-    const gradeTopics = indexData[selectedGrade] || [];
+    if (!indexData || !selectedSubject || !selectedGrade) return;
+    const gradeTopics = indexData[selectedSubject][selectedGrade] || [];
     setTopics(gradeTopics);
     if (!initialTopic) setSelectedTopic("");
     setTerms([]);
-  }, [selectedGrade, indexData]);
+  }, [selectedGrade, indexData, selectedSubject]);
 
   // Load glossary terms when topic changes
   useEffect(() => {
@@ -83,7 +89,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
     fetchTopic(selectedSubject, selectedGrade, topicMeta.file)
       .then((data) => setTerms(data.terms))
       .catch(console.error);
-  }, [selectedTopic, topics, selectedSubject, selectedGrade]);
+}, [selectedTopic, topics, selectedSubject, selectedGrade]);
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -146,9 +152,11 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
         <p>No terms found for this topic.</p>
       )}
 
-      {terms.length > 0 && (
-        <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
-      )}
+     {terms.length > 0 && (
+  <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
+)}
+
+
     </div>
   );
 };

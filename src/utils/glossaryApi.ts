@@ -54,8 +54,8 @@ export async function fetchIndex(subject: string): Promise<SubjectIndex> {
     if (!res.ok) {
       throw new Error(`Failed to fetch index.json for subject: ${subject}`);
     }
-    return await res.json();
-  } catch (err) {
+  const data = await res.json();
+  return data[subject];  } catch (err) {
     console.error("Error fetching index.json:", err);
     throw err;
   }
