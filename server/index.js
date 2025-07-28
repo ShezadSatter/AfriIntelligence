@@ -17,7 +17,8 @@ app.get("/api/health", (req, res) => {
 
 
 const allowedOrigins = [
-  "http://localhost:3000",                      // Dev
+  "http://localhost:3000",                  // Dev
+  "http://localhost:5173",                  // Dev
   "https://afri-intelligence.vercel.app",       // Prod frontend
 ];
 app.use(cors({
