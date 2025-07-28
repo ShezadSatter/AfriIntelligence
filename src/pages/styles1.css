@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 
 
-.body {
+body {
   background-color: #133A1F;
+  background-size: cover;
+  background-position: center;
+   margin: 0;
+ font-family: 'League Spartan', sans-serif;}
+
+.home-page{
   background-image: url('bg.png');
   background-size: cover;
   background-position: center;
    min-height: 100vh;
-  height: auto;
 }
 
 .title {
@@ -54,7 +59,9 @@
 }
 .home-section-bg{
     width: 80%;
-background-color: #FFFFF8;
+  background-color: rgba(255, 255, 248, 0.9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
   opacity: 0.8;
   margin-top: 2rem;
   padding: 40px;
@@ -75,6 +82,15 @@ display: flex;
   font-family: League Spartan;
     font-size: 20px;
 }
+
+.home-section button:hover {
+  background-color: #0f2e19;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.2s ease-in-out;
+}
+
+
 .home-section p{
     font-size: 20px;
     margin-top: -10px;
@@ -98,4 +114,25 @@ display: flex;
 .home-section div ul li {
   font-size: 24px;
   font-family: League Spartan;
+}
+
+@media (max-width: 768px) {
+  .title h1,
+  .home-section div h1 {
+    font-size: 28px;
+  }
+
+  .home-section-bg {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .home-section button {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .home-section div ul li {
+    font-size: 18px;
+  }
 }

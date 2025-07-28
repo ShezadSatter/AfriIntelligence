@@ -3,9 +3,8 @@ import GlossaryExplorer from "../components/GlossaryExplorer";
 
 const GlossaryPage: React.FC = () => {
   const [params] = useSearchParams();
-  const subject = params.get("subject") || "";
-  const grade = params.get("grade") || "";
-  const topic = params.get("topic") || "";
+
+  const { subject = "", grade = "", topic = "" } = Object.fromEntries(params.entries());
 
   return (
     <GlossaryExplorer
@@ -15,5 +14,6 @@ const GlossaryPage: React.FC = () => {
     />
   );
 };
+
 
 export default GlossaryPage;

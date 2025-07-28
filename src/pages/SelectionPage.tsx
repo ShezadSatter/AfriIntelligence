@@ -6,7 +6,7 @@ const SelectionPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="body">
+    <div className="selection-page">
       <section className="title">
         <img src="/assets/images/logo.jpg" alt="logo" />
         <h1>Exam Paper Translation</h1>

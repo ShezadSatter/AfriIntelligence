@@ -30,7 +30,7 @@ const TranslateDocument: React.FC = () => {
       const formData = new FormData(form);
 
       try {
-        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/translate-file', {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
           method: "POST",
           body: formData,
         });
@@ -115,7 +115,7 @@ const TranslateDocument: React.FC = () => {
           </form>
 
           <div className="file-icon">
-            <div className="translation-status" ref={statusRef}></div>
+            <div className="translation-status" ref={statusRef} id="translationStatus"></div>
           </div>
         </div>
       </div>

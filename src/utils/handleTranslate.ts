@@ -1,17 +1,24 @@
 export async function handleTranslate() {
-  const input = (document.getElementById("inputText") as HTMLTextAreaElement)?.value;
-  const target = (document.getElementById("language") as HTMLSelectElement)?.value;
-  const button = document.getElementById("translateBtn") as HTMLButtonElement;
+  const inputEl = document.getElementById("inputText") as HTMLTextAreaElement | null;
+  const targetEl = document.getElementById("language") as HTMLSelectElement | null;
+  const button = document.getElementById("translateBtn") as HTMLButtonElement | null;
+  const outputEl = document.getElementById("outputText") as HTMLTextAreaElement | null;
+
+  if (!inputEl || !targetEl || !button || !outputEl) {
+    console.error("Missing one or more required elements.");
+    return;
+  }
+
+  const input = inputEl.value.trim();
+  const target = targetEl.value;
 
   if (!target || !input) {
     alert("Please select a language and enter text.");
     return;
   }
 
-  if (button) {
-    button.disabled = true;
-    button.textContent = "Translating...";
-  }
+  button.disabled = true;
+  button.textContent = "Translating...";
 
   try {
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate`, {
@@ -20,18 +27,19 @@ export async function handleTranslate() {
       body: JSON.stringify({ q: input, target }),
     });
 
-    const data = await response.json();
-    const translated = data?.data?.translations?.[0]?.translatedText || "";
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
-    const outputEl = document.getElementById("outputText") as HTMLTextAreaElement;
-    if (outputEl) outputEl.value = translated;
+    const data = await response.json();
+    const translated = data?.data?.translations?.[0]?.translatedText ?? "";
+
+    outputEl.value = translated || "No translation returned.";
   } catch (err: any) {
-    console.error("Translation failed:", err.message);
+    console.error("Translation failed:", err);
     alert("Translation failed. See console for details.");
   } finally {
-    if (button) {
-      button.disabled = false;
-      button.textContent = "Translate";
-    }
+    button.disabled = false;
+    button.textContent = "Translate";
   }
 }

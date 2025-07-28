@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./styles.css";
+import "./texttospeech.css";
 
 const TextToSpeech: React.FC = () => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [selectedLang, setSelectedLang] = useState("zu");
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const outputRef = useRef<HTMLTextAreaElement>(null);
-  const langDropdownRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     const loadVoices = () => {
@@ -18,28 +19,27 @@ const TextToSpeech: React.FC = () => {
     }
 
     loadVoices();
+
+    return () => {
+      speechSynthesis.cancel(); // Stop ongoing speech on unmount
+    };
   }, []);
 
   const handleTranslate = async () => {
     const input = inputRef.current?.value;
-    const target = document.getElementById("language") as HTMLSelectElement;
 
-    if (!target?.value || !input) {
+    if (!selectedLang || !input) {
       alert("Please select a language and enter text.");
       return;
     }
 
-    const button = document.getElementById("translateBtn") as HTMLButtonElement;
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Translating...";
-    }
+    setIsTranslating(true);
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ q: input, target: target.value }),
+        body: JSON.stringify({ q: input, target: selectedLang }),
       });
 
       const data = await response.json();
@@ -50,10 +50,7 @@ const TextToSpeech: React.FC = () => {
       console.error("Translation failed:", error);
       alert("Translation failed. See console for details.");
     } finally {
-      if (button) {
-        button.disabled = false;
-        button.textContent = "Translate";
-      }
+      setIsTranslating(false);
     }
   };
 
@@ -83,9 +80,6 @@ const TextToSpeech: React.FC = () => {
     utterance.pitch = 1;
     utterance.volume = 1;
 
-    const langSelect = document.getElementById("language") as HTMLSelectElement;
-    const selectedLang = langSelect?.value || "en";
-
     const voice = getFallbackVoice(selectedLang);
     if (voice) {
       utterance.voice = voice;
@@ -93,17 +87,6 @@ const TextToSpeech: React.FC = () => {
 
     speechSynthesis.speak(utterance);
   };
-
-  useEffect(() => {
-    const dropdown = langDropdownRef.current;
-    const handleLangChange = (e: Event) => {
-      const lang = (e.target as HTMLSelectElement).value;
-      translatePage(lang);
-    };
-
-    dropdown?.addEventListener("change", handleLangChange);
-    return () => dropdown?.removeEventListener("change", handleLangChange);
-  }, []);
 
   const translatePage = async (targetLang: string) => {
     const elements = document.querySelectorAll("[data-i18n]");
@@ -132,6 +115,12 @@ const TextToSpeech: React.FC = () => {
     }
   };
 
+  const handleLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const lang = e.target.value;
+    setSelectedLang(lang);
+    translatePage(lang);
+  };
+
   return (
     <div className="container">
       <img className="background-img" src="/assets/images/bg3.png" alt="Background" />
@@ -153,7 +142,12 @@ const TextToSpeech: React.FC = () => {
           <label data-i18n htmlFor="language">
             Select Target Language:
           </label>
-          <select id="language" className="lang-drop">
+          <select
+            id="language"
+            className="lang-drop"
+            value={selectedLang}
+            onChange={handleLangChange}
+          >
             <option value="zu">Zulu</option>
             <option value="xh">Xhosa</option>
             <option value="st">Sesotho</option>
@@ -171,8 +165,8 @@ const TextToSpeech: React.FC = () => {
         </div>
 
         <div className="label-translated">
-          <button onClick={handleTranslate} id="translateBtn" data-i18n>
-            Translate
+          <button onClick={handleTranslate} id="translateBtn" disabled={isTranslating} data-i18n>
+            {isTranslating ? "Translating..." : "Translate"}
           </button>
         </div>
 
@@ -190,18 +184,6 @@ const TextToSpeech: React.FC = () => {
           <button id="speakBtn" onClick={handleSpeak}>
             Speak
           </button>
-        </div>
-
-        <div className="language-badge">
-          <div className="button_cevron">
-            <select className="lang_dropdown" ref={langDropdownRef}>
-              <option value="en">English</option>
-              <option value="af">Afrikaans</option>
-              <option value="zu">Zulu</option>
-              <option value="st">Sesotho</option>
-              <option value="xh">Xhosa</option>
-            </select>
-          </div>
         </div>
       </div>
     </div>

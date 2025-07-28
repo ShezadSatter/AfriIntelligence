@@ -2,8 +2,18 @@
   "life-science": {
     "grade10": [
       {
-        "id": "Cells",
-        "file": "Cells.json",
+        "id": "Cell Division",
+        "file": "CellDivision.json",
+        "description": "Key terms related to cells in Life Sciences."
+      },
+      {
+        "id": "Cell Structure",
+        "file": "CellStructure.json",
+        "description": "Key terms related to cells in Life Sciences."
+      },
+      {
+        "id": "Cell Transport",
+        "file": "CellTransport.json",
         "description": "Key terms related to cells in Life Sciences."
       },
       {

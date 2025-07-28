@@ -1,6 +1,7 @@
 export function initFileUpload() {
-  const form = document.getElementById("uploadForm");
+  const form = document.getElementById("uploadForm") as HTMLFormElement | null;
   const loadingOverlay = document.getElementById("loadingOverlay");
+  const status = document.getElementById("translationStatus");
 
   if (!form) return;
 
@@ -9,12 +10,13 @@ export function initFileUpload() {
 
     if (loadingOverlay) loadingOverlay.style.display = "block";
 
-    const formData = new FormData(form as HTMLFormElement);
-try{
-   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
-  method: "POST",
-  body: formData,
-});
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (res.ok) {
         const blob = await res.blob();
@@ -25,7 +27,6 @@ try{
         a.click();
         window.URL.revokeObjectURL(url);
 
-        const status = document.getElementById("translationStatus");
         if (status) {
           status.textContent = "Translation complete!";
           status.style.color = "#236738";
@@ -35,7 +36,7 @@ try{
         alert("Translation failed.");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Upload error:", err);
       alert("Something went wrong.");
     } finally {
       if (loadingOverlay) loadingOverlay.style.display = "none";

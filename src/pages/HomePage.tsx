@@ -4,7 +4,7 @@ import "./styles1.css";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="body">
+    <div className="home-page">
       <section className="title">
         <div className="logo">
           <img src="/assets/images/logo.jpg" alt="logo" />
