@@ -8,13 +8,11 @@ import {
 import type { IndexFile, TopicMeta, Term } from "../utils/glossaryApi";
 import GlossaryTermList from "../components/GlossaryTermList";
 
-
 interface GlossaryExplorerProps {
   initialSubject?: string;
   initialGrade?: string;
   initialTopic?: string;
 }
-
 
 const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   initialSubject = "",
@@ -51,31 +49,34 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
   // Load index.json when subject changes
   useEffect(() => {
-  if (!selectedSubject) return;
+    if (!selectedSubject) return;
 
-  fetchIndex(selectedSubject)
-    .then((data) => {
-      setIndexData({ [selectedSubject]: data }); 
-      const subjectIndex = data;
-      if (subjectIndex) {
-        setGrades(Object.keys(subjectIndex));
-      } else {
-        setGrades([]);
-      }
+    fetchIndex(selectedSubject)
+      .then((subjectIndex) => {
+        // Wrap in subject key to match IndexFile type
+        const wrappedIndex: IndexFile = { [selectedSubject]: subjectIndex };
+        setIndexData(wrappedIndex);
 
-      setSelectedGrade(initialGrade || "");
-      setSelectedTopic(initialTopic || "");
-      setTopics([]);
-      setTerms([]);
-    })
-    .catch(console.error);
-}, [selectedSubject]);
+        if (subjectIndex) {
+          setGrades(Object.keys(subjectIndex));
+        } else {
+          setGrades([]);
+        }
 
+        setSelectedGrade(initialGrade || "");
+        setSelectedTopic(initialTopic || "");
+        setTopics([]);
+        setTerms([]);
+      })
+      .catch(console.error);
+  }, [selectedSubject]);
 
   // Load topic list when grade changes
   useEffect(() => {
     if (!indexData || !selectedSubject || !selectedGrade) return;
-    const gradeTopics = indexData[selectedSubject][selectedGrade] || [];
+
+    const subjectIndex = indexData[selectedSubject];
+    const gradeTopics = subjectIndex?.[selectedGrade] || [];
     setTopics(gradeTopics);
     if (!initialTopic) setSelectedTopic("");
     setTerms([]);
@@ -89,7 +90,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
     fetchTopic(selectedSubject, selectedGrade, topicMeta.file)
       .then((data) => setTerms(data.terms))
       .catch(console.error);
-}, [selectedTopic, topics, selectedSubject, selectedGrade]);
+  }, [selectedTopic, topics, selectedSubject, selectedGrade]);
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -152,11 +153,9 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
         <p>No terms found for this topic.</p>
       )}
 
-     {terms.length > 0 && (
-  <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
-)}
-
-
+      {terms.length > 0 && (
+        <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
+      )}
     </div>
   );
 };
