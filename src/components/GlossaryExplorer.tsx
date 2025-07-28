@@ -51,26 +51,26 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
   // Load index.json when subject changes
   useEffect(() => {
-    if (!selectedSubject) return;
+  if (!selectedSubject) return;
 
-    fetchIndex(selectedSubject)
-      .then((data) => {
-        setIndexData({ [selectedSubject]: data });
-        const subjectIndex = data[selectedSubject];
-        if (subjectIndex) {
-          setGrades(Object.keys(subjectIndex));
-        } else {
-          setGrades([]);
-        }
+  fetchIndex(selectedSubject)
+    .then((data) => {
+      setIndexData({ [selectedSubject]: data }); 
+      const subjectIndex = data;
+      if (subjectIndex) {
+        setGrades(Object.keys(subjectIndex));
+      } else {
+        setGrades([]);
+      }
 
-        // Reset or use initial props
-        setSelectedGrade(initialGrade || "");
-        setSelectedTopic(initialTopic || "");
-        setTopics([]);
-        setTerms([]);
-      })
-      .catch(console.error);
-  }, [selectedSubject]);
+      setSelectedGrade(initialGrade || "");
+      setSelectedTopic(initialTopic || "");
+      setTopics([]);
+      setTerms([]);
+    })
+    .catch(console.error);
+}, [selectedSubject]);
+
 
   // Load topic list when grade changes
   useEffect(() => {
