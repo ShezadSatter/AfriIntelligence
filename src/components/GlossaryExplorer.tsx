@@ -55,7 +55,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
 
     fetchIndex(selectedSubject)
       .then((data) => {
-        setIndexData(data);
+        setIndexData({ [selectedSubject]: data });
         const subjectIndex = data[selectedSubject];
         if (subjectIndex) {
           setGrades(Object.keys(subjectIndex));
