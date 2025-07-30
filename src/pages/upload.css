@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
 
 .container {
   height: 100vh;
@@ -12,7 +12,6 @@
 }
 
 /* Background Image */
-
 .background-img {
   width: 100%;
   height: 100vh;
@@ -20,14 +19,12 @@
 }
 
 /* App Icon */
-
 .app-icon {
   width: 6px;
   height: 64px;
 }
 
 /* Title */
-
 .title {
   text-align: center;
   color: rgba(255, 255, 248, 0.82);
@@ -46,6 +43,15 @@
   outline-offset: -0.5px;
 }
 
+.form-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center everything horizontally */
+  gap: 1.5rem; /* spacing between elements */
+  width: 100%;
+}
+
+
 /* Card Container */
 .main-card {
   width: 80%;
@@ -54,9 +60,7 @@
   border: 1px solid #236738;
   border-radius: 10px;
   display: flex;
-  align-items: center;
   flex-direction: column;
- 
   box-sizing: border-box;
 }
 
@@ -109,10 +113,12 @@
 select {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #236738;
+  border: 1px solid #005019;
   border-radius: 30px;
   margin-bottom: 1rem;
-  background: white;
+  background: #236738;
+  color: white;
+  font-weight: 800;
   cursor: pointer;
 }
 
@@ -127,7 +133,6 @@ select {
   border: none;
   border-radius: 30px;
   cursor: pointer;
- 
 }
 
 .submit-button:disabled {
@@ -191,7 +196,7 @@ select {
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   color: white;
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   text-align: center;
   padding-top: 20%;
   display: none;
@@ -199,7 +204,7 @@ select {
 
 .spinner {
   border: 6px solid #f3f3f3;
-  border-top: 6px solid #4CAF50;
+  border-top: 6px solid #4caf50;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -208,6 +213,10 @@ select {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

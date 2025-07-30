@@ -22,7 +22,7 @@ const TranslateDocument: React.FC = () => {
     const handleSubmit = async (e: Event) => {
       e.preventDefault();
       setLoading(true);
-      
+
       if (overlayRef.current) {
         overlayRef.current.style.display = "block";
       }
@@ -30,10 +30,13 @@ const TranslateDocument: React.FC = () => {
       const formData = new FormData(form);
 
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
-          method: "POST",
-          body: formData,
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/translate-file`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (res.ok) {
           const blob = await res.blob();
@@ -54,7 +57,9 @@ const TranslateDocument: React.FC = () => {
         }
       } catch (err) {
         console.error("Translation error:", err);
-        alert("Something went wrong. Please check your connection and try again.");
+        alert(
+          "Something went wrong. Please check your connection and try again."
+        );
       } finally {
         setLoading(false);
         if (overlayRef.current) {
@@ -68,9 +73,12 @@ const TranslateDocument: React.FC = () => {
   }, []);
 
   return (
-
-   <div className="container">
-      <img className="background-img" src="/assets/images/bg3.png" alt="Background" />
+    <div className="container">
+      <img
+        className="background-img"
+        src="/assets/images/bg3.png"
+        alt="Background"
+      />
 
       <div className="header">
         <img className="app-icon" src="/assets/images/logo.png" alt="Logo" />
@@ -79,46 +87,58 @@ const TranslateDocument: React.FC = () => {
         </div>
         <div className="underline"></div>
       </div>
-        <div className="main-card">
-          <div className="section-label">Upload Document</div>
+      <div className="main-card">
+        <div className="section-label">Upload Document</div>
 
-          <div id="loadingOverlay" ref={overlayRef}>
-            <div className="spinner"></div>
-            <p>Translating, please wait...</p>
+        <div id="loadingOverlay" ref={overlayRef}>
+          <div className="spinner"></div>
+          <p>Translating, please wait...</p>
+        </div>
+
+        <form id="uploadForm" ref={formRef} encType="multipart/form-data">
+         <div className="form-controls">
+          <div className="custom-file-input">
+            <label htmlFor="file-upload">Choose File</label>
+            <span id="file-name">{fileName || "No file chosen"}</span>
+            <input
+              type="file"
+              id="file-upload"
+              name="file"
+              accept=".pdf,.docx"
+              required
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
           </div>
 
-          <form id="uploadForm" ref={formRef} encType="multipart/form-data">
-            <div className="custom-file-input">
-              <label htmlFor="file-upload">Choose File</label>
-              <span id="file-name">{fileName || "No file chosen"}</span>
-              <input
-                type="file"
-                id="file-upload"
-                name="file"
-                accept=".pdf,.docx"
-                required
-                onChange={handleFileChange}
-                ref={fileInputRef}
-              />
-            </div>
+          <select name="target" required>
+            <option value="">Select language</option>
+            <option value="zu">Zulu</option>
+            <option value="xh">Xhosa</option>
+            <option value="en">English</option>
+          </select>
 
-            <select name="target" required>
-              <option value="">Select language</option>
-              <option value="zu">Zulu</option>
-              <option value="xh">Xhosa</option>
-              <option value="en">English</option>
-            </select>
-
-            <button type="submit" className="submit-button" disabled={loading}>
-              <div className="inner-button">{loading ? "Processing..." : "Translate"}</div>
-            </button>
-          </form>
+          
 
           <div className="file-icon">
-            <div className="translation-status" ref={statusRef} id="translationStatus"></div>
-          </div>
+          <div
+            className="translation-status"
+            ref={statusRef}
+            id="translationStatus"
+          ></div>
         </div>
+
+        <button type="submit" className="submit-button" disabled={loading}>
+            <div className="inner-button">
+              {loading ? "Processing..." : "Translate"}
+            </div>
+          </button>
+          </div>
+        </form>
+
+        
       </div>
+    </div>
   );
 };
 
