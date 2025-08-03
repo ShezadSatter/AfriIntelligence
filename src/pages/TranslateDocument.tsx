@@ -96,7 +96,17 @@ const TranslateDocument: React.FC = () => {
         </div>
 
         <form id="uploadForm" ref={formRef} encType="multipart/form-data">
+
+
          <div className="form-controls">
+
+ <select name="target" required>
+            <option value="">Select language</option>
+            <option value="zu">Zulu</option>
+            <option value="xh">Xhosa</option>
+            <option value="en">English</option>
+          </select>
+
           <div className="custom-file-input">
             <label htmlFor="file-upload">Choose File</label>
             <span id="file-name">{fileName || "No file chosen"}</span>
@@ -111,12 +121,7 @@ const TranslateDocument: React.FC = () => {
             />
           </div>
 
-          <select name="target" required>
-            <option value="">Select language</option>
-            <option value="zu">Zulu</option>
-            <option value="xh">Xhosa</option>
-            <option value="en">English</option>
-          </select>
+         
 
           
 

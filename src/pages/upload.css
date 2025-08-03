@@ -115,7 +115,7 @@ select {
   padding: 0.5rem;
   border: 1px solid #005019;
   border-radius: 30px;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   background: #236738;
   color: white;
   font-weight: 800;
@@ -124,6 +124,8 @@ select {
 
 /* Submit Button */
 .submit-button {
+  display: flex;
+  align-items: center;
   width: 9rem;
   height: 38px;
   background: #236738;
