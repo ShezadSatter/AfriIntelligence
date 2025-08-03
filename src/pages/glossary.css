@@ -1,0 +1,373 @@
+/* glossary.css scoped to .glossary-wrapper only */
+
+/* Container for the whole page */
+.glossary-container {
+  display: flex;
+  min-height: 80vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #133A1F;
+  color: #133A1F;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Sidebar styling */
+.glossary-sidebar {
+  flex: 0 0 280px;
+  background: #e6f2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 8px rgba(0, 80, 0, 0.1);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Section inside sidebar */
+.glossary-section {
+  margin-bottom: 2rem;
+}
+
+/* Section headings */
+.glossary-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 2px solid #339933;
+  padding-bottom: 0.3rem;
+  color: #276627;
+}
+
+/* Group of buttons */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* Buttons */
+.button-group button,
+.topic-grid button {
+  background: #d1f0d1;
+  border: 2px solid #339933;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: #1a4d1a;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  flex: 1 1 auto;
+  min-width: 90px;
+  text-align: center;
+}
+
+.button-group button:hover,
+.topic-grid button:hover {
+  background: #339933;
+  color: #fff;
+}
+
+.button-group button.active,
+.topic-grid button.active {
+  background: #2b6b2b;
+  color: white;
+  border-color: #1f4d1f;
+}
+
+/* Topic buttons grid */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.6rem;
+}
+
+/* Main content area */
+.glossary-main {
+  flex: 1 1 auto;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 12px rgba(0, 80, 0, 0.15);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Placeholder text if no topic selected */
+.placeholder-text {
+  font-style: italic;
+  color: #558855;
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .glossary-container {
+    flex-direction: column;
+  }
+
+  .glossary-sidebar {
+    max-height: none;
+    flex: none;
+  }
+
+  .glossary-main {
+    max-height: none;
+  }
+}
+
+
+/* === GlossaryTermList styles === */
+
+.glossary-wrapper .term-list {
+  margin-top: 2rem;
+}
+
+.glossary-wrapper .topic-heading {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #2d6a4f;
+  text-align: center;
+}
+
+.glossary-wrapper .language-selector {
+  margin-bottom: 1rem;
+}
+
+.glossary-wrapper .language-selector label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+  color: #2f6846;
+}
+
+.glossary-wrapper .language-selector select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  border: 2px solid #95d5b2;
+  background-color: #e9fcef;
+  color: #1b4332;
+  font-size: 1rem;
+}
+
+.glossary-wrapper .term-divider {
+  margin: 1.5rem 0;
+  border: none;
+  height: 2px;
+  background-color: #d8f3dc;
+}
+
+.glossary-wrapper .term-card {
+  background-color: #f1fff3;
+  border-left: 5px solid #2d6a4f;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 64, 32, 0.05);
+}
+
+.glossary-wrapper .term-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+  color: #1b4332;
+}
+
+.glossary-wrapper .term-card p {
+  margin: 0.4rem 0;
+}
+
+.glossary-wrapper .translate-button {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #52b788;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-wrapper .translate-button:hover {
+  background-color: #40916c;
+}
+
+.glossary-wrapper .translate-button:disabled {
+  background-color: #b7e4c7;
+  cursor: not-allowed;
+}
+
+.glossary-wrapper .translation {
+  margin-top: 1rem;
+  background-color: #e9fcef;
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #1b4332;
+  font-size: 0.95rem;
+}
+
+/* === Enhanced Term Card Styling === */
+
+.glossary-wrapper .term-title {
+  font-size: 1.4rem;
+  color: #1b4332;
+  margin-bottom: 0.4rem;
+}
+
+.glossary-wrapper .translate-button {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #52b788;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-wrapper .translate-button:hover {
+  background-color: #40916c;
+}
+
+.glossary-wrapper .translate-button:disabled {
+  background-color: #b7e4c7;
+  cursor: not-allowed;
+}
+
+.glossary-wrapper .spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #ffffff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Translation container */
+.glossary-wrapper .translation {
+  margin-top: 1rem;
+  background-color: #e9fcef;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #1b4332;
+  font-size: 0.95rem;
+}
+
+.glossary-wrapper .translation summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2d6a4f;
+}
+
+/* GlossaryTermList styles */
+
+.term-card {
+  background: #e6f9e6;
+  border: 2px solid #339933;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(51, 153, 51, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.term-card:hover {
+  box-shadow: 0 4px 12px rgba(51, 153, 51, 0.3);
+}
+
+.term-title {
+  color: #276627;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.term-card p {
+  margin: 0.3rem 0;
+  line-height: 1.4;
+  color: #2d4d2d;
+}
+
+.translate-button {
+  margin-top: 0.8rem;
+  background: #339933;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.translate-button:hover:not(:disabled) {
+  background-color: #276627;
+}
+
+.translate-button:disabled {
+  background-color: #a3cfa3;
+  cursor: not-allowed;
+}
+
+/* Spinner animation for translating */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #a3d0a3;
+  border-top: 3px solid #276627;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Translated text details */
+.translation {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #d4efdf;
+  border-left: 4px solid #339933;
+  border-radius: 5px;
+  color: #1a4d1a;
+}
+
+.translation summary {
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.translation p {
+  margin: 0.3rem 0;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .term-title {
+    font-size: 1.2rem;
+  }
+
+  .translate-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

@@ -65,65 +65,62 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
   };
 
   return (
-    <div style={{ marginTop: "2rem" }}>
-      <h2>{selectedTopic}</h2>
+    <div className="term-list">
+      <h2 className="topic-heading">{selectedTopic}</h2>
 
-      <label style={{ fontWeight: "bold", marginRight: "1rem" }} htmlFor="language-select">
-        Select Language:
-      </label>
-      <select
-        id="language-select"
-        value={selectedLanguage}
-        onChange={handleLanguageChange}
-        aria-label="Select language for translation"
-      >
-        {languageOptions.map((lang) => (
-          <option key={lang.code} value={lang.code}>
-            {lang.label}
-          </option>
-        ))}
-      </select>
+      <div className="language-selector">
+        <label htmlFor="language-select">Select Language:</label>
+        <select
+          id="language-select"
+          value={selectedLanguage}
+          onChange={handleLanguageChange}
+        >
+          {languageOptions.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <hr style={{ margin: "1rem 0" }} />
+      <hr className="term-divider" />
 
-      {terms.map((term, idx) => (
-        <div key={term.term || idx} style={{ marginBottom: "1.5rem" }}>
-          <strong>{term.term}</strong>: {term.definition}
-          <div>
-            <strong>Context:</strong> {term.context}
+      {terms.map((term, idx) => {
+        const isLoading = loadingIndexes.has(idx);
+        const isTranslated = translatedTerms[idx];
+
+        return (
+          <div key={term.term || idx} className="term-card">
+            <h3 className="term-title">🧠 {term.term}</h3>
+            <p><strong>Definition:</strong> {term.definition}</p>
+            <p><strong>Context:</strong> {term.context}</p>
+            <p><strong>Example:</strong> {term.example}</p>
+
+            <button
+              className="translate-button"
+              onClick={() =>
+                handleTranslate(term.definition, term.context, term.example, idx)
+              }
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="spinner" aria-label="Translating" />
+              ) : (
+                <>🌍 Translate</>
+              )}
+            </button>
+
+            {isTranslated && (
+              <details className="translation">
+                <summary>🗣️ View Translation</summary>
+                <p><strong>Definition:</strong> {translatedTerms[idx].definition}</p>
+                <p><strong>Context:</strong> {translatedTerms[idx].context}</p>
+                <p><strong>Example:</strong> {translatedTerms[idx].example}</p>
+              </details>
+            )}
           </div>
-          <div>
-            <strong>Example:</strong> {term.example}
-          </div>
-          <br />
-          <button
-            style={{ marginTop: "0.5rem" }}
-            onClick={() =>
-              handleTranslate(term.definition, term.context, term.example, idx)
-            }
-            disabled={loadingIndexes.has(idx)}
-            aria-label={`Translate term ${term.term}`}
-          >
-            {loadingIndexes.has(idx) ? "Translating..." : "Translate"}
-          </button>
-          {translatedTerms[idx] && (
-            <div style={{ marginTop: "0.5rem", color: "#007bff" }}>
-              <div>
-                <strong>Translated Definition:</strong>{" "}
-                {translatedTerms[idx].definition || "(no translation)"}
-              </div>
-              <div>
-                <strong>Translated Context:</strong>{" "}
-                {translatedTerms[idx].context || "(no translation)"}
-              </div>
-              <div>
-                <strong>Translated Example:</strong>{" "}
-                {translatedTerms[idx].example || "(no translation)"}
-              </div>
-            </div>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

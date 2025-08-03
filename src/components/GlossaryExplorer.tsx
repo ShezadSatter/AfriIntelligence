@@ -7,7 +7,7 @@ import {
 } from "../utils/glossaryApi";
 import type { TopicMeta, Term, SubjectIndex } from "../utils/glossaryApi";
 import GlossaryTermList from "../components/GlossaryTermList";
-
+import "../pages/glossary.css"; // Import CSS for styling
 
 interface GlossaryExplorerProps {
   initialSubject?: string;
@@ -91,74 +91,69 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
       .catch(console.error);
 }, [selectedTopic, topics, selectedSubject, selectedGrade]);
 
-  return (
-    <div style={{ padding: "1rem" }}>
-      <h1>Glossary Explorer</h1>
+return (
+ <div className="glossary-container">
+      {/* Sidebar with Subject, Grade, Topic buttons */}
+      <aside className="glossary-sidebar">
+        <section className="glossary-section">
+          <h2>Subjects</h2>
+          <div className="button-group">
+            {subjects.map((subject) => (
+              <button
+                key={subject}
+                className={subject === selectedSubject ? "active" : ""}
+                onClick={() => setSelectedSubject(subject)}
+              >
+                {subject.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+              </button>
+            ))}
+          </div>
+        </section>
 
-      {/* Subject Dropdown */}
-      <label>
-        Subject:
-        <select
-          value={selectedSubject}
-          onChange={(e) => setSelectedSubject(e.target.value)}
-        >
-          <option value="">Select Subject</option>
-          {subjects.map((subject) => (
-            <option key={subject} value={subject}>
-              {subject.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      {/* Grade Dropdown */}
-      {grades.length > 0 && (
-        <label>
-          Grade:
-          <select
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
-          >
-            <option value="">Select Grade</option>
+        <section className="glossary-section">
+          <h2>Grades</h2>
+          <div className="button-group">
             {grades.map((grade) => (
-              <option key={grade} value={grade}>
+              <button
+                key={grade}
+                className={grade === selectedGrade ? "active" : ""}
+                onClick={() => setSelectedGrade(grade)}
+              >
                 {grade.replace("grade", "Grade ")}
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
-      )}
+          </div>
+        </section>
 
-      {/* Topic Dropdown */}
-      {topics.length > 0 && (
-        <label>
-          Topic:
-          <select
-            value={selectedTopic}
-            onChange={(e) => setSelectedTopic(e.target.value)}
-          >
-            <option value="">Select Topic</option>
+        <section className="glossary-section">
+          <h2>Topics</h2>
+          <div className="topic-grid">
             {topics.map((topic) => (
-              <option key={topic.id} value={topic.id}>
+              <button
+                key={topic.id}
+                className={topic.id === selectedTopic ? "active" : ""}
+                onClick={() => setSelectedTopic(topic.id)}
+              >
                 {topic.id}
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
-      )}
+          </div>
+        </section>
+      </aside>
 
-      {/* Glossary Terms */}
-      {selectedTopic && terms.length === 0 && (
-        <p>No terms found for this topic.</p>
-      )}
-
-     {terms.length > 0 && (
-  <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
-)}
-
-
+      {/* Main content area for terms */}
+      <main className="glossary-main">
+        {selectedTopic && terms.length > 0 ? (
+          <GlossaryTermList terms={terms} selectedTopic={selectedTopic} />
+        ) : (
+          <p className="placeholder-text">
+            Select a topic to view glossary terms.
+          </p>
+        )}
+      </main>
     </div>
-  );
+);
+
 };
 
 export default GlossaryExplorer;

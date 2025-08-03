@@ -1,5 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import GlossaryExplorer from "../components/GlossaryExplorer";
+import "./glossary.css"; 
+
+
 
 const GlossaryPage: React.FC = () => {
   const [params] = useSearchParams();
