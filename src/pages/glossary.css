@@ -102,7 +102,7 @@
 .topic-grid {
   display: grid;
   gap: 0.6rem;
-  grid-template-columns: 1fr;
+  grid-template-columns: 2fr;
   margin-top: 0.5rem;
 }
 
