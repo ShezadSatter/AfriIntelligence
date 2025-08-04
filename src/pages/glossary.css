@@ -131,10 +131,16 @@
   margin-bottom: 1rem;
 }
 
+.glossary-container .language-selector label {
+  font-weight: 600;
+  font-size: large;
+}
+
 .glossary-wrapper .language-selector label {
   font-weight: 600;
   margin-right: 0.5rem;
   color: #2f6846;
+
 }
 
 .glossary-wrapper .language-selector select {
@@ -143,7 +149,7 @@
   border: 2px solid #95d5b2;
   background-color: #e9fcef;
   color: #1b4332;
-  font-size: 1rem;
+
 }
 
 .glossary-wrapper .term-divider {

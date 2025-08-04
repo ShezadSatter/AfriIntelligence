@@ -7,7 +7,7 @@ import {
 } from "../utils/glossaryApi";
 import type { TopicMeta, Term, SubjectIndex } from "../utils/glossaryApi";
 import GlossaryTermList from "../components/GlossaryTermList";
-import "../pages/glossary.css"; // Import CSS for styling
+import "../pages/glossary.css"; 
 
 interface GlossaryExplorerProps {
   initialSubject?: string;
