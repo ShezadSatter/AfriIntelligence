@@ -17,9 +17,9 @@
         "description": "Key terms related to cells in Life Sciences."
       },
       {
-        "id": "Photosynthesis",
-        "file": "Photosynthesis.json",
-        "description": "Key terms related to photosynthesis in Life Sciences."
+        "id": "EvolutionAndSpeciation",
+        "file": "EvolutionAndSpeciation.json",
+        "description": "Key terms related to EvolutionAndSpeciation in Life Sciences."
       },
       {
         "id": "Respiration",
@@ -60,6 +60,43 @@
         "id": "Scientific Methods",
         "file": "Scientific-methods.json",
         "description": "Key terms related to scientific methods in Life Sciences."
+      }
+    ],
+    "grade11": [
+      {
+        "id": "Biomolecules",
+        "file": "Biomolecules.json",
+        "description": "Key terms related to biomolecules in Life Sciences."
+      },
+      {
+        "id": "Ecology And Ecosystems",
+        "file": "EcologyAndEcosystems.json",
+        "description": "Key terms related to cellular respiration in Life Sciences."
+      },
+      {
+        "id": "Evolution And Speciation",
+        "file": "EvolutionAndSpeciation.json",
+        "description": "Key terms related to Evolution And Speciation in Life Sciences."
+      },
+      {
+        "id": "Genetics",
+        "file": "Genetics.json",
+        "description": "Key terms related to genetics in Life Sciences."
+      },
+      {
+        "id": "Evolution",
+        "file": "Evolution.json",
+        "description": "Key terms related to evolution in Life Sciences."
+      },
+      {
+        "id": "Ecology",
+        "file": "Ecology.json",
+        "description": "Key terms related to ecology in Life Sciences."
+      },
+      {
+        "id": "Human Body Systems",
+        "file": "HumanBodySystems.json",
+        "description": "Key terms related to human body systems in Life Sciences."
       }
     ]
   }
