@@ -2,17 +2,41 @@
 {
     "subject": "Life Science",
 "grade": "11",
- "topic": "Photosynthesis And Respiration",
-  "id": "PhotosynthesisAndRespiration",
+ "title": "PhotosynthesisAndRespiration",
+  "id": "Photosynthesis And Respiration",
   
-  "terms": [
-
-      "PhotosynthesisAndRespiration": [
-        {"term":"Light reaction","definition":"Convert light to chemical energy","context":"In thylakoid membranes.","example":"ATP and NADPH production."},
-        {"term":"Calvin cycle","definition":"Carbon fixation process","context":"In stroma.","example":"CO₂ → glucose."},
-        {"term":"Aerobic respiration","definition":"Oxygen-consuming process","context":"Energy provision in cells.","example":"C₆H₁₂O₆ + O₂ → CO₂ + H₂O + ATP."},
-        {"term":"Anaerobic respiration","definition":"Without oxygen","context":"Occurs in muscle cells/fungi.","example":"Lactic acid fermentation."},
-        {"term":"ATP","definition":"Energy currency of the cell","context":"Used in active transport, synthesis.","example":"ATP hydrolysis powers muscle contraction."}
+  "terms": ["PhotosynthesisAndRespiration": 
+      [
+        {
+            "term":"Light reaction",
+            "definition":"Convert light to chemical energy",
+            "context":"In thylakoid membranes.",
+            "example":"ATP and NADPH production."
+        },
+        {
+            "term":"Calvin cycle",
+            "definition":"Carbon fixation process",
+            "context":"In stroma.",
+            "example":"CO₂ → glucose."
+        },
+        {
+            "term":"Aerobic respiration",
+            "definition":"Oxygen-consuming process",
+            "context":"Energy provision in cells.",
+            "example":"C₆H₁₂O₆ + O₂ → CO₂ + H₂O + ATP."
+        },
+        {
+            "term":"Anaerobic respiration",
+            "definition":"Without oxygen",
+            "context":"Occurs in muscle cells/fungi.",
+            "example":"Lactic acid fermentation."
+        },
+        {
+            "term":"ATP",
+            "definition":"Energy currency of the cell",
+            "context":"Used in active transport, synthesis.",
+            "example":"ATP hydrolysis powers muscle contraction."
+        }
       ]
   ]
   }
