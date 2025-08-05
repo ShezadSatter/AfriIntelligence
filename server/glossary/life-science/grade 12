@@ -1,0 +1,33 @@
+"Life Sciences": {
+    "Grade12": {
+      "PlantGrowthAndDevelopment": [
+        {"term":"Photoperiodism","definition":"Response to day length.","context":"Flowering timed by light.","example":"Short‑day plants flower as nights get longer."},
+        {"term":"Gibberellins","definition":"Plant growth hormones.","context":"Regulate stem elongation and seed germination.","example":"GA applied to stimulate grape size."},
+        {"term":"Auxin","definition":"Promotes cell elongation.","context":"Apical dominance, tropisms.","example":"OIAA used in rooting powders."},
+        {"term":"Cytokinin","definition":"Promotes cell division.","context":"Delays leaf senescence.","example":"Used in tissue culture."},
+        {"term":"Phototropism","definition":"Growth toward light.","context":"Hormonal control in shoots.","example":"Sunflowers bend toward sun."}
+      ],
+      "HumanReproduction": [
+        {"term":"Spermatogenesis","definition":"Formation of sperm cells.","context":"Occurs in testes.","example":"Millions produced daily."},
+        {"term":"Oogenesis","definition":"Egg production in ovaries.","context":"Cyclical process.","example":"One mature ovum per month."},
+        {"term":"Hormonal regulation","definition":"FSH, LH, estrogen, testosterone.","context":"Controls gamete production.","example":"LH surge triggers ovulation."},
+        {"term":"Fertilisation","definition":"Fusion of sperm & egg.","context":"Forms zygote.","example":"Occurs in fallopian tube."},
+        {"term":"Implantation","definition":"Zygote embeds in uterine lining.","context":"Early pregnancy stage.","example":"Day ~7 post‑fertilisation."}
+      ],
+      "BiotechnologyApplications": [
+        {"term":"Genetic modification","definition":"Altering genome by biotech.","context":"Crop improvement.","example":"Bt-cotton resistant to pests."},
+        {"term":"Cloning","definition":"Generate genetically identical copy.","context":"Research and livestock.","example":"Somatic cell nuclear transfer."},
+        {"term":"PCR","definition":"Amplify target DNA.","context":"Diagnostics and forensics.","example":"COVID‑19 detection."},
+        {"term":"Electrophoresis","definition":"Separation of DNA fragments.","context":"Genetic fingerprinting.","example":"Crime scene analysis."},
+        {"term":"Gene therapy","definition":"Treat genetic disorders via gene insertion.","context":"Medical applications.","example":"Treating cystic fibrosis."}
+      ],
+      "HomeostasisAndFeedback": [
+        {"term":"Thermoregulation","definition":"Body temperature control.","context":"Homeostatic regulation.","example":"Sweating as response."},
+        {"term":"Blood glucose regulation","definition":"Insulin/glucagon control levels.","context":"Pancreatic feedback mechanism.","example":"Insulin lowers high glucose."},
+        {"term":"Osmoregulation","definition":"Control water/salt balance.","context":"Kidney function.","example":"ADH adjusts water reabsorption."},
+        {"term":"Hormonal feedback","definition":"Negative/positive loops.","context":"Regulation of endocrine systems.","example":"Thyroid TSH release suppressed by T3/T4."},
+        {"term":"Calcitonin/PTH","definition":"Regulate blood Ca²⁺ levels.","context":"Bone and kidney homeostasis.","example":"PTH raises low blood calcium."}
+      ],
+      ...
+    }
+  },
