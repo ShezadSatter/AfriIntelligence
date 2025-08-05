@@ -2,7 +2,7 @@
   "mathematics": {
     "grade10": [
       {
-        "id": "AlgebraicExpression",
+        "id": "Algebraic Expression",
         "file": "AlgebraicExpression.json",
         "description": "Key concepts related to algebraic expressions in Mathematics."
       },
