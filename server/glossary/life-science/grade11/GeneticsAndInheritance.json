@@ -2,8 +2,8 @@
 {
     "subject": "Life Science",
 "grade": "11",
- "topic": "Genetics And Inheritance",
-  "id": "GeneticsAndInheritance",
+ "title": "GeneticsAndInheritance",
+  "id": "Genetics And Inheritance",
   
   "terms": [
 
