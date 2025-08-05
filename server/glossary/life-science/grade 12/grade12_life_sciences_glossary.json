@@ -1,0 +1,48 @@
+{
+    "Life Sciences": {
+        "Grade12": {
+            "DNA, Code of Life": [
+                {
+                    "term": "DNA",
+                    "definition": "Deoxyribonucleic acid, the molecule that carries genetic instructions in all living things.",
+                    "context": "Fundamental in genetics and heredity.",
+                    "example": "DNA determines inherited traits such as eye color."
+                },
+                {
+                    "term": "Gene",
+                    "definition": "A segment of DNA that codes for a specific protein.",
+                    "context": "Used to determine traits and biological functions.",
+                    "example": "The gene for hemoglobin controls red blood cell function."
+                }
+            ],
+            "Meiosis": [
+                {
+                    "term": "Meiosis",
+                    "definition": "A type of cell division that reduces the chromosome number by half, producing four gamete cells.",
+                    "context": "Important for sexual reproduction and genetic variation.",
+                    "example": "Meiosis produces sperm and egg cells in humans."
+                },
+                {
+                    "term": "Crossing Over",
+                    "definition": "The exchange of genetic material between homologous chromosomes during meiosis.",
+                    "context": "Promotes genetic diversity.",
+                    "example": "Crossing over during prophase I leads to new gene combinations."
+                }
+            ],
+            "Reproduction in Vertebrates": [
+                {
+                    "term": "Oviparous",
+                    "definition": "Animals that lay eggs with little or no other embryonic development within the mother.",
+                    "context": "Used to classify reproduction strategies in animals.",
+                    "example": "Birds are oviparous as they lay eggs that hatch externally."
+                },
+                {
+                    "term": "Viviparous",
+                    "definition": "Animals that give birth to live young.",
+                    "context": "Provides internal nourishment during development.",
+                    "example": "Mammals like humans are viviparous."
+                }
+            ]
+        }
+    }
+}
