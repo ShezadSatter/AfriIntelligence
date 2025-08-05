@@ -6,13 +6,36 @@
   "id": "Evolution And Speciation",
   
   "terms": [
-
-    
-        {"term":"Natural selection","definition":"Differential survival/reproduction","context":"Leads to adaptation.","example":"Peppered moths."},
-        {"term":"Gene pool","definition":"Total alleles in a population","context":"Basis for variation.","example":"All alleles for flower colour."},
-        {"term":"Genetic drift","definition":"Random allele frequency changes","context":"Important in small populations.","example":"Founder effect."},
-        {"term":"Allopatric speciation","definition":"Species form by geographic isolation","context":"Evolutionary mechanism.","example":"Island populations diverge."},
-        {"term":"Adaptive radiation","definition":"Rapid speciation to fill niches","context":"Diverse descendants.","example":"Darwin’s finches."}
+    {
+        "term":"Natural selection",
+        "definition":"Differential survival/reproduction",
+        "context":"Leads to adaptation.",
+        "example":"Peppered moths."
+    },
+    {
+        "term":"Gene pool",
+        "definition":"Total alleles in a population",
+        "context":"Basis for variation.",
+        "example":"All alleles for flower colour."
+    },
+    {
+        "term":"Genetic drift",
+        "definition":"Random allele frequency changes",
+        "context":"Important in small populations.",
+        "example":"Founder effect."
+    },
+    {
+        "term":"Allopatric speciation",
+        "definition":"Species form by geographic isolation",
+        "context":"Evolutionary mechanism.",
+        "example":"Island populations diverge."
+    },
+    {
+        "term":"Adaptive radiation",
+        "definition":"Rapid speciation to fill niches",
+        "context":"Diverse descendants.",
+        "example":"Darwin’s finches."
+    }
       ]
   
   }
