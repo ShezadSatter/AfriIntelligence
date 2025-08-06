@@ -71,6 +71,7 @@
   min-width: 90px;
   width: 100%; /* Full width in grid cell */
   max-width: 100%;
+  height: auto;
   
   white-space: normal;
   word-wrap: break-word;
