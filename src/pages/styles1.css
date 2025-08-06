@@ -9,7 +9,7 @@ body {
  font-family: 'League Spartan', sans-serif;}
 
 .home-page{
-  background-image: url('bg.png');
+  background-image: url('images/bg.png');
   background-size: cover;
   background-position: center;
    min-height: 100vh;
