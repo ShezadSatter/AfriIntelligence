@@ -7,17 +7,17 @@
         "description": "Key concepts related to algebraic expressions in Mathematics."
       },
       {
-        "id": "CoordinateGeometry",
+        "id": "Coordinate Geometry",
         "file": "CoordinateGeometry.json",
         "description": "Key concepts related to coordinate geometry in Mathematics."
       },
       {
-        "id": "LinearEquations",
+        "id": "Linear Equations",
         "file": "LinearEquations.json",
         "description": "Key concepts related to linear equations in Mathematics."
       },
       {
-        "id": "QuadraticFunctions",
+        "id": "Quadratic Functions",
         "file": "QuadraticFunctions.json",
         "description": "Key concepts related to quadratic functions in Mathematics."
       },
@@ -29,54 +29,54 @@
     ],
     "grade11": [
       {
-        "id": "FunctionsAndGraphs",
+        "id": "Functions And Graphs",
         "file": "FunctionsAndGraphs.json",
         "description": "Key concepts related to functions and graphs in Mathematics."
       },
       {
-        "id": "QuadraticEquations",
+        "id": "Quadratic Equations",
         "file": "QuadraticEquations.json",
         "description": "Key concepts related to quadratic equations in Mathematics."
       },
       {
-        "id": "SequencesAndSeries",
+        "id": "Sequences And Series",
         "file": "SequencesAndSeries.json",
         "description": "Key concepts related to sequences and series in Mathematics."
       },
       {
-        "id": "TrigonometricEquations",
+        "id": "Trigonometric Equations",
         "file": "TrigonometricEquations.json",
         "description": "Key concepts related to trigonometric equations in Mathematics."
       },
       {
-        "id": "TrigonometricIdentities",
+        "id": "Trigonometric Identities",
         "file": "TrigonometricIdentities.json",
         "description": "Key concepts related to trigonometric identities in Mathematics."
       }
     ],
     "grade12": [
       {
-        "id": "AdvancedAlgebraicFunctions",
+        "id": "Advanced Algebraic Functions",
         "file": "AdvancedAlgebraicFunctions.json",
         "description": "Key concepts related to advanced algebraic functions in Mathematics."
       },
       {
-        "id": "CalculusDifferentiation",
+        "id": "Calculus Differentiation",
         "file": "CalculusDifferentiation.json",
         "description": "Key concepts related to differentiation in Calculus."
       },
       {
-        "id": "CalculusIntegration",
+        "id": "Calculus Integration",
         "file": "CalculusIntegration.json",
         "description": "Key concepts related to integration in Calculus."
       },
       {
-        "id": "FunctionsAndTransformations",
+        "id": "Functions And Transformations",
         "file": "FunctionsAndTransformations.json",
         "description": "Key concepts related to functions and their transformations in Mathematics."
       },
       {
-        "id": "TrigonometricFunctions",
+        "id": "Trigonometric Functions",
         "file": "TrigonometricFunctions.json",
         "description": "Key concepts related to trigonometric functions in Mathematics."
       }
