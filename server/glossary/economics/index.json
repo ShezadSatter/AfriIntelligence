@@ -1,0 +1,53 @@
+{
+  "economics": {
+    "grade10": [
+      {
+        "id": "Demand And Supply",
+        "file": "DemandAndSupply.json",
+        "description": "Key terms related to the relationship between buyers and sellers in economics."
+      },
+      {
+        "id": "Elasticity",
+        "file": "Elasticity.json",
+        "description": "Key terms related to the responsiveness of supply and demand to price changes in economics."
+      },
+      {
+        "id": "Macroeconomic Indicators",
+        "file": "MacroEconomicIndicators.json",
+        "description": "Key terms related to indicators that measure the health of an economy."
+      },
+      {
+        "id": "Market Structure",
+        "file": "MarketStructure.json",
+        "description": "Key terms related to how different industries are organized and how firms compete."
+      },
+      {
+        "id": "Production Costs",
+        "file": "ProductionCosts.json",
+        "description": "Key terms related to the costs involved in creating goods and services."
+      }
+    ],
+    "grade11": [
+      {
+        "id": "Fiscal Policy",
+        "file": "FiscalPolicy.json",
+        "description": "Key terms related to how a government uses spending and taxation to influence the economy."
+      },
+      {
+        "id": "Macroeconomic Goals",
+        "file": "MacroEconomicGoals.json",
+        "description": "Key terms related to the main objectives of economic policy, such as economic growth and low unemployment."
+      },
+      {
+        "id": "Market Structure Analysis",
+        "file": "MarketStructureAnalysis.json",
+        "description": "Key terms related to analyzing different types of markets, like perfect competition and monopolies."
+      },
+      {
+        "id": "Production Costs And Revenue",
+        "file": "ProductionCostsAndRevenue.json",
+        "description": "Key terms related to the costs of production and the income generated from sales."
+      }
+    ]
+  }
+}
