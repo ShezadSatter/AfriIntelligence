@@ -1,1 +1,40 @@
+{
+  "subject": "Life Science",
+  "grade": "12",
+  "title": "Plant Growth And Development",
+  "id": "PlantGrowthAndDevelopment",
+
+  "terms": [
+        {
+          "term":"Photoperiodism",
+          "definition":"Response to day length.",
+          "context":"Flowering timed by light.",
+          "example":"Short‑day plants flower as nights get longer."
+        },
+        {
+          "term":"Gibberellins",
+          "definition":"Plant growth hormones.",
+          "context":"Regulate stem elongation and seed germination.",
+          "example":"GA applied to stimulate grape size."
+        },
+        {
+          "term":"Auxin",
+          "definition":"Promotes cell elongation.",
+          "context":"Apical dominance, tropisms.",
+          "example":"OIAA used in rooting powders."
+        },
+        {
+          "term":"Cytokinin",
+          "definition":"Promotes cell division.",
+          "context":"Delays leaf senescence.",
+          "example":"Used in tissue culture."
+        },
+        {
+          "term":"Phototropism",
+          "definition":"Growth toward light.",
+          "context":"Hormonal control in shoots.",
+          "example":"Sunflowers bend toward sun."
+        }
+      ]
+}
 
