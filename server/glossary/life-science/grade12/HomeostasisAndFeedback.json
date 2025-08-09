@@ -1,0 +1,39 @@
+{
+  "subject": "Life Science",
+  "grade": "12",
+  "title": "Homeostasis And Feedback",
+  "id": "HomeostasisAndFeedback",
+
+  "terms": [
+        {
+          "term":"Thermoregulation",
+          "definition":"Body temperature control.",
+          "context":"Homeostatic regulation.",
+          "example":"Sweating as response."
+        },
+        {
+          "term":"Blood glucose regulation",
+          "definition":"Insulin/glucagon control levels.",
+          "context":"Pancreatic feedback mechanism.",
+          "example":"Insulin lowers high glucose."
+        },
+        {
+          "term":"Osmoregulation",
+          "definition":"Control water/salt balance.",
+          "context":"Kidney function.",
+          "example":"ADH adjusts water reabsorption."
+        },
+        {
+          "term":"Hormonal feedback",
+          "definition":"Negative/positive loops.",
+          "context":"Regulation of endocrine systems.",
+          "example":"Thyroid TSH release suppressed by T3/T4."
+        },
+        {
+          "term":"Calcitonin/PTH",
+          "definition":"Regulate blood Ca²⁺ levels.",
+          "context":"Bone and kidney homeostasis.",
+          "example":"PTH raises low blood calcium."
+        }
+      ]
+}
