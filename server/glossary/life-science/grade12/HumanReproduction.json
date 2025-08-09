@@ -1,1 +1,40 @@
+{
+  "subject": "Life Science",
+  "grade": "12",
+  "title": "Human Reproduction",
+  "id": "HumanReproduction",
+
+  "terms": [
+        {
+          "term":"Spermatogenesis",
+          "definition":"Formation of sperm cells.",
+          "context":"Occurs in testes.",
+          "example":"Millions produced daily."
+        },
+        {
+          "term":"Oogenesis",
+          "definition":"Egg production in ovaries.",
+          "context":"Cyclical process.",
+          "example":"One mature ovum per month."
+        },
+        {
+          "term":"Hormonal regulation",
+          "definition":"FSH, LH, estrogen, testosterone.",
+          "context":"Controls gamete production.",
+          "example":"LH surge triggers ovulation."
+        },
+        {
+          "term":"Fertilisation",
+          "definition":"Fusion of sperm & egg.",
+          "context":"Forms zygote.",
+          "example":"Occurs in fallopian tube."
+        },
+        {
+          "term":"Implantation",
+          "definition":"Zygote embeds in uterine lining.",
+          "context":"Early pregnancy stage.",
+          "example":"Day ~7 post‑fertilisation."
+        }
+      ]
+}
 
