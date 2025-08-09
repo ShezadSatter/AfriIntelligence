@@ -1,4 +1,4 @@
-import { Paper } from "../types/Paper";
+import { PastPaper } from "../types/PastPaper";
 
 /**
  * Fetch papers from backend

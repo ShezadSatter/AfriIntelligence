@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper } from "../types/Paper";
+import { Paper } from "../types/PastPaper";
 import "./PaperList.css";
 
 interface PaperListProps {
