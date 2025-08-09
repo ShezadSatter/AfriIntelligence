@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { PastPaper } from "../types/PastPaper";
 import { fetchPapers } from "../utils/pastPaper";
 import PastPaperList from "../components/PastPaperList";
-import pastPaperFilter from "../components/PastPaperFilter";
+import PastPaperFilter from "../components/PastPaperFilter";
 
 const PastPaper: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
@@ -19,7 +19,7 @@ const PastPaper: React.FC = () => {
   return (
     <div>
       <h1>NSC Past Papers</h1>
-      <PaperFilter onFilter={loadPapers} />
+      <PastPaperFilter onFilter={loadPapers} />
       <PastPaperList papers={papers} />
     </div>
   );

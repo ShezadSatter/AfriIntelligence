@@ -13,6 +13,9 @@ import { initFileUpload } from "./utils/fileUploadHandler";
 import { initSpeech } from "./utils/speechHandler";
 import { fetchSubjectList } from "./utils/glossaryApi";
 
+import { PastPaper } from "./types/PastPaper";
+
+
 const App: React.FC = () => {
   useEffect(() => {
     (window as any).handleTranslate = handleTranslate;
