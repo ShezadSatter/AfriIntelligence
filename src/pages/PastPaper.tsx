@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PastPaper from "../types/PastPaper";
-import { fetchPapers } from "../utils/pastPaper";
+import fetchPapers from "../utils/pastPaper";
 import PastPaperList from "../components/PastPaperList";
 import PastPaperFilter from "../components/PastPaperFilter";
 
