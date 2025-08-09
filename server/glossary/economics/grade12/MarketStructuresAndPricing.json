@@ -1,1 +1,41 @@
+ {
+  "subject": "Economics",
+  "grade": "12",
+  "title": "Market Structures And Pricing",
+  "id": "MarketStructuresAndPricing",
+  "terms": [ 
+        {
+          "term":"Price leadership",
+          "definition":"Dominant firm sets prices others follow.",
+          "context":"Oligopoly strategy.",
+          "example":"Large retailer sets price level."
+        },
+        {
+          "term":"Game theory",
+          "definition":"Study of strategic firm interaction.",
+          "context":"Oligopoly decision‑making.",
+          "example":"Cournot vs Bertrand models."
+        },
+        {
+          "term":"Contestable market",
+          "definition":"Low‑barrier entry/exit market."
+          "context":"Even monopoly acts competitively.",
+          "example":"Airline route competition."
+        },
+        {
+          "term":"Monopsony",
+          "definition":"Single buyer controls market.",
+          "context":"Labour market example.",
+          "example":"Large employer dictates wages."
+        },
+        {
+          "term":"Natural monopoly",
+          "definition":"High fixed costs support one provider.",
+          "context":"Utilities.",
+          "example":"Water supply network."
+        }
+      ]
+    }
+  
+
 
