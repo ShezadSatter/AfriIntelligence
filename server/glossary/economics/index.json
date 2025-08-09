@@ -51,13 +51,12 @@
     ]
   }
   {
-  "economics": {
     "grade12": [
        {
-        "title": "Market Structures And Pricing",
-        "id": "MarketStructuresAndPricing",
+        "id": "Market Structures And Pricing",
+        "file": "MarketStructuresAndPricing.json",
         "description": "Key terms related to Market structures."
 }
     ]
   }
-}
+
