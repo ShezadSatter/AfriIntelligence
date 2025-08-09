@@ -1,9 +1,9 @@
 import React from "react";
-import { Paper } from "../types/PastPaper";
+import type { PaperPaper } from "../types/PastPaper";
 import "./PaperList.css";
 
-interface PaperListProps {
-  papers: Paper[];
+interface PastPaperListProps {
+  papers: PastPaper[];
 }
 
 const PaperList: React.FC<PaperListProps> = ({ papers }) => {
