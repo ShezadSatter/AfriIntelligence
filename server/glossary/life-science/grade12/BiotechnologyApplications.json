@@ -1,0 +1,38 @@
+{
+  "subject": "Life Science",
+  "grade": "12",
+  "title": "Biotechnology Applications",
+  "id": "BiotechnologyApplications.",
+
+  "terms": [
+        {
+          "term":"Genetic modification",
+          "definition":"Altering genome by biotech.",
+          "context":"Crop improvement.",
+          "example":"Bt-cotton resistant to pests."
+        },
+        {
+          "term":"Cloning",
+          "definition":"Generate genetically identical copy.",
+          "context":"Research and livestock.",
+          "example":"Somatic cell nuclear transfer."
+        },
+        {"term":"PCR",
+          "definition":"Amplify target DNA.",
+          "context":"Diagnostics and forensics.",
+          "example":"COVID‑19 detection."
+        },
+        {
+          "term":"Electrophoresis",
+          "definition":"Separation of DNA fragments.",
+          "context":"Genetic fingerprinting.",
+          "example":"Crime scene analysis."
+        },
+        {
+          "term":"Gene therapy",
+          "definition":"Treat genetic disorders via gene insertion.",
+          "context":"Medical applications.",
+          "example":"Treating cystic fibrosis."
+        }
+      ]
+}
