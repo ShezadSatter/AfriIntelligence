@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
       p =>
         p.grade === grade &&
         p.subject.toLowerCase() === subject.toLowerCase() &&
-        p.year === year
+        p.year.toString() === year
     );
 
     if (!paper) {

@@ -10,10 +10,10 @@ const path = require('path');
 const pastPapersRoute = require('./routes/pastPapers');
 
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use('/api/past-papers', pastPapersRoute);
+
+app.use('/pdfs', express.static(path.join(__dirname, 'data/pdfs')));
 
 
 // Multer setup for file uploads
@@ -207,6 +207,9 @@ app.use((req, res) => {
   console.log(`Unhandled request: ${req.method} ${req.url}`);
   res.status(404).send('Not found');
 });
+
+
+app.use('/api/past-papers', pastPapersRoute);
 
 // Start server
 app.listen(PORT, () => {

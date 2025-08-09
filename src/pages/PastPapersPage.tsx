@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-type PaperResponse = {
-  fileUrl: string;
-};
 
 const PastPapersPage: React.FC = () => {
   const [grade, setGrade] = useState('');
@@ -18,32 +15,43 @@ const PastPapersPage: React.FC = () => {
   const years = ['2020', '2021', '2022', '2023'];
 
   const fetchPaper = async () => {
-    if (!grade || !subject || !year) {
-      setFileUrl(null);
-      setError('Please select grade, subject, and year');
-      return;
-    }
-    setLoading(true);
-    setError(null);
+  if (!grade || !subject || !year) {
     setFileUrl(null);
+    setError('Please select grade, subject, and year');
+    return;
+  }
+  setLoading(true);
+  setError(null);
+  setFileUrl(null);
 
-    try {
-      const params = new URLSearchParams({ grade, subject, year });
-      const res = await fetch(`/api/past-papers?${params.toString()}`);
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Error fetching paper');
-      }
-      const data: PaperResponse = await res.json();
-      setFileUrl(data.fileUrl);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  try {
+    const params = new URLSearchParams({ grade, subject, year });
+    const res = await fetch(`/api/past-papers?${params.toString()}`);
+
+    const contentType = res.headers.get('content-type') || '';
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Server error: ${errorText}`);
     }
-  };
 
-  // Optionally fetch on every change:
+    if (contentType.includes('application/json')) {
+      const data = await res.json();
+      setFileUrl(data.fileUrl);
+    } else {
+      // Response is not JSON, likely HTML error page or something else
+      const text = await res.text();
+      console.error('Expected JSON but got:', text);
+      throw new Error('Server returned an unexpected response format.');
+    }
+  } catch (err: any) {
+    setError(err.message || 'Failed to fetch past paper');
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   useEffect(() => {
     if (grade && subject && year) {
       fetchPaper();
@@ -100,12 +108,27 @@ const PastPapersPage: React.FC = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {fileUrl && (
-        <div>
-          <a href={fileUrl} download target="_blank" rel="noopener noreferrer">
-            Download PDF
-          </a>
-        </div>
-      )}
+  <div style={{ marginTop: 20 }}>
+    <a href={fileUrl} target="_blank" rel="noopener noreferrer">Download PDF</a>
+
+
+    <div
+      style={{
+        border: '1px solid #ccc',
+        borderRadius: 5,
+        height: 500,
+        overflowY: 'auto',
+      }}
+    >
+      <iframe
+        src={fileUrl}
+        title="PDF Preview"
+        style={{ width: '100%', height: '100%', border: 'none' }}
+      />
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
