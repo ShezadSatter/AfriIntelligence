@@ -5,7 +5,7 @@ import TranslateDocument from "./pages/TranslateDocument";
 import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
 import GlossaryPage from "./pages/GlossaryPage"; 
-import type { PastPaper } from "./types/PastPaper";
+import PastPaper from "./pages/PastPaper";
 
 import { handleTranslate } from "./utils/handleTranslate";
 import { translatePage } from "./utils/translatePage";
