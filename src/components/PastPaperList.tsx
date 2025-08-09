@@ -1,28 +1,21 @@
 import React from "react";
-import type { PaperPaper } from "../types/PastPaper";
-import "./PaperList.css";
+import type { PastPaper } from "../types/PastPaper";
 
 interface PastPaperListProps {
   papers: PastPaper[];
 }
 
-const PaperList: React.FC<PaperListProps> = ({ papers }) => {
-  if (papers.length === 0) {
-    return <p>No papers found.</p>;
-  }
-
+const PastPaperList: React.FC<PastPaperListProps> = ({ papers }) => {
   return (
-    <ul className="paper-list">
-      {papers.map((paper, idx) => (
-        <li key={idx}>
-          {paper.subject} - Grade {paper.grade} ({paper.year}){" "}
-          <a href={paper.file} target="_blank" rel="noopener noreferrer">
-            View PDF
-          </a>
-        </li>
+    <div>
+      {papers.map((paper: PastPaper, idx: number) => (
+        <div key={idx}>
+          <h3>{paper.subject} - Grade {paper.grade} - {paper.year}</h3>
+          <a href={paper.file} target="_blank" rel="noopener noreferrer">View PDF</a>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 
-export default PaperList;
+export default PastPaperList;

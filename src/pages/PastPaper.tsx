@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { PastPaper } from "../types/PastPaper";
+import type { PastPaper } from "../types/PastPaper";
 import { fetchPapers } from "../utils/pastPaper";
 import PastPaperList from "../components/PastPaperList";
-import PaperFilter from "../components/PaperFilter";
+import pastPaperFilter from "../components/PastPaperFilter";
 
 const PastPaper: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
