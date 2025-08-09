@@ -5,7 +5,6 @@ import TranslateDocument from "./pages/TranslateDocument";
 import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
 import GlossaryPage from "./pages/GlossaryPage"; 
-import PastPaper from "./pages/PastPaper";
 
 
 import { handleTranslate } from "./utils/handleTranslate";
@@ -55,7 +54,6 @@ const App: React.FC = () => {
         <Route path="/tts" element={<TextToSpeech />} />
         <Route path="/translate" element={<TranslateDocument />} />
         <Route path="/glossary" element={<GlossaryPage />} />
-        <Route path="/pastPapers" element={<PastPaper />} />
 
       </Routes>
     </Router>

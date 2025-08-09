@@ -7,9 +7,6 @@ const fs = require('fs-extra');
 const pdfParse = require('pdf-parse');
 const { Document, Packer, Paragraph } = require('docx');
 const path = require('path');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const pastPaperRoute - require('./routes/pastPapers.js');
 
 
 dotenv.config();
@@ -201,22 +198,6 @@ app.get("/api/glossary/:subject/:grade/:fileName", async (req, res) => {
     }
   }
 });
-
-
-// Connect to MongoDB if enabled
-if (process.env.USE_DB === "true") {
-  mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ MongoDB connected"))
-    .catch(err => console.error("❌ DB error:", err));
-}
-
-// Routes
-app.use("/api/papers", papersRoute);
-
-// Static PDFs
-app.use("/pdfs", express.static(path.join(process.cwd(), "pdfs")));
-
-
 
 // Catch-all for unhandled routes
 app.use((req, res) => {
