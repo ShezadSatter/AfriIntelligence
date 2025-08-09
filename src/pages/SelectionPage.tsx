@@ -29,6 +29,10 @@ const SelectionPage: React.FC = () => {
            <button onClick={() => navigate("/glossary")}>
             Glossary
           </button>
+
+          <button onClick={() => navigate("/pastPaper")}>
+            pp
+          </button>
         </div>
       </section>
     </div>
