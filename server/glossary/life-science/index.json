@@ -100,4 +100,27 @@
       }
     ]
   }
+    "grade12": [
+      {
+        "id": "Biotechnology Applications",
+        "file": "BiotechnologyApplications.json",
+        "description": "Key terms related to Biotechnology Applications in Life Sciences."
+      },
+       {
+        "id": "Homeostasis And Feedback",
+        "file": "HomeostasisAndFeedback.json",
+        "description": "Key terms related to Homeostasis And Feedback in Life Sciences."
+      },
+       {
+        "id": "Human Reproduction",
+        "file": "HumanReproduction.json",
+        "description": "Key terms related to Human Reproduction in Life Sciences."
+      },
+         {
+        "id": "Plant Growth And Development",
+        "file": "PlantGrowthAndDevelopment.json",
+        "description": "Key terms related to Plant Growth And Development in Life Sciences."
+      }
+    ]
 }
+
