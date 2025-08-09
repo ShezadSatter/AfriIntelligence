@@ -10,24 +10,3 @@ export async function fetchPapers(filters: { subject?: string; grade?: string; y
 
   return res.json();
 }
-
-/**
- * Get unique subjects from papers list
- */
-export function getUniqueSubjects(papers: PastPaper[]): string[] {
-  return Array.from(new Set(papers.map(p => p.subject)));
-}
-
-/**
- * Get unique grades from papers list
- */
-export function getUniqueGrades(papers: PastPaper[]): number[] {
-  return Array.from(new Set(papers.map(p => p.grade))).sort((a, b) => a - b);
-}
-
-/**
- * Get unique years from papers list
- */
-export function getUniqueYears(papers: PastPaper[]): number[] {
-  return Array.from(new Set(papers.map(p => p.year))).sort((a, b) => b - a);
-}

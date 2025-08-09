@@ -6,15 +6,16 @@ interface PastPaperListProps {
 }
 
 const PastPaperList: React.FC<PastPaperListProps> = ({ papers }) => {
+  if (papers.length === 0) return <p>No past papers found.</p>;
+
   return (
-    <div>
-      {papers.map((paper: PastPaper, idx: number) => (
-        <div key={idx}>
-          <h3>{paper.subject} - Grade {paper.grade} - {paper.year}</h3>
-          <a href={paper.file} target="_blank" rel="noopener noreferrer">View PDF</a>
-        </div>
+    <ul>
+      {papers.map((paper, idx) => (
+        <li key={idx}>
+          {paper.subject} - Grade {paper.grade} - Year {paper.year} - <a href={paper.file}>Download</a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

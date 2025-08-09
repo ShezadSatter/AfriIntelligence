@@ -4,7 +4,6 @@ import { fetchPapers } from "../utils/pastPaper";
 import PastPaperList from "../components/PastPaperList";
 import PastPaperFilter from "../components/PastPaperFilter";
 
-
 const PastPaper: React.FC = () => {
   const [papers, setPapers] = useState<PastPaper[]>([]);
 
@@ -14,6 +13,7 @@ const PastPaper: React.FC = () => {
       setPapers(data);
     } catch (error) {
       console.error(error);
+      setPapers([]);
     }
   };
 
