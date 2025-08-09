@@ -7,11 +7,14 @@ const fs = require('fs-extra');
 const pdfParse = require('pdf-parse');
 const { Document, Packer, Paragraph } = require('docx');
 const path = require('path');
+const pastPapersRoute = require('./routes/pastPapers');
 
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use('/api/past-papers', pastPapersRoute);
+
 
 // Multer setup for file uploads
 const upload = multer({ dest: 'uploads/' });
