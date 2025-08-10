@@ -31,7 +31,7 @@ const SelectionPage: React.FC = () => {
           </button>
 
           <button onClick={() => navigate("/past-papers")}>
-            pp
+            Past Papers
           </button>
         </div>
       </section>
