@@ -5,7 +5,7 @@
  "title": "PhotosynthesisAndRespiration",
   "id": "Photosynthesis And Respiration",
   
-  "terms": ["PhotosynthesisAndRespiration": 
+  "terms": 
       [
         {
             "term":"Light reaction",
@@ -38,6 +38,6 @@
             "example":"ATP hydrolysis powers muscle contraction."
         }
       ]
-  ]
+  
   }
   
