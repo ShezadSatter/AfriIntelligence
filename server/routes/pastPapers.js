@@ -1,37 +1,42 @@
 const express = require('express');
-const router = express.Router();
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs').promises;
 
-const dataFile = path.join(__dirname, '../data/pastPapers.json');
+const router = express.Router();
 
-router.get('/', (req, res) => {
+// Helper to validate query params (basic)
+function isValidParam(param) {
+  return typeof param === 'string' && param.trim() !== '';
+}
+
+router.get('/', async (req, res) => {
   const { grade, subject, year } = req.query;
 
-  if (!grade || !subject || !year) {
-    return res.status(400).json({ error: 'Missing grade, subject, or year parameter' });
+  if (!isValidParam(grade) || !isValidParam(subject) || !isValidParam(year)) {
+    return res.status(400).json({ error: 'Missing or invalid query parameters: grade, subject, year are required' });
   }
 
-  fs.readFile(dataFile, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading JSON file:', err);
-      return res.status(500).json({ error: 'Internal server error' });
-    }
+  try {
+    const filePath = path.join(__dirname, '..', 'data', 'pastPapers.json');
+    const dataRaw = await fs.readFile(filePath, 'utf8');
+    const pastPapers = JSON.parse(dataRaw);
 
-    const papers = JSON.parse(data);
-    const paper = papers.find(
-      p =>
+    const paper = pastPapers.find(
+      (p) =>
         p.grade === grade &&
         p.subject.toLowerCase() === subject.toLowerCase() &&
-        p.year.toString() === year
+        p.year === year
     );
 
     if (!paper) {
-      return res.status(404).json({ error: 'Paper not found' });
+      return res.status(404).json({ error: 'Past paper not found for the specified criteria' });
     }
 
-    res.json({ fileUrl: paper.fileUrl });
-  });
+    res.json(paper);
+  } catch (error) {
+    console.error('Error reading past papers:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 module.exports = router;

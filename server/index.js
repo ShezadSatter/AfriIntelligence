@@ -7,14 +7,9 @@ const fs = require('fs-extra');
 const pdfParse = require('pdf-parse');
 const { Document, Packer, Paragraph } = require('docx');
 const path = require('path');
-const pastPapersRoute = require('./routes/pastPapers');
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.use('/pdfs', express.static(path.join(__dirname, 'data/pdfs')));
-
 
 // Multer setup for file uploads
 const upload = multer({ dest: 'uploads/' });
@@ -202,8 +197,27 @@ app.get("/api/glossary/:subject/:grade/:fileName", async (req, res) => {
   }
 });
 
-app.use('/api/past-papers', pastPapersRoute);
+// Import pastPapers router and mount it
+const pastPapersRouter = require('./routes/pastPapers');
+app.use('/api/past-papers', pastPapersRouter);
 
+
+
+// Static serving PDFs
+app.use('/pdfs', express.static(path.join(__dirname, 'data', 'pdfs')));
+
+// Test file access route
+app.get('/test-file-access', (req, res) => {
+  const filePath = path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', 'Mathematical Literacy P2 Nov 2014 Eng.pdf');
+  console.log('Checking file at:', filePath);
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('File not found:', err);
+      return res.status(404).send('File NOT found');
+    }
+    res.send('File found and accessible');
+  });
+});
 
 // Catch-all for unhandled routes
 app.use((req, res) => {
@@ -211,9 +225,9 @@ app.use((req, res) => {
   res.status(404).send('Not found');
 });
 
-
-
 // Start server
 app.listen(PORT, () => {
   console.log(`Translation server running at port ${PORT}`);
 });
+
+console.log('__dirname:', __dirname);
