@@ -170,4 +170,9 @@ display: flex;
   .home-section-bg div h1{
     padding-top: 0px;
   }
+
+  .home-section-bg div ul {
+    padding-bottom: 40px;
+    padding-left: 50px;
+  }
 }
