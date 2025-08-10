@@ -136,3 +136,19 @@ display: flex;
     font-size: 18px;
   }
 }
+
+
+@media (min-width: 430px) and (max-width: 768px) {
+
+  .home-section-bg h1{
+    padding-top: 55px;
+  }
+
+  .home-section-bg p {
+    padding-left: 30px;
+  }
+
+  .home-section-bg div h1{
+    padding-top: 0px;
+  }
+}
