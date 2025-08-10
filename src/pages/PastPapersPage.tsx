@@ -26,7 +26,7 @@ const PastPapersPage: React.FC = () => {
 
   try {
     const params = new URLSearchParams({ grade, subject, year });
-    const res = await fetch(`/api/past-papers?${params.toString()}`);
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers?${params.toString()}`);
 
     const contentType = res.headers.get('content-type') || '';
 
