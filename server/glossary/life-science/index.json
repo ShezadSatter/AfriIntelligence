@@ -46,12 +46,12 @@
         "description": "Key terms related to Evolution And Speciation in Life Sciences."
       },
       {
-        "id": "Genetics",
+        "id": "Genetics And Inheritance",
         "file": "GeneticsAndInheritance.json",
         "description": "Key terms related to genetics in Life Sciences."
       },
       {
-        "id": "Evolution",
+        "id": "Photosynthesis And Respiration",
         "file": "PhotosynthesisAndRespiration.json",
         "description": "Key terms related to evolution in Life Sciences."
       }
