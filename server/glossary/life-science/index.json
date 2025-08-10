@@ -16,49 +16,16 @@
         "file": "CellTransport.json",
         "description": "Key terms related to cells in Life Sciences."
       },
-      {
-        "id": "Evolution And Speciation",
-        "file": "EvolutionAndSpeciation.json",
-        "description": "Key terms related to EvolutionAndSpeciation in Life Sciences."
-      },
-      {
-        "id": "Respiration",
-        "file": "Respiration.json",
-        "description": "Key terms related to respiration in Life Sciences."
-      },
-      {
-        "id": "Ecology",
-        "file": "Ecology.json",
-        "description": "Key terms related to ecology in Life Sciences."
-      },
+      
       {
         "id": "Genetics",
         "file": "Genetics.json",
         "description": "Key terms related to genetics in Life Sciences."
       },
+      
       {
-        "id": "Reproduction",
-        "file": "Reproduction.json",
-        "description": "Key terms related to reproduction in Life Sciences."
-      },
-      {
-        "id": "Biodiversity",
-        "file": "Biodiversity.json",
-        "description": "Key terms related to biodiversity in Life Sciences."
-      },
-      {
-        "id": "Human Systems",
-        "file": "Human-systems.json",
-        "description": "Key terms related to human body systems in Life Sciences."
-      },
-      {
-        "id": "Diseases",
-        "file": "Diseases.json",
-        "description": "Key terms related to diseases in Life Sciences."
-      },
-      {
-        "id": "Scientific Methods",
-        "file": "Scientific-methods.json",
+        "id": "Photosynthesis",
+        "file": "Photosynthesis.json",
         "description": "Key terms related to scientific methods in Life Sciences."
       }
     ],

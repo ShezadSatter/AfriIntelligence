@@ -44,6 +44,11 @@
         "description": "Key terms related to analyzing different types of markets, like perfect competition and monopolies."
       },
       {
+        "id": "Micro Economic Thoery",
+        "file": "MicroEconomicThoery.json",
+        "description": "Key terms related to analyzing different types of markets, like perfect competition and monopolies."
+      },
+      {
         "id": "Production Costs And Revenue",
         "file": "ProductionCostsAndRevenue.json",
         "description": "Key terms related to the costs of production and the income generated from sales."
