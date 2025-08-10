@@ -70,10 +70,10 @@ const PastPapersPage: React.FC = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Past Papers</h1>
+      <h1 style={{color: "white"}}>Past Papers</h1>
 
       <div style={{ marginBottom: 10 }}>
-        <label>
+        <label style={{color : "white"}}>
           Grade:{' '}
           <select value={grade} onChange={e => setGrade(e.target.value)}>
             <option value="">Select Grade</option>
@@ -87,7 +87,7 @@ const PastPapersPage: React.FC = () => {
       </div>
 
       <div style={{ marginBottom: 10 }}>
-        <label>
+        <label style={{color : "white"}}>
           Subject:{' '}
           <select value={subject} onChange={e => setSubject(e.target.value)}>
             <option value="">Select Subject</option>
@@ -101,7 +101,7 @@ const PastPapersPage: React.FC = () => {
       </div>
 
       <div style={{ marginBottom: 10 }}>
-        <label>
+        <label style={{color: "white"}}>
           Year:{' '}
           <select value={year} onChange={e => setYear(e.target.value)}>
             <option value="">Select Year</option>
