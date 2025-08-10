@@ -80,23 +80,13 @@
       },
       {
         "id": "Genetics",
-        "file": "Genetics.json",
+        "file": "GeneticsAndInheritance.json",
         "description": "Key terms related to genetics in Life Sciences."
       },
       {
         "id": "Evolution",
-        "file": "Evolution.json",
+        "file": "PhotosynthesisAndRespiration.json",
         "description": "Key terms related to evolution in Life Sciences."
-      },
-      {
-        "id": "Ecology",
-        "file": "Ecology.json",
-        "description": "Key terms related to ecology in Life Sciences."
-      },
-      {
-        "id": "Human Body Systems",
-        "file": "HumanBodySystems.json",
-        "description": "Key terms related to human body systems in Life Sciences."
       }
     ],
   
