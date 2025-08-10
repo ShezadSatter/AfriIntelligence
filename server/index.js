@@ -202,6 +202,9 @@ app.get("/api/glossary/:subject/:grade/:fileName", async (req, res) => {
   }
 });
 
+app.use('/api/past-papers', pastPapersRoute);
+
+
 // Catch-all for unhandled routes
 app.use((req, res) => {
   console.log(`Unhandled request: ${req.method} ${req.url}`);
@@ -209,7 +212,6 @@ app.use((req, res) => {
 });
 
 
-app.use('/api/past-papers', pastPapersRoute);
 
 // Start server
 app.listen(PORT, () => {
