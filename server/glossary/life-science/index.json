@@ -98,8 +98,8 @@
         "file": "HumanBodySystems.json",
         "description": "Key terms related to human body systems in Life Sciences."
       }
-    ]
-  }
+    ],
+  
     "grade12": [
       {
         "id": "Biotechnology Applications",
@@ -122,5 +122,6 @@
         "description": "Key terms related to Plant Growth And Development in Life Sciences."
       }
     ]
+  }
 }
 

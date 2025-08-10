@@ -48,15 +48,14 @@
         "file": "ProductionCostsAndRevenue.json",
         "description": "Key terms related to the costs of production and the income generated from sales."
       }
-    ]
-  }
-  {
+    ],
+
     "grade12": [
-       {
+      {
         "id": "Market Structures And Pricing",
         "file": "MarketStructuresAndPricing.json",
         "description": "Key terms related to Market structures."
-}
+      }
     ]
   }
-
+}
