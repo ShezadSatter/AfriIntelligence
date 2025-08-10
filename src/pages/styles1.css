@@ -116,7 +116,7 @@ display: flex;
   font-family: League Spartan;
 }
 
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .title h1,
   .home-section div h1 {
     font-size: 28px;
@@ -135,10 +135,29 @@ display: flex;
   .home-section div ul li {
     font-size: 18px;
   }
-}
+}*/
 
 
 @media (min-width: 430px) and (max-width: 768px) {
+
+  .title h1,
+  .home-section div h1 {
+    font-size: 28px;
+  }
+
+  .home-section-bg {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .home-section button {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .home-section div ul li {
+    font-size: 18px;
+  }
 
   .home-section-bg h1{
     padding-top: 55px;
