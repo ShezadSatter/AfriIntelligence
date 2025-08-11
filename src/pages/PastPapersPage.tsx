@@ -7,10 +7,13 @@ const PastPapersPage: React.FC = () => {
   const [filePath, setFilePath] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [paper, setPaper] = useState('');
 
   const grades = ['9', '10', '11', '12'];
   const subjects = ['Math', 'Economics', 'Life-Science'];
-  const years = ['2014','2015','2016','2017','2020', '2021', '2022', '2023'];
+  const years = ['2013','2014','2015','2016','2017','2020', '2021', '2022', '2023'];
+  const papers = ['P1', 'P2'];
+
 
   const fetchPaper = async () => {
     if (!grade || !subject || !year) {
@@ -23,37 +26,37 @@ const PastPapersPage: React.FC = () => {
     setError(null);
     setFilePath(null);
 
-    try {
-      const params = new URLSearchParams({ grade, subject, year });
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers?${params.toString()}`);
+      try {
+    const params = new URLSearchParams({ grade, subject, year });
+    if (paper) params.append('paper', paper);
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers?${params.toString()}`);
 
-      const contentType = res.headers.get('content-type') || '';
+    const contentType = res.headers.get('content-type') || '';
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Server error (${res.status}): ${errorText}`);
-      }
-
-      if (contentType.includes('application/json')) {
-        const data = await res.json();
-        setFilePath(data.fileUrl);
-      } else {
-        const text = await res.text();
-        console.error('Expected JSON but got:', text);
-        throw new Error('Unexpected response format from server.');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch past paper');
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Server error (${res.status}): ${errorText}`);
     }
-  };
+
+    if (contentType.includes('application/json')) {
+      const data = await res.json();
+      setFilePath(data.fileUrl);
+    } else {
+      throw new Error('Unexpected response format from server.');
+    }
+  } catch (err: any) {
+    setError(err.message || 'Failed to fetch past paper');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (grade && subject && year) {
       fetchPaper();
     }
-  }, [grade, subject, year]);
+  }, [grade, subject, year, paper]);
 
   // Build download and preview URLs using backend route
 const downloadUrl = filePath
@@ -109,6 +112,21 @@ const previewUrl = filePath
           </select>
         </label>
       </div>
+
+      <div style={{ marginBottom: 10 }}>
+  <label style={{color : "white"}}>
+    Paper:{' '}
+    <select value={paper} onChange={e => setPaper(e.target.value)}>
+      <option value="">Select Paper</option>
+      {papers.map(p => (
+        <option key={p} value={p}>
+          {p}
+        </option>
+      ))}
+    </select>
+  </label>
+</div>
+
 
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}

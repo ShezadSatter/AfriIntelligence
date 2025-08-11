@@ -10,7 +10,7 @@ function isValidParam(param) {
 }
 
 router.get('/', async (req, res) => {
-  const { grade, subject, year } = req.query;
+  const { grade, subject, year, paper } = req.query;
 
   if (!isValidParam(grade) || !isValidParam(subject) || !isValidParam(year)) {
     return res.status(400).json({ error: 'Missing or invalid query parameters: grade, subject, year are required' });
@@ -21,18 +21,23 @@ router.get('/', async (req, res) => {
     const dataRaw = await fs.readFile(filePath, 'utf8');
     const pastPapers = JSON.parse(dataRaw);
 
-    const paper = pastPapers.find(
+    let filtered = pastPapers.filter(
       (p) =>
         p.grade === grade &&
         p.subject.toLowerCase() === subject.toLowerCase() &&
         p.year === year
     );
 
-    if (!paper) {
+    // Filter by paper number if specified
+    if (paper === 'P1' || paper === 'P2') {
+      filtered = filtered.filter(p => p.fileUrl.toUpperCase().includes(paper.toUpperCase()));
+    }
+
+    if (filtered.length === 0) {
       return res.status(404).json({ error: 'Past paper not found for the specified criteria' });
     }
 
-    res.json(paper);
+    res.json(filtered[0]);
   } catch (error) {
     console.error('Error reading past papers:', error);
     res.status(500).json({ error: 'Internal server error' });
