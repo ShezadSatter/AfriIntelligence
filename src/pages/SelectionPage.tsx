@@ -15,8 +15,8 @@ const SelectionPage: React.FC = () => {
 
       <section className="selection">
         <div className="selection-bg">
-          <h1>Select Source Language</h1>
-          <p>Choose the language of the text you want to translate.</p>
+          <h1>What would you like to do🧑‍🎓</h1>
+          <p>Choose the feature you want to use😁</p>
 
           <button onClick={() => navigate("/tts")}>
             Text-to-Speech
