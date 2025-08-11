@@ -9,9 +9,9 @@ const PastPapersPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [paper, setPaper] = useState('');
 
-  const grades = ['9', '10', '11', '12'];
-  const subjects = ['Mathematics', 'Economics', 'Life-Science'];
-  const years = ['2012','2013','2014','2015','2016','2017','2018','2019','2020', '2021', '2022', '2023', '2024' ,'2025'];
+  const [grades, setGrades] = useState<string[]>([]);
+  const [subjects, setSubjects] = useState<string[]>([]);
+  const [years, setYears] = useState<string[]>([]);
   const papers = ['P1', 'P2'];
 
 
@@ -51,6 +51,16 @@ const PastPapersPage: React.FC = () => {
   }
 };
 
+ useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers/filters`)
+      .then(res => res.json())
+      .then(data => {
+        setGrades(data.grades || []);
+        setSubjects(data.subjects || []);
+        setYears(data.years || []);
+      })
+      .catch(() => setError('Failed to load filter options'));
+  }, []);
 
   useEffect(() => {
     if (grade && subject && year) {

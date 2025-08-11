@@ -64,6 +64,21 @@ router.get('/file', async (req, res) => {
   }
 });
 
-// ...existing code...
+router.get('/filters', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, '..', 'data', 'pastPapers.json');
+    const dataRaw = await fs.readFile(filePath, 'utf8');
+    const pastPapers = JSON.parse(dataRaw);
+
+    // Extract unique grades, subjects, years
+    const grades = [...new Set(pastPapers.map(p => p.grade))].sort();
+    const subjects = [...new Set(pastPapers.map(p => p.subject))].sort();
+    const years = [...new Set(pastPapers.map(p => p.year))].sort();
+
+    res.json({ grades, subjects, years });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load filters' });
+  }
+});
 
 module.exports = router;
