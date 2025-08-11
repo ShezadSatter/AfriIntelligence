@@ -10,8 +10,8 @@ const PastPapersPage: React.FC = () => {
   const [paper, setPaper] = useState('');
 
   const grades = ['9', '10', '11', '12'];
-  const subjects = ['Math', 'Economics', 'Life-Science'];
-  const years = ['2012','2013','2014','2015','2016','2017','2020', '2021', '2022', '2023'];
+  const subjects = ['Mathematics', 'Economics', 'Life-Science'];
+  const years = ['2012','2013','2014','2015','2016','2017','2018','2019','2020', '2021', '2022', '2023', '2024' ,'2025'];
   const papers = ['P1', 'P2'];
 
 
