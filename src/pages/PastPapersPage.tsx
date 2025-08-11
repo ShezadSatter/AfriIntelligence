@@ -4,24 +4,24 @@ const PastPapersPage: React.FC = () => {
   const [grade, setGrade] = useState('');
   const [subject, setSubject] = useState('');
   const [year, setYear] = useState('');
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const [filePath, setFilePath] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const grades = ['9', '10', '11', '12'];
-  const subjects = ['Math', 'English', 'Science', 'History'];
-  const years = ['2020', '2021', '2022', '2023'];
+  const subjects = ['Math', 'Economics', 'Life-Science'];
+  const years = ['2014','2015','2016','2017','2020', '2021', '2022', '2023'];
 
   const fetchPaper = async () => {
     if (!grade || !subject || !year) {
-      setFileUrl(null);
+      setFilePath(null);
       setError('Please select grade, subject, and year');
       return;
     }
 
     setLoading(true);
     setError(null);
-    setFileUrl(null);
+    setFilePath(null);
 
     try {
       const params = new URLSearchParams({ grade, subject, year });
@@ -36,10 +36,8 @@ const PastPapersPage: React.FC = () => {
 
       if (contentType.includes('application/json')) {
         const data = await res.json();
-        const fullUrl = new URL(data.fileUrl, import.meta.env.VITE_API_BASE_URL).href;
-        setFileUrl(fullUrl);
+        setFilePath(data.fileUrl);
       } else {
-        // Not JSON — likely HTML error page
         const text = await res.text();
         console.error('Expected JSON but got:', text);
         throw new Error('Unexpected response format from server.');
@@ -57,15 +55,14 @@ const PastPapersPage: React.FC = () => {
     }
   }, [grade, subject, year]);
 
-  // Encode full URL segments for download link (safe)
- const downloadUrl = fileUrl
-  ? `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(
-      fileUrl.replace(`${import.meta.env.VITE_API_BASE_URL}/`, '')
-    )}`
+  // Build download and preview URLs using backend route
+const downloadUrl = filePath
+  ? `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(filePath)}`
   : null;
 
-  // For iframe, only encode spaces as %20 to keep folder structure intact
-  const iframeFileUrl = fileUrl ? fileUrl.replace(/ /g, '%20') : null;
+const previewUrl = filePath
+  ? `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(filePath)}&preview=true`
+  : null;
 
   return (
     <div style={{ padding: 20 }}>
@@ -116,7 +113,7 @@ const PastPapersPage: React.FC = () => {
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {fileUrl && downloadUrl && iframeFileUrl && (
+      {downloadUrl && previewUrl && (
   <div style={{ marginTop: 20 }}>
     <a href={downloadUrl} download target="_blank" rel="noopener noreferrer">
       Download PDF
@@ -125,13 +122,13 @@ const PastPapersPage: React.FC = () => {
       style={{
         border: '1px solid #ccc',
         borderRadius: 5,
-        height: 500,
+        height: 700,
         overflowY: 'auto',
         marginTop: 10,
       }}
     >
       <iframe
-        src={iframeFileUrl}
+        src={previewUrl}
         title="PDF Preview"
         style={{ width: '100%', height: '100%', border: 'none' }}
       />
