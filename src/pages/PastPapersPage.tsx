@@ -58,12 +58,11 @@ const PastPapersPage: React.FC = () => {
   }, [grade, subject, year]);
 
   // Encode full URL segments for download link (safe)
-  const safeFileUrl = fileUrl
-    ? fileUrl
-        .split('/')
-        .map(encodeURIComponent)
-        .join('/')
-    : null;
+ const downloadUrl = fileUrl
+  ? `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(
+      fileUrl.replace(`${import.meta.env.VITE_API_BASE_URL}/`, '')
+    )}`
+  : null;
 
   // For iframe, only encode spaces as %20 to keep folder structure intact
   const iframeFileUrl = fileUrl ? fileUrl.replace(/ /g, '%20') : null;
@@ -117,28 +116,28 @@ const PastPapersPage: React.FC = () => {
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {fileUrl && safeFileUrl && iframeFileUrl && (
-        <div style={{ marginTop: 20 }}>
-          <a href={safeFileUrl} download target="_blank" rel="noopener noreferrer">
-            Download PDF
-          </a>
-          <div
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: 5,
-              height: 500,
-              overflowY: 'auto',
-              marginTop: 10,
-            }}
-          >
-            <iframe
-              src={iframeFileUrl}
-              title="PDF Preview"
-              style={{ width: '100%', height: '100%', border: 'none' }}
-            />
-          </div>
-        </div>
-      )}
+      {fileUrl && downloadUrl && iframeFileUrl && (
+  <div style={{ marginTop: 20 }}>
+    <a href={downloadUrl} download target="_blank" rel="noopener noreferrer">
+      Download PDF
+    </a>
+    <div
+      style={{
+        border: '1px solid #ccc',
+        borderRadius: 5,
+        height: 500,
+        overflowY: 'auto',
+        marginTop: 10,
+      }}
+    >
+      <iframe
+        src={iframeFileUrl}
+        title="PDF Preview"
+        style={{ width: '100%', height: '100%', border: 'none' }}
+      />
+    </div>
+  </div>
+)}
     </div>
   );
 };
