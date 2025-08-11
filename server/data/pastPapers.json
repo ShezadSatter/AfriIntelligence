@@ -1,15 +1,548 @@
-
 [
   {
     "grade": "10",
-    "subject": "Math",
-    "year": "2014",
-    "fileUrl": "DBE Past Papers/Mathematical Literacy P2 Nov 2014 Eng.pdf"
+    "subject": "Economics",
+    "year": "2013",
+    "fileUrl": "DBE Past Papers/Economics Nov 2013 Eng.pdf"
   },
   {
     "grade": "11",
     "subject": "Economics",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2014 Eng.pdf"
+  },
+  {
+    "grade": "12",
+    "subject": "Economics",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2020 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
     "year": "2021",
     "fileUrl": "DBE Past Papers/Economics P1 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Economics P1 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2014 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2020 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2021 Eng (2).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Economics P2 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2013",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2013 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2014 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2020 Eng (2).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Life Sciences P1 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2013",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2013 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2014 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2020 Eng (2).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Life Sciences P2 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematical Literacy",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Mathematical Literacy P2 Nov 2014 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Mathematics P1  English November 2014(amended).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2013",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2013 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2020 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Mathematics P1 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2014",
+    "fileUrl": "DBE Past Papers/Mathematics P2 English November 2014(amended).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2013",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2013 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2016",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2016 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2018",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2018 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2019",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2019 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2020",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2021 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2021 Eng (2).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2021",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2021 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2022",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2022 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2023",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2023 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2024 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2024 Eng (2).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2024",
+    "fileUrl": "DBE Past Papers/Mathematics P2 Nov 2024 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2015",
+    "fileUrl": "DBE Past Papers/Mathematics P2 November 2015 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Economics",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Economics Nov 2012 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Life Sciences P1 Nov 2012 Version 1 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Life Sciences P1 Nov 2012 Version 2 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Life Sciences P2 Nov 2012  Version 1 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Life Sciences P2 Nov 2012 Version 2 Eng (1).pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Life Sciences",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Life Sciences P2 Nov 2012 Version 2 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Mathematics P1 Nov 2012 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Mathematics P2 Nov 2012 Eng.pdf"
+  },
+  {
+    "grade": "10",
+    "subject": "Mathematics",
+    "year": "2012",
+    "fileUrl": "DBE Past Papers/NSC 2012 Mathematics P3 Nov 2012 Eng.pdf"
   }
 ]
