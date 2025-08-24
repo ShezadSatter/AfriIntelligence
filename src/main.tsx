@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import './pages/index.css'
 import App from './App.tsx'
+import './styles/styles.css';
+import './styles/responsive.module.css';
 
 const domNode = document.getElementById('root');
 if (!domNode) {

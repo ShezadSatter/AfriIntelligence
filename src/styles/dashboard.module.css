@@ -1,0 +1,44 @@
+.dashboard {
+  padding: 2rem;
+  background-color: #1a1a1a;
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.5rem;
+}
+
+.teacherGreeting {
+  margin-top: 1rem;
+  color: #4caf50;
+}
+
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  flex: 1 1 200px;
+  padding: 2rem;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #3a3a3a;
+}
+select {
+  color: #000; /* visible text */
+  background: #fff; /* visible background */
+  z-index: 1000; /* make sure dropdown is on top */
+}

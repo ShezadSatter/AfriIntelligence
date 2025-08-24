@@ -544,5 +544,48 @@
     "subject": "Mathematics",
     "year": "2012",
     "fileUrl": "DBE Past Papers/NSC 2012 Mathematics P3 Nov 2012 Eng.pdf"
+  },
+  {
+    "id": "1756068887040",
+    "grade": "12",
+    "subject": "Mathematics",
+    "year": "2025",
+    "paper": "p1",
+    "language": "68a89dde7c15bd5dbd5a9975",
+    "fileUrl": "1756068887028-Mathematics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "id": "1756069296966",
+    "grade": "12",
+    "year": "2012",
+    "paper": "p1",
+    "language": "English",
+    "fileUrl": "1756069296956-Mathematics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "id": "1756069304260",
+    "grade": "12",
+    "year": "2012",
+    "paper": "p1",
+    "language": "English",
+    "fileUrl": "1756069304250-Mathematics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "id": "1756070374779",
+    "grade": "12",
+    "subject": "Mathematics",
+    "year": "2012",
+    "paper": "p1",
+    "language": "68a89dde7c15bd5dbd5a9970",
+    "fileUrl": "1756070374770-Mathematics P2 Nov 2020 Eng.pdf"
+  },
+  {
+    "id": "1756071053529",
+    "grade": "12",
+    "subject": "Mathematics",
+    "year": "2012",
+    "paper": "p1",
+    "language": "68a89dde7c15bd5dbd5a9970",
+    "fileUrl": "1756071053520-Mathematics P2 Nov 2020 Eng.pdf"
   }
 ]

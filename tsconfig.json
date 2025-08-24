@@ -4,4 +4,37 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ]
+
+  ,
+  "compilerOptions": {
+    // Output and JS target
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    
+    // React / JSX support
+    "jsx": "react-jsx",
+
+    // Type checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    
+    // Output files
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Library checks
+    "skipLibCheck": true,
+
+    // Recommended style options
+    "types": [],
+    "moduleDetection": "force"
+  },
+  "include": ["src"]
+
+
 }

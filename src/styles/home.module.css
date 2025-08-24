@@ -1,0 +1,36 @@
+/* Home Page Styles */
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('path/to/your/image.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.home .buttons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.home .buttons button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.home .buttons button:hover {
+  background-color: #45a049;
+}

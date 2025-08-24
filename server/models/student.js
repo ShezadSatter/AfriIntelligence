@@ -1,27 +1,12 @@
 import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
-  studentId: {
-    type: String,
-    required: true,
-    unique: true, // Example: st1234
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  grade: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Grade",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  studentId: { type: String, required: true, unique: true }, // Example: s1234
+  name: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true }, // Added for auth
+  grade: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model("Student", studentSchema);

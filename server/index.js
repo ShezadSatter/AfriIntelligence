@@ -3,12 +3,16 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
-import fs from "fs-extra";
-import pdfParse from "pdf-parse";
+import fs from "fs-extra";     
 import { Document, Packer, Paragraph } from "docx";
 import path from "path";
 import { fileURLToPath } from 'url';
 import translate from "@iamtraction/google-translate";
+import authRoutes from './routes/authRoutes.js';
+import cookieParser from 'cookie-parser';
+import glossaryRoutes from "./routes/glossaryRoutes.ts";
+
+
 
 // Import our database
 import { initDB, models, services } from "./db.js";
@@ -28,12 +32,15 @@ let dbModels, dbServices;
 try {
   const dbInit = await initDB();
   dbModels = dbInit.models;
-  dbServices = dbInit.services;
+//  dbServices = dbInit.services;
   console.log("✅ Database initialized successfully");
 } catch (error) {
   console.error("❌ Database initialization failed:", error);
   process.exit(1);
 }
+
+
+
 
 // ----------------------------
 // Middleware Setup
@@ -41,7 +48,9 @@ try {
 
 // Body parser
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
 const allowedOrigins = [
@@ -85,6 +94,10 @@ const upload = multer({
     }
   }
 });
+
+
+
+
 
 // Simple validation helpers
 const isValidName = (name) => /^[a-zA-Z0-9-_\.]+$/.test(name);
@@ -206,6 +219,8 @@ app.post("/api/content", async (req, res) => {
 // ----------------------------
 // API Routes - Past Papers
 // ----------------------------
+import pastPaperRoutes from './routes/pastPapers.js';
+app.use('/api/past-papers', pastPaperRoutes);
 
 // Get past papers
 app.get("/api/past-papers", async (req, res) => {
@@ -318,6 +333,10 @@ app.get("/api/past-papers/:id/download", async (req, res) => {
 // ----------------------------
 // Legacy API Routes (for backward compatibility)
 // ----------------------------
+app.use("/api/glossary", glossaryRoutes);
+
+
+
 
 // Master glossary index (returns subjects list)
 app.get("/api/glossary/index.json", async (req, res) => {
@@ -404,82 +423,72 @@ app.post('/api/translate', async (req, res) => {
   }
 });
 
-// Translate uploaded file (PDF or DOCX)
-app.post('/api/translate-file', upload.single('file'), async (req, res) => {
+
+app.post("/api/translate-file", upload.single("file"), async (req, res) => {
+   const pdfParse = (await import("pdf-parse")).default; 
   const file = req.file;
   const targetLang = req.body.target;
 
-  if (!file) {
-    return res.status(400).json({ error: 'No file uploaded' });
-  }
-  if (!targetLang) {
-    return res.status(400).json({ error: 'No target language specified' });
-  }
+  if (!file) return res.status(400).json({ error: "No file uploaded" });
+  if (!targetLang) return res.status(400).json({ error: "No target language specified" });
 
   try {
-    let text = '';
+    let text = "";
 
-    // PDF handling
-    if (file.mimetype === 'application/pdf') {
-      const dataBuffer = await fs.readFile(file.path);
-      const pdfData = await pdfParse(dataBuffer);
-      text = pdfData.text;
+    // PDF
+    if (file.mimetype === "application/pdf") {
+      try {
+        const dataBuffer = await fs.readFile(file.path);
+        const pdfData = await pdfParse(dataBuffer);
+        text = pdfData.text;
+      } catch (err) {
+        throw new Error("Failed to read PDF file. Is it valid?");
+      }
+      console.log(pdfData.text);
     }
-    // DOCX handling
-    else if (
-      file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    ) {
-      const mammoth = await import('mammoth');
+    // DOCX
+    else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+      const mammoth = await import("mammoth");
       const result = await mammoth.extractRawText({ path: file.path });
       text = result.value;
-    } else {
-      await fs.remove(file.path);
-      return res.status(400).json({ error: 'Unsupported file type. Only PDF and DOCX files are supported.' });
     }
 
     if (!text.trim()) {
-      await fs.remove(file.path);
-      return res.status(400).json({ error: 'No text content found in the uploaded file' });
+      throw new Error("No text found in the uploaded file");
     }
 
-    // Translate extracted text
+    // Translate
     const { text: translatedText } = await translate(text, { to: targetLang });
 
-    // Create translated DOCX document
+    // Create DOCX
     const doc = new Document({
       sections: [
         {
           children: translatedText
-            .split('\n')
-            .filter(line => line.trim() !== '')
-            .map((line) => new Paragraph(line.trim())),
+            .split("\n")
+            .filter(line => line.trim() !== "")
+            .map(line => new Paragraph(line.trim())),
         },
       ],
     });
 
     const buffer = await Packer.toBuffer(doc);
-    const outputPath = path.join('uploads', `translated_${Date.now()}.docx`);
+    const outputPath = path.join("uploads", `translated_${Date.now()}.docx`);
     await fs.writeFile(outputPath, buffer);
 
-    // Send file and cleanup after response finishes
-    res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, '')}.docx`, async (err) => {
-      try {
-        await fs.remove(file.path);
-        await fs.remove(outputPath);
-      } catch (cleanupErr) {
-        console.error('Cleanup error:', cleanupErr);
-      }
-      if (err) {
-        console.error('Download error:', err);
-      }
-    });
-  } catch (error) {
-    console.error('File translation error:', error);
-    // Cleanup uploaded file if error occurs
-    if (file?.path) {
+    // Send the file
+    res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
+      // Clean up
       await fs.remove(file.path).catch(console.error);
-    }
-    res.status(500).json({ error: 'Translation failed', message: error.message });
+      await fs.remove(outputPath).catch(console.error);
+      if (err) console.error("Download error:", err);
+    });
+
+  } catch (err) {
+    // Cleanup uploaded file on error
+    if (file?.path) await fs.remove(file.path).catch(console.error);
+    console.error("Translation error:", err);
+    res.status(500).json({ error: "Translation failed", message: err.message });
   }
 });
 
@@ -840,6 +849,20 @@ app.get('/test-file-access', async (req, res) => {
   res.json(results);
 });
 
+
+app.use(cookieParser());
+
+
+
+
+
+
+// routes
+app.use('/auth', authRoutes);
+
+
+
+
 // ----------------------------
 // Development/Debug Routes
 // ----------------------------
@@ -917,6 +940,8 @@ app.use((req, res) => {
       "GET /api/grades",
       "GET /api/content",
       "POST /api/content",
+      "GET /api/glossary",
+      "POST /api/glossary",
       "GET /api/past-papers",
       "POST /api/past-papers",
       "GET /api/past-papers/:id/download",
@@ -926,7 +951,11 @@ app.use((req, res) => {
       "GET /api/migrate/status",
       "POST /api/migrate/past-papers",
       "POST /api/migrate/content",
-      "GET /api/debug/stats"
+      "GET /api/debug/stats",
+      "POST /auth/login",
+      "POST /auth/register"
+
+
     ]
   });
 });

@@ -1,8 +1,12 @@
 import express from "express";
 import path from "path";
 import { promises as fsPromises } from "fs";
+import { fileURLToPath } from 'url';
+
 
 const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Helper function to validate allowed characters (basic example)
 const isValidName = (str: string) => /^[a-zA-Z0-9-_]+$/.test(str);
@@ -54,5 +58,50 @@ router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
     res.status(500).json({ error: "Failed to read topic file" });
   }
 });
+
+router.post("/upload", async (req, res) => {
+  const { subject, grade, title, id, terms } = req.body;
+
+  if (![subject, grade, title, id].every((s) => typeof s === "string" && s.trim())) {
+    return res.status(400).json({ error: "Invalid request body" });
+  }
+
+  try {
+    const dirPath = path.join(__dirname, "..", "glossary", subject, `grade${grade}`);
+    await fsPromises.mkdir(dirPath, { recursive: true });
+
+    const filePath = path.join(dirPath, `${id}.json`);
+
+    // Read existing file or create default structure
+    let existingData: any = {
+      subject,
+      grade,
+      title,
+      id,
+      terms: []
+    };
+
+    if (await fsPromises.access(filePath).then(() => true).catch(() => false)) {
+      const content = await fsPromises.readFile(filePath, "utf-8");
+      existingData = JSON.parse(content);
+    }
+
+    // Append new terms
+    if (!Array.isArray(existingData.terms)) {
+      existingData.terms = [];
+    }
+    existingData.terms.push(...terms); // append new terms array
+
+    await fsPromises.writeFile(filePath, JSON.stringify(existingData, null, 2));
+
+    res.json({ message: "Glossary terms appended", filePath });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to save glossary item" });
+  }
+});
+
+
+
 
 export default router;
