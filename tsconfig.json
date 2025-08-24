@@ -11,6 +11,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
+     "rootDir": ".",
     
     // React / JSX support
     "jsx": "react-jsx",
@@ -22,7 +23,6 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
      "outDir": "./dist",
-         "rootDir": "./src",
 
     // Output files
     "sourceMap": true,

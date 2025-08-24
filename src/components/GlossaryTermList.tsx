@@ -111,13 +111,14 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
             </button>
 
             {isTranslated && (
-              <details className="translation">
-                <summary>🗣️ View Translation</summary>
-                <p><strong>Definition:</strong> {translatedTerms[idx].definition}</p>
-                <p><strong>Context:</strong> {translatedTerms[idx].context}</p>
-                <p><strong>Example:</strong> {translatedTerms[idx].example}</p>
-              </details>
-            )}
+  <details className="translation">
+    <summary>🗣️ View Translation</summary>
+    <p><strong>Definition:</strong> {translatedTerms[idx]?.definition ?? ""}</p>
+    <p><strong>Context:</strong> {translatedTerms[idx]?.context ?? ""}</p>
+    <p><strong>Example:</strong> {translatedTerms[idx]?.example ?? ""}</p>
+  </details>
+)}
+
           </div>
         );
       })}

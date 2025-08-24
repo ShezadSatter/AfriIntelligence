@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './pages/index.css'
-import App from './App.tsx'
+import App from './App'
 import './styles/styles.css';
 import './styles/responsive.module.css';
 
