@@ -1,5 +1,5 @@
-import React, { createContext, useState, ReactNode } from "react";
-
+import React, { createContext, useState} from "react";
+import type { ReactNode } from "react";
 export type UserRole = "teacher" | "student";
 
 export interface UserContextType {
