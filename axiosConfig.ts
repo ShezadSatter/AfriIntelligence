@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000", // adjust for production
+baseURL: import.meta.env.VITE_API_BASE_URL, // uses env variable
+  withCredentials: true,
 });
 
 // Add token to Authorization header
