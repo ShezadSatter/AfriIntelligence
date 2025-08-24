@@ -21,7 +21,9 @@
     "exactOptionalPropertyTypes": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
-    
+     "outDir": "./dist",
+         "rootDir": "./src",
+
     // Output files
     "sourceMap": true,
     "declaration": true,
