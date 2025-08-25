@@ -17,7 +17,8 @@ const TranslateDocument: React.FC = () => {
 
   useEffect(() => {
     const form = formRef.current;
-    if (!form) return;
+if (!form) return;
+
 
     const handleSubmit = async (e: Event) => {
       e.preventDefault();
@@ -27,7 +28,7 @@ const TranslateDocument: React.FC = () => {
         overlayRef.current.style.display = "block";
       }
 
-      const formData = new FormData(form);
+const formData = new FormData(form as HTMLFormElement);
 
       try {
         const res = await fetch(
@@ -68,8 +69,8 @@ const TranslateDocument: React.FC = () => {
       }
     };
 
-    form.addEventListener("submit", handleSubmit);
-    return () => form.removeEventListener("submit", handleSubmit);
+form?.addEventListener("submit", handleSubmit);
+return () => form?.removeEventListener("submit", handleSubmit);
   }, []);
 
   return (

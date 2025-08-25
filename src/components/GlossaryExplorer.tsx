@@ -75,7 +75,7 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   // Load topic list when grade changes
   useEffect(() => {
     if (!indexData || !selectedSubject || !selectedGrade) return;
-    const gradeTopics = indexData[selectedSubject][selectedGrade] || [];
+const gradeTopics = indexData?.[selectedSubject]?.[selectedGrade] || [];
     setTopics(gradeTopics);
     if (!initialTopic) setSelectedTopic("");
     setTerms([]);
