@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import { promises as fsPromises } from "fs";
 import { fileURLToPath } from 'url';
-
+import Content from "../models/content.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -60,47 +60,33 @@ router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
 });
 
 router.post("/upload", async (req, res) => {
-  const { subject, grade, title, id, terms } = req.body;
+  const { grade, subject, terms, title, definition } = req.body;
 
-  if (![subject, grade, title, id].every((s) => typeof s === "string" && s.trim())) {
-    return res.status(400).json({ error: "Invalid request body" });
+  if (!grade || !subject || !terms || !definition) {
+    return res.status(400).json({ error: "Grade, subject, terms, and definition are required" });
   }
 
   try {
-    const dirPath = path.join(__dirname, "..", "glossary", subject, `grade${grade}`);
-    await fsPromises.mkdir(dirPath, { recursive: true });
-
-    const filePath = path.join(dirPath, `${id}.json`);
-
-    // Read existing file or create default structure
-    let existingData: any = {
+    const contentDoc = new Content({
       subject,
       grade,
-      title,
-      id,
-      terms: []
-    };
+      term: terms.trim(),
+      definition: definition.trim(),
+      context: title ? title.trim() : "",
+    });
 
-    if (await fsPromises.access(filePath).then(() => true).catch(() => false)) {
-      const content = await fsPromises.readFile(filePath, "utf-8");
-      existingData = JSON.parse(content);
-    }
+    const savedContent = await contentDoc.save();
 
-    // Append new terms
-    if (!Array.isArray(existingData.terms)) {
-      existingData.terms = [];
-    }
-    existingData.terms.push(...terms); // append new terms array
+    res.json({
+      message: "Term uploaded successfully",
+      content: savedContent
+    });
 
-    await fsPromises.writeFile(filePath, JSON.stringify(existingData, null, 2));
-
-    res.json({ message: "Glossary terms appended", filePath });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save glossary item" });
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Failed to save term to database" });
   }
 });
-
 
 
 
