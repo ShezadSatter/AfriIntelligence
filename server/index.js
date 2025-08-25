@@ -32,7 +32,7 @@ let dbModels, dbServices;
 try {
   const dbInit = await initDB();
   dbModels = dbInit.models;
-//  dbServices = dbInit.services;
+  dbServices = dbInit.services;
   console.log("✅ Database initialized successfully");
 } catch (error) {
   console.error("❌ Database initialization failed:", error);
