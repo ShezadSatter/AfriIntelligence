@@ -60,17 +60,34 @@ router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
 });
 
 router.post("/upload", async (req, res) => {
-  const { subject, grade, title, id, terms } = req.body;
-
-  if (![subject, grade, title, id].every((s) => typeof s === "string" && s.trim())) {
-    return res.status(400).json({ error: "Invalid request body" });
-  }
-
   try {
-    const dirPath = path.join(__dirname, "..", "glossary", subject, `grade${grade}`);
-    await fsPromises.mkdir(dirPath, { recursive: true });
-
-    const filePath = path.join(dirPath, `${id}.json`);
+    const { subjectId, gradeId, term, definition, example, context, category } = req.body;
+    
+    if (!subjectId || !gradeId || !term || !definition) {
+      return res.status(400).json({ error: "Missing required fields: subjectId, gradeId, term, definition" });
+    }
+    
+    const content = await dbServices.createContent({
+      subjectId,
+      gradeId,
+      term,
+      definition,
+      example,
+      context,
+      category,
+      uploadedBy: req.user?._id // Add user auth later
+    });
+    
+    await content.populate('subject grade');
+    res.status(201).json(content);
+  } catch (error) {
+    console.error("Error creating content:", error);
+    if (error.code === 11000) {
+      res.status(409).json({ error: "Content with this term already exists for this subject and grade" });
+    } else {
+      res.status(500).json({ error: "Failed to create content" });
+    }
+  }
 
     // Read existing file or create default structure
     let existingData: any = {
