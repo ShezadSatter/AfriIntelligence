@@ -1,6 +1,7 @@
 // db.js - Consolidated Database Configuration
 import mongoose from "mongoose";
-import .env from server;
+import dotenv from "dotenv";
+dotenv.config();
 
 // ----------------------------
 // Connection Helper
@@ -637,3 +638,4 @@ export async function initDB() {
   return { connection: conn, models, services };
 
 }
+
