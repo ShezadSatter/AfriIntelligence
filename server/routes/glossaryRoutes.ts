@@ -8,6 +8,20 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Import our database
+import { initDB, models, services } from "./../db";
+// Initialize database
+let dbModels, dbServices;
+try {
+  const dbInit = await initDB();
+  dbModels = dbInit.models;
+  dbServices = dbInit.services;
+  console.log("✅ Database initialized successfully");
+} catch (error) {
+  console.error("❌ Database initialization failed:", error);
+  process.exit(1);
+}
+
 // Helper function to validate allowed characters (basic example)
 const isValidName = (str: string) => /^[a-zA-Z0-9-_]+$/.test(str);
 
@@ -89,33 +103,7 @@ router.post("/upload", async (req, res) => {
     }
   }
 
-    // Read existing file or create default structure
-    let existingData: any = {
-      subject,
-      grade,
-      title,
-      id,
-      terms: []
-    };
-
-    if (await fsPromises.access(filePath).then(() => true).catch(() => false)) {
-      const content = await fsPromises.readFile(filePath, "utf-8");
-      existingData = JSON.parse(content);
-    }
-
-    // Append new terms
-    if (!Array.isArray(existingData.terms)) {
-      existingData.terms = [];
-    }
-    existingData.terms.push(...terms); // append new terms array
-
-    await fsPromises.writeFile(filePath, JSON.stringify(existingData, null, 2));
-
-    res.json({ message: "Glossary terms appended", filePath });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save glossary item" });
-  }
+   
 });
 
 
