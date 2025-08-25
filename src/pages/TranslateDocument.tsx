@@ -15,63 +15,61 @@ const TranslateDocument: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const form = formRef.current;
-if (!form) return;
+useEffect(() => {
+  const form = formRef.current;
+  if (!form) return; // ✅ Guard
 
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    setLoading(true);
 
-    const handleSubmit = async (e: Event) => {
-      e.preventDefault();
-      setLoading(true);
+    if (overlayRef.current) {
+      overlayRef.current.style.display = "block"; // ✅ Safe
+    }
 
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/translate-file`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "translated.docx";
+        a.click();
+        URL.revokeObjectURL(url);
+
+        if (statusRef.current) {
+          statusRef.current.textContent = "Translation complete!";
+          statusRef.current.style.color = "#236738";
+          statusRef.current.style.display = "block";
+        }
+      } else {
+        alert("Translation failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Translation error:", err);
+      alert("Something went wrong. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
       if (overlayRef.current) {
-        overlayRef.current.style.display = "block";
+        overlayRef.current.style.display = "none";
       }
+    }
+  };
 
-const formData = new FormData(form as HTMLFormElement);
+  form.addEventListener("submit", handleSubmit);
+  return () => form.removeEventListener("submit", handleSubmit);
+}, []);
 
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/translate-file`,
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (res.ok) {
-          const blob = await res.blob();
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "translated.docx";
-          a.click();
-          URL.revokeObjectURL(url);
-
-          if (statusRef.current) {
-            statusRef.current.textContent = "Translation complete!";
-            statusRef.current.style.color = "#236738";
-            statusRef.current.style.display = "block";
-          }
-        } else {
-          alert("Translation failed. Please try again.");
-        }
-      } catch (err) {
-        console.error("Translation error:", err);
-        alert(
-          "Something went wrong. Please check your connection and try again."
-        );
-      } finally {
-        setLoading(false);
-        if (overlayRef.current) {
-          overlayRef.current.style.display = "none";
-        }
-      }
-    };
-
-form?.addEventListener("submit", handleSubmit);
-return () => form?.removeEventListener("submit", handleSubmit);
-  }, []);
 
   return (
     <div className="container">
