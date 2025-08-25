@@ -9,11 +9,14 @@ const TranslateDocument: React.FC = () => {
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFileName(e.target.files[0].name);
-    }
-  };
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+  if (files && files.length > 0) {
+    setFileName(files[0].name);
+  } else {
+    setFileName("");
+  }
+};
 
 useEffect(() => {
   const form = formRef.current;
