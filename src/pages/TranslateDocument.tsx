@@ -12,7 +12,7 @@ const TranslateDocument: React.FC = () => {
 const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const files = e.target.files;
   if (files && files.length > 0) {
-    setFileName(files[0].name);
+    setFileName(files[0]!.name); // Non-null assertion
   } else {
     setFileName("");
   }
