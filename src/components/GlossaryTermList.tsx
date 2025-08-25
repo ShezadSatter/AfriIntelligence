@@ -22,9 +22,9 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
   const [selectedLanguage, setSelectedLanguage] = useState("af");
   const [translatedTerms, setTranslatedTerms] = useState<{
     [index: number]: {
-      definition: string;
-      context: string;
-      example: string;
+      definition?: string;
+      context?: string;
+      example?: string;
     };
   }>({});
   const [loadingIndexes, setLoadingIndexes] = useState<Set<number>>(new Set());
