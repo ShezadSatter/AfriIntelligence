@@ -48,9 +48,9 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
       setTranslatedTerms((prev) => ({
         ...prev,
         [index]: {
-          definition: translatedDefinition,
-          context: translatedContext,
-          example: translatedExample,
+          definition: translatedDefinition as string,
+          context: translatedContext as string,
+          example: translatedExample as string,
         },
       }));
     } catch (err) {
