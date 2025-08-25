@@ -29,15 +29,7 @@ const PORT = process.env.PORT || 3000;
 
 // Initialize database
 let dbModels, dbServices;
-try {
-  const dbInit = await initDB();
-  dbModels = dbInit.models;
-  dbServices = dbInit.services;
-  console.log("✅ Database initialized successfully");
-} catch (error) {
-  console.error("❌ Database initialization failed:", error);
-  process.exit(1);
-}
+
 
 
 
@@ -992,23 +984,16 @@ app.use((error, req, res, next) => {
 // Start server
 async function startServer() {
   try {
-    // Initialize DB
+    // Initialize DB once
     const dbInit = await initDB();
     dbModels = dbInit.models;
     dbServices = dbInit.services;
     console.log("✅ Database initialized successfully");
 
-    // Start server
-    const server = app.listen(PORT, () => {
-      console.log(`🚀 AfriIntelligence API server running on port ${PORT}`);
-      console.log(`📊 Environment: ${process.env.NODE_ENV || "development"}`);
-      console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
-      console.log(`🔗 Migration status: http://localhost:${PORT}/api/migrate/status`);
+    // Start Express
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
     });
-
-    // Graceful shutdown
-    process.on("SIGTERM", () => server.close(() => process.exit(0)));
-    process.on("SIGINT", () => server.close(() => process.exit(0)));
   } catch (error) {
     console.error("❌ Failed to start server:", error);
     process.exit(1);
