@@ -73,7 +73,7 @@ router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
   }
 });
 
-router.post("/upload", async (req, res) => {
+router.post("/api/content", async (req, res) => {
   try {
     const { subjectId, gradeId, term, definition, example, context, category } = req.body;
     
