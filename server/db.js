@@ -1,5 +1,6 @@
 // db.js - Consolidated Database Configuration
 import mongoose from "mongoose";
+import .env from server;
 
 // ----------------------------
 // Connection Helper
@@ -634,4 +635,5 @@ export async function initDB() {
   const conn = await connectDB(uri);
   await seedBasics();
   return { connection: conn, models, services };
+
 }
