@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import our database
-import { initDB, models, services } from "./../db";
+import { initDB, models, services } from "./../db.js";
 // Initialize database
 let dbModels, dbServices;
 try {
