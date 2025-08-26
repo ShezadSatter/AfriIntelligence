@@ -394,6 +394,8 @@ app.get("/api/languages", async (req, res) => {
 
 // Translate plain text
 app.post('/api/translate', async (req, res) => {
+  console.log(req.body);
+
   const { q, target } = req.body;
 
   if (!q || !target) {

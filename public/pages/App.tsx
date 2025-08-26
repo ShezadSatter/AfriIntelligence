@@ -74,7 +74,7 @@ const App: React.FC = () => {
 
       try {
         const response = await fetch(
-          "https://afri-intelligence.onrender.com/translate",
+          "https://afri-intelligence.onrender.com/api/translate",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
