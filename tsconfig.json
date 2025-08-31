@@ -37,7 +37,7 @@
     "types": [],
     "moduleDetection": "force"
   },
-  "include": ["src"]
+  "include": ["src", "server/express"]
 
 
 }
