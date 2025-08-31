@@ -49,12 +49,6 @@ router.get("/glossary/:subject/index.json", async (req, res) => {
   }
 });
 
-import path from "path";
-import { promises as fsPromises } from "fs";
-import { Router } from "express";
-
-const router = Router();
-
 router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
   const { subject, grade, fileName } = req.params;
 
@@ -94,9 +88,6 @@ router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
     res.status(500).json({ error: "Failed to read topic file" });
   }
 });
-
-export default router;
-
 
 router.post("/api/content", async (req, res) => {
   try {
