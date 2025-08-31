@@ -11,7 +11,7 @@ import translate from "@iamtraction/google-translate";
 import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 import glossaryRoutes from "./routes/glossaryRoutes.ts";
-
+import pdfParse from "pdf-parse";
 
 
 // Import our database
@@ -66,8 +66,8 @@ app.use(cors({
 }));
 
 // Multer setup for file uploads
-const upload = multer({ 
-  dest: 'uploads/',
+const upload = multer({ dest: path.join(process.cwd(), "uploads")
+,
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB limit
   },
@@ -418,41 +418,52 @@ app.post('/api/translate', async (req, res) => {
 });
 
 
+
+// Translate uploaded document (PDF or DOCX)
+
 app.post("/api/translate-file", upload.single("file"), async (req, res) => {
-   const pdfParse = (await import("pdf-parse")).default; 
   const file = req.file;
   const targetLang = req.body.target;
 
   if (!file) return res.status(400).json({ error: "No file uploaded" });
-  if (!targetLang) return res.status(400).json({ error: "No target language specified" });
+  if (!targetLang) {
+    await fs.remove(file.path).catch(() => {});
+    return res.status(400).json({ error: "No target language specified" });
+  }
+
+  console.log("Received file:", file.originalname, "->", file.path);
 
   try {
     let text = "";
 
-    // PDF
+    // Handle PDF
     if (file.mimetype === "application/pdf") {
-      try {
-        const dataBuffer = await fs.readFile(file.path);
-        const pdfData = await pdfParse(dataBuffer);
-        text = pdfData.text;
-      } catch (err) {
-        throw new Error("Failed to read PDF file. Is it valid?");
-      }
-      console.log(pdfData.text);
+      const dataBuffer = await fs.readFile(file.path);
+      const pdfData = await pdfParse({ data: dataBuffer });
+      text = pdfData.text;
     }
-    // DOCX
-    else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+
+    // Handle DOCX
+    else if (
+      file.mimetype ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
       const mammoth = await import("mammoth");
       const result = await mammoth.extractRawText({ path: file.path });
       text = result.value;
     }
 
-    if (!text.trim()) {
-      throw new Error("No text found in the uploaded file");
+    else {
+      throw new Error("Unsupported file type");
     }
 
-    // Translate
-    const { text: translatedText } = await translate(text, { to: targetLang });
+    if (!text.trim()) {
+      throw new Error("No text found in uploaded file");
+    }
+
+    // Translate text
+    const translatedResult = await translate(text, { to: targetLang });
+    const translatedText = translatedResult.text;
 
     // Create DOCX
     const doc = new Document({
@@ -466,25 +477,37 @@ app.post("/api/translate-file", upload.single("file"), async (req, res) => {
       ],
     });
 
+    // Save translated DOCX temporarily
+    await fs.ensureDir(path.join(__dirname, "uploads"));
+    const outputPath = path.join(
+      __dirname,
+      "uploads",
+      `translated_${Date.now()}.docx`
+    );
     const buffer = await Packer.toBuffer(doc);
-    const outputPath = path.join("uploads", `translated_${Date.now()}.docx`);
     await fs.writeFile(outputPath, buffer);
 
-    // Send the file
-    res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
-      // Clean up
-      await fs.remove(file.path).catch(console.error);
-      await fs.remove(outputPath).catch(console.error);
-      if (err) console.error("Download error:", err);
-    });
-
+    // Send file back to client
+    res.download(
+      outputPath,
+      `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`,
+      async (err) => {
+        // Always clean up uploaded and generated files
+        await fs.remove(file.path).catch(() => {});
+        await fs.remove(outputPath).catch(() => {});
+        if (err) console.error("Download error:", err);
+      }
+    );
   } catch (err) {
-    // Cleanup uploaded file on error
-    if (file?.path) await fs.remove(file.path).catch(console.error);
     console.error("Translation error:", err);
-    res.status(500).json({ error: "Translation failed", message: err.message });
+    if (file?.path) await fs.remove(file.path).catch(() => {});
+    res.status(500).json({
+      error: "Translation failed",
+      message: err.message,
+    });
   }
 });
+
 
 // ----------------------------
 // Data Migration Routes

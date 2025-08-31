@@ -106,7 +106,7 @@ const TextToSpeech: React.FC = () => {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/translate`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/translate`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

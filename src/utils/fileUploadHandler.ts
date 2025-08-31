@@ -13,7 +13,7 @@ export function initFileUpload() {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/translate-file`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/translate-file`, {
         method: "POST",
         body: formData,
       });
