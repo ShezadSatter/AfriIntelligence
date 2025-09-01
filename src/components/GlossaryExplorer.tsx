@@ -18,16 +18,29 @@ interface TermContent {
   category?: string;
 }
 
-const GlossaryExplorer: React.FC = () => {
+interface GlossaryExplorerProps {
+  initialSubject?: string;
+  initialGrade?: string;
+  initialTopic?: string;
+}
+
+const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
+  initialSubject = "",
+  initialGrade = "",
+  initialTopic = "",
+}) => {
+
+
+
   const [subjects, setSubjects] = useState<{ id: string; name: string; slug: string }[]>([]);
   const [grades, setGrades] = useState<{ id: string; level: number; description?: string }[]>([]);
   const [topics, setTopics] = useState<Topic[]>([]);
 // Change from a single TermContent to an array
 const [terms, setTerms] = useState<TermContent[]>([]);
 
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedGrade, setSelectedGrade] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState(initialSubject);
+  const [selectedGrade, setSelectedGrade] = useState(initialGrade);
+  const [selectedTopic, setSelectedTopic] = useState(initialTopic);
 
   const navigate = useNavigate();
 
