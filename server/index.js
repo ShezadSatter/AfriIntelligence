@@ -12,8 +12,6 @@ import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 import glossaryRoutes from "./routes/glossaryRoutes.ts";
 import pdfParse from "pdf-parse";
-
-
 // Import our database
 import { initDB, models, services } from "./db.js";
 
@@ -129,8 +127,8 @@ app.get("/api/health", async (req, res) => {
 // ----------------------------
 // API Routes - Subjects & Grades
 // ----------------------------
-
-// Get all subjects
+app.use("/api", glossaryRoutes);
+/* // Get all subjects
 app.get("/api/subjects", async (req, res) => {
   try {
     const subjects = await dbServices.getSubjects();
@@ -151,7 +149,7 @@ app.get("/api/grades", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch grades" });
   }
 });
-
+ */
 // ----------------------------
 // API Routes - Content (Glossary)
 // ----------------------------
@@ -528,7 +526,7 @@ app.get("/api/migrate/status", async (req, res) => {
     const jsonFiles = {
       pastPapersJson: await fs.pathExists(path.join(__dirname, 'pastPapers.json')),
       indexJson: await fs.pathExists(path.join(__dirname, 'index.json')),
-      glossaryDir: await fs.pathExists(path.join(__dirname, 'data/glossary')),
+      glossaryDir: await fs.pathExists(path.join(__dirname, 'glossary')),
       pdfsDir: await fs.pathExists(path.join(__dirname, 'data/pdfs')),
     };
     
@@ -679,7 +677,7 @@ app.post("/api/migrate/past-papers", async (req, res) => {
 // Migrate content/glossary from JSON files
 app.post("/api/migrate/content", async (req, res) => {
   try {
-    const glossaryPath = path.join(__dirname, 'data/glossary');
+    const glossaryPath = path.join(__dirname, 'glossary');
     
     if (!await fs.pathExists(glossaryPath)) {
       return res.status(404).json({ 
@@ -693,7 +691,7 @@ app.post("/api/migrate/content", async (req, res) => {
     let errors = [];
     
     // Read index.json to get subjects
-    const indexPath = path.join(__dirname, 'index.json');
+    const indexPath = path.join(__dirname, 'glossary/index.json');
     if (!await fs.pathExists(indexPath)) {
       return res.status(404).json({ 
         error: "index.json not found",

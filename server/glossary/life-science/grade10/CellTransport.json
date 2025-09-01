@@ -1,9 +1,9 @@
 {
   "grade": "10",
   "subject": "Life Science",
-  "id": "CellStructure",
-  "title": "Cell Structure",
-  "description": "Key terms related to cell structure in Life Sciences.",
+  "id": "CellTransport",
+  "title": "Cell Transport",
+  "description": "Key terms related to cell Transport in Life Sciences.",
   "terms": [
     {
       "term": "Diffusion",

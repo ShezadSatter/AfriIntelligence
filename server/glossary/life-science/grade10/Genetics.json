@@ -1,9 +1,9 @@
 {
   "grade": "10",
   "subject": "Life Science",
-  "id": "CellStructure",
-  "title": "Cell Structure",
-  "description": "Key terms related to cell structure in Life Sciences.",
+  "id": "CellGenetics",
+  "title": "Cell Genetics",
+  "description": "Key terms related to cell Genetics in Life Sciences.",
   "terms": [
     {
       "term": "Gene",

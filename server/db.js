@@ -1,6 +1,10 @@
 // db.js - Consolidated Database Configuration
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
+import { promises as fs } from "fs";
+
+
 dotenv.config();
 
 // ----------------------------
@@ -148,45 +152,10 @@ const gradeSchema = new mongoose.Schema(
 // ----------------------------
 // Content Schema (Glossary/Definitions)
 // ----------------------------
-const contentSchema = new mongoose.Schema(
-  {
-    subject: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "Subject", 
-      required: true 
-    },
-    grade: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "Grade", 
-      required: true 
-    },
-    term: requiredString, // The vocabulary term
-    definition: requiredString, // Definition of the term
-    example: optionalString, // Example usage
-    context: optionalString, // Additional context
-    category: optionalString, // e.g., "algebra", "geometry" for math
-    
-    // Language support
-    languageCode: { 
-      type: String, 
-      trim: true, 
-      default: 'en' 
-    }, // e.g., 'en', 'zu', 'nso'
-    
-    // Metadata
-    uploadedBy: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "User" 
-    }, // teacher who uploaded
-    isActive: { type: Boolean, default: true },
-    viewCount: { type: Number, default: 0 },
-  },
-  ts
-);
 
-contentSchema.index({ subject: 1, grade: 1, term: 1 });
-contentSchema.index({ term: "text", definition: "text" }); // Text search
-contentSchema.index({ subject: 1, grade: 1 });
+
+
+
 
 // ----------------------------
 // DocumentFile Schema (File references)
@@ -380,7 +349,6 @@ export const models = {
   User: mongoose.models.User || mongoose.model("User", userSchema),
   Subject: mongoose.models.Subject || mongoose.model("Subject", subjectSchema),
   Grade: mongoose.models.Grade || mongoose.model("Grade", gradeSchema),
-  Content: mongoose.models.Content || mongoose.model("Content", contentSchema),
   DocumentFile: mongoose.models.DocumentFile || mongoose.model("DocumentFile", documentFileSchema),
   PastPaper: mongoose.models.PastPaper || mongoose.model("PastPaper", pastPaperSchema),
   Language: mongoose.models.Language || mongoose.model("Language", languageSchema),
@@ -393,61 +361,81 @@ export const models = {
 export async function seedBasics() {
   const { Subject, Grade, Language } = models;
 
-  // Seed subjects
-  const subjects = [
-    { name: "Mathematics", code: "MATH", slug: "mathematics" },
-    { name: "Economics", code: "ECON", slug: "economics" },
-    { name: "Life Sciences", code: "LIFE", slug: "life-science" },
-    { name: "Mathematical Literacy", code: "MATLIT", slug: "mathematical-literacy" }
-  ];
-
-  // Seed grades
-  const grades = [10, 11, 12];
-
-  // Seed languages
-  const languages = [
-    { name: "English", code: "en" },
-    { name: "Zulu", code: "zu" },
-    { name: "Sepedi", code: "nso" },
-    { name: "Tsonga", code: "ts" },
-    { name: "Tshivenda", code: "ve" },
-    { name: "Afrikaans", code: "af" },
-  ];
-
   try {
-    // Seed subjects
-    for (const subject of subjects) {
+    const glossaryDir = path.join(process.cwd(), "glossary");
+    const dirents = await fs.readdir(glossaryDir, { withFileTypes: true });
+    const subjectDirs = dirents.filter(d => d.isDirectory());
+
+    // ----------------------------
+    // 1️⃣ Seed subjects dynamically
+    // ----------------------------
+    for (const dirent of subjectDirs) {
+      const slug = dirent.name.toLowerCase();
+      const name = slug.charAt(0).toUpperCase() + slug.slice(1);
+      const code = slug.slice(0, 4).toUpperCase();
+
       await Subject.findOneAndUpdate(
-        { name: subject.name },
-        { $setOnInsert: subject },
+        { slug },
+        { $setOnInsert: { name, code, slug } },
         { upsert: true, new: true }
       );
     }
+    console.log("✅ Subjects seeded dynamically");
 
-    // Seed grades
-    for (const level of grades) {
-      await Grade.findOneAndUpdate(
-        { level },
-        { $setOnInsert: { level, description: `Grade ${level}` } },
-        { upsert: true, new: true }
-      );
+    // ----------------------------
+    // 2️⃣ Seed grades dynamically
+    // ----------------------------
+    const gradesSet = new Set();
+    for (const dirent of subjectDirs) {
+      const indexFile = path.join(glossaryDir, dirent.name, "index.json");
+      try {
+        await fs.access(indexFile); // check if exists
+        const data = JSON.parse(await fs.readFile(indexFile, "utf-8"));
+        Object.keys(data).forEach(grade => gradesSet.add(grade));
+      } catch {
+        // skip if file does not exist or cannot read
+      }
     }
 
-    // Seed languages
-    for (const language of languages) {
+    for (const gradeStr of gradesSet) {
+      const level = parseInt(gradeStr.replace("grade", ""), 10);
+      if (!isNaN(level)) {
+        await Grade.findOneAndUpdate(
+          { level },
+          { $setOnInsert: { level, description: `Grade ${level}` } },
+          { upsert: true, new: true }
+        );
+      }
+    }
+    console.log("✅ Grades seeded dynamically");
+
+    // ----------------------------
+    // 3️⃣ Seed languages
+    // ----------------------------
+    const languages = [
+      { name: "English", code: "en" },
+      { name: "Zulu", code: "zu" },
+      { name: "Sepedi", code: "nso" },
+      { name: "Tsonga", code: "ts" },
+      { name: "Tshivenda", code: "ve" },
+      { name: "Afrikaans", code: "af" },
+    ];
+
+    for (const lang of languages) {
       await Language.findOneAndUpdate(
-        { code: language.code },
-        { $setOnInsert: language },
+        { code: lang.code },
+        { $setOnInsert: lang },
         { upsert: true, new: true }
       );
     }
+    console.log("✅ Languages seeded");
 
-    console.log("✅ Basic data seeded successfully");
   } catch (error) {
-    console.error("❌ Error seeding basic data:", error);
+    console.error("❌ Error dynamically seeding basic data:", error);
     throw error;
   }
 }
+
 
 // ----------------------------
 // Database Services

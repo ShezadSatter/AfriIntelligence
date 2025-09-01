@@ -12,7 +12,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
      "rootDir": ".",
-      "typeRoots": ["./node_modules/@types", "./types"],
+      "typeRoots": ["./node_modules/@types", "../types"],
     
     // React / JSX support
     "jsx": "react-jsx",
@@ -37,7 +37,7 @@
     "types": [],
     "moduleDetection": "force"
   },
-  "include": ["src", "types"]
+  "include": ["src", "../types"]
 
 
 }

@@ -1,16 +1,12 @@
 import express from "express";
-import path from "path";
-import { promises as fsPromises } from "fs";
-import { fileURLToPath } from 'url';
-
+import {services, initDB } from "../db.js";
+import Content from "../models/content.js";
+import Subject from "../models/subject.js";
+import Grade from "../models/grade.js";
 
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-// Import our database
-import { initDB, models, services } from "./../db.js";
-// Initialize database
+// Initialize DB
 let dbModels, dbServices;
 try {
   const dbInit = await initDB();
@@ -22,81 +18,117 @@ try {
   process.exit(1);
 }
 
-// Helper function to validate allowed characters (basic example)
+// Helper function to validate allowed characters (basic)
 const isValidName = (str: string) => /^[a-zA-Z0-9-_]+$/.test(str);
 
-router.get("/glossary/:subject/index.json", async (req, res) => {
-  const { subject } = req.params;
-
-  if (!isValidName(subject)) {
-    return res.status(400).json({ error: "Invalid subject name" });
-  }
-
-  const filePath = path.join(__dirname, "..", "glossary", subject, "index.json");
-
+// ----------------------------
+// Get all subjects
+// ----------------------------
+router.get("/subjects", async (req, res) => {
   try {
-    await fsPromises.access(filePath);
-  } catch {
-    return res.status(404).json({ error: "Glossary index not found" });
-  }
-
-  try {
-    const data = await fsPromises.readFile(filePath, "utf-8");
-    res.type("application/json").send(data);
+    const subjects = await dbServices.getSubjects();
+    res.json(subjects);
   } catch (error) {
-    console.error("Failed to read file:", error);
-    res.status(500).json({ error: "Failed to read file" });
+    console.error("Error fetching subjects:", error);
+    res.status(500).json({ error: "Failed to fetch subjects" });
   }
 });
 
-router.get("/glossary/:subject/:grade/:fileName", async (req, res) => {
-  const { subject, grade, fileName } = req.params;
-
-  // ✅ validate params
-  if (![subject, grade, fileName].every(isValidName)) {
-    return res.status(400).json({ error: "Invalid parameters" });
+// ----------------------------
+// Get all grades for a subject
+// ----------------------------
+router.get("/grades/:subjectSlug", async (req, res) => {
+  try {
+    const grades = await dbServices.getGrades();
+    res.json(grades.map(g => ({ id: g._id, level: g.level, description: g.description })));
+  } catch (err) {
+    console.error(`💥 Failed to load grades:`, err);
+    res.status(500).json({ error: "Failed to load grades" });
   }
+});
 
-  const filePath = path.join(
-    __dirname,
-    "..",
-    "glossary",
-    subject,
-    grade,
-    fileName
-  );
+
+// ----------------------------
+// Get topics for a subject + grade
+// ----------------------------
+router.get("/topics/:subjectSlug/:gradeLevel", async (req, res) => {
+  const { subjectSlug, gradeLevel } = req.params;
+ console.log("Requested topics:", subjectSlug, gradeLevel);
+  try {
+    const subject = await Subject.findOne({ slug: subjectSlug });
+    if (!subject) return res.status(404).json({ error: "Subject not found" });
+
+    const grade = await Grade.findOne({ level: parseInt(gradeLevel) });
+    if (!grade) return res.status(404).json({ error: "Grade not found" });
+
+    const topics = await Content.find({ subject: subject._id, grade: grade._id }, "id title")
+      .sort({ term: 1 })
+      .select("id title")
+      .lean();
+
+    const topicList = topics.map(t => ({
+      id: t.id,
+      title: t.title,
+      term: t.term,
+      category: t.category,
+      context: t.context,
+      example: t.example,
+    }));
+
+    res.json(topicList);
+  } catch (err) {
+    console.error(`💥 Failed to load topics for ${subjectSlug} grade ${gradeLevel}:`, err);
+    res.status(500).json({ error: "Failed to load topics" });
+  }
+});
+
+// ----------------------------
+// Get content for a topic by ID
+// ----------------------------
+router.get("/terms/:subjectSlug/:gradeLevel/:topicId", async (req, res) => {
+  const { subjectSlug, gradeLevel, topicId } = req.params;
 
   try {
-    // ✅ check file existence + read in one go
-    const data = await fsPromises.readFile(filePath, "utf-8");
+    const subject = await Subject.findOne({ slug: subjectSlug });
+    if (!subject) return res.status(404).json({ error: "Subject not found" });
 
-    res.type("application/json").send(data);
-  } catch (error: any) {
-    if (error.code === "ENOENT") {
-      // file not found
-      console.warn(
-        `Glossary file not found: ${filePath} (subject=${subject}, grade=${grade}, file=${fileName})`
-      );
-      return res.status(404).json({ error: "Topic file not found" });
-    }
+    const grade = await Grade.findOne({ level: parseInt(gradeLevel) });
+    if (!grade) return res.status(404).json({ error: "Grade not found" });
 
-    // unexpected error
-    console.error(
-      `Error reading glossary file: ${filePath}`,
-      error
-    );
-    res.status(500).json({ error: "Failed to read topic file" });
+    // Use findOne instead of find
+    const contents = await Content.find({
+      id: topicId,
+      subject: subject._id,
+      grade: grade._id,
+    }).lean();
+
+if (!contents || contents.length === 0) {
+  return res.status(404).json({ error: "Topic not found" });
+}
+
+const content = contents[0];
+    // content.terms is now accessible
+    res.json(content.terms || []);
+
+  } catch (err) {
+    console.error(`💥 Failed to load content for topic ${topicId}:`, err);
+    res.status(500).json({ error: "Failed to load topic content" });
   }
 });
 
-router.post("/api/content", async (req, res) => {
+
+
+// ----------------------------
+// Add new content
+// ----------------------------
+router.post("/content", async (req, res) => {
   try {
     const { subjectId, gradeId, term, definition, example, context, category } = req.body;
-    
+
     if (!subjectId || !gradeId || !term || !definition) {
       return res.status(400).json({ error: "Missing required fields: subjectId, gradeId, term, definition" });
     }
-    
+
     const content = await dbServices.createContent({
       subjectId,
       gradeId,
@@ -105,24 +137,19 @@ router.post("/api/content", async (req, res) => {
       example,
       context,
       category,
-      uploadedBy: req.user?._id // Add user auth later
+      uploadedBy: req.user?._id, // optional for auth
     });
-    
-    await content.populate('subject grade');
+
+    await content.populate("subject grade");
     res.status(201).json(content);
-  } catch (error) {
-    console.error("Error creating content:", error);
-    if (error.code === 11000) {
+  } catch (err: any) {
+    console.error("💥 Error creating content:", err);
+    if (err.code === 11000) {
       res.status(409).json({ error: "Content with this term already exists for this subject and grade" });
     } else {
       res.status(500).json({ error: "Failed to create content" });
     }
   }
-
-   
 });
-
-
-
 
 export default router;
