@@ -437,7 +437,7 @@ app.post("/api/translate-file", upload.single("file"), async (req, res) => {
     // Handle PDF
     if (file.mimetype === "application/pdf") {
       const dataBuffer = await fs.readFile(file.path);
-      const pdfData = await pdfParse({ dataBuffer });
+      const pdfData = await pdfParse({ data: dataBuffer });
       text = pdfData.text;
     }
 
