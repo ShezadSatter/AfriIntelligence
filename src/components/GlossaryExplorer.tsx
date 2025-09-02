@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import GlossaryTermList from "../components/GlossaryTermList";
 import "../pages/glossary.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 interface Topic {
   id: string;          // JSON file identifier
   title: string;       // Human-readable title
@@ -55,7 +57,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
 
   // Load subjects
   useEffect(() => {
-    fetch("/api/subjects")
+    fetch(`${API_BASE}/api/subjects`)
       .then(res => res.json())
       .then(setSubjects)
       .catch(console.error);
@@ -68,7 +70,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
       setSelectedGrade("");
       return;
     }
-    fetch(`/api/grades/${selectedSubject}`)
+    fetch(`${API_BASE}/api/grades/${selectedSubject}`)
       .then(res => res.json())
       .then(setGrades)
       .catch(console.error);
@@ -81,7 +83,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
       setSelectedTopic("");
       return;
     }
-    fetch(`/api/topics/${selectedSubject}/${selectedGrade}`)
+    fetch(`${API_BASE}/api/topics/${selectedSubject}/${selectedGrade}`)
       .then(res => res.json())
       .then(data => setTopics(Array.isArray(data) ? data : []))
       .catch(console.error);
@@ -94,7 +96,7 @@ useEffect(() => {
     return;
   }
 
-  fetch(`/api/terms/${selectedSubject}/${selectedGrade}/${selectedTopic}`)
+  fetch(`${API_BASE}/api/terms/${selectedSubject}/${selectedGrade}/${selectedTopic}`)
     .then(res => res.json())
     .then((data: TermContent[]) => {
       // Ensure data is an array
