@@ -53,19 +53,24 @@ router.get("/grades/:subjectSlug", async (req, res) => {
 // ----------------------------
 router.get("/topics/:subjectSlug/:gradeLevel", async (req, res) => {
   const { subjectSlug, gradeLevel } = req.params;
- console.log("Requested topics:", subjectSlug, gradeLevel);
-  try {
+  console.log("👉 Looking up:", subjectSlug, gradeLevel);
+
+    try {
     const subject = await Subject.findOne({ slug: subjectSlug });
+ console.log("👉 Found subject:", subject);
+
     if (!subject) return res.status(404).json({ error: "Subject not found" });
 
     const grade = await Grade.findOne({ level: parseInt(gradeLevel) });
+console.log("👉 Found grade:", grade);
+
     if (!grade) return res.status(404).json({ error: "Grade not found" });
 
     const topics = await Content.find({ subject: subject._id, grade: grade._id }, "id title")
       .sort({ term: 1 })
       .select("id title")
       .lean();
-
+  console.log("👉 Topics found:", topics.length);
     const topicList = topics.map(t => ({
       id: t.id,
       title: t.title,

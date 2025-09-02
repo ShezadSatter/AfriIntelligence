@@ -129,28 +129,7 @@ app.get("/api/health", async (req, res) => {
 // API Routes - Subjects & Grades
 // ----------------------------
 app.use("/api", glossaryRoutes);
-/* // Get all subjects
-app.get("/api/subjects", async (req, res) => {
-  try {
-    const subjects = await dbServices.getSubjects();
-    res.json(subjects);
-  } catch (error) {
-    console.error("Error fetching subjects:", error);
-    res.status(500).json({ error: "Failed to fetch subjects" });
-  }
-});
 
-// Get all grades
-app.get("/api/grades", async (req, res) => {
-  try {
-    const grades = await dbServices.getGrades();
-    res.json(grades);
-  } catch (error) {
-    console.error("Error fetching grades:", error);
-    res.status(500).json({ error: "Failed to fetch grades" });
-  }
-});
- */
 // ----------------------------
 // API Routes - Content (Glossary)
 // ----------------------------
