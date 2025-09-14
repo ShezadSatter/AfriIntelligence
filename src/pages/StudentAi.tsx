@@ -1233,10 +1233,15 @@ if (targetIndex !== -1) {
   );
 
   if (currentSession && currentSession.messages.length > 0) {
-    // Ensure subject is defined to satisfy exactOptionalPropertyTypes
+    // Take the first message and ensure all required fields exist
     const firstMessage: Message = {
-      ...currentSession.messages[0],
+      id: currentSession.messages[0].id,
+      role: currentSession.messages[0].role,
+      content: currentSession.messages[0].content,
+      timestamp: currentSession.messages[0].timestamp,
       subject: currentSession.messages[0].subject ?? studyMode,
+      isTruncated: currentSession.messages[0].isTruncated ?? false,
+      finishReason: currentSession.messages[0].finishReason ?? undefined,
     };
     setMessages([firstMessage]);
   } else {
@@ -1248,11 +1253,14 @@ if (targetIndex !== -1) {
           studyMode
         ].toLowerCase()}. What would you like to work on?`,
         timestamp: new Date(),
-        subject: studyMode, // add subject here too
+        subject: studyMode, // required field
+        isTruncated: false,
+        finishReason: undefined,
       },
     ]);
   }
 }}
+
 
                 style={{
                   padding: "0.75rem 1rem",
