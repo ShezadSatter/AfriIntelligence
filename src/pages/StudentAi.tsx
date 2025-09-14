@@ -480,19 +480,22 @@ What would you like to study today?`,
 
       setMessages((prev) => {
         const updated = [...prev];
-        const targetIndex = updated.findIndex((m) => m.id === messageId);
-        if (targetIndex !== -1) {
-          const target = updated[targetIndex];
-          updated[targetIndex] = {
-            id: target.id,
-            role: target.role,
-            timestamp: target.timestamp,
-            subject: target.subject,
-            content: target.content + "\n\n" + continuation,
-            isTruncated: stillTruncated,
-            finishReason,
-          };
-        }
+       const targetIndex = updated.findIndex((m) => m.id === messageId);
+if (targetIndex !== -1) {
+  const target = updated[targetIndex];
+  if (target) {
+    updated[targetIndex] = {
+      id: target.id,
+      role: target.role,
+      timestamp: target.timestamp,
+      content: target.content + "\n\n" + continuation,
+      isTruncated: stillTruncated,
+      finishReason,
+      ...(target.subject ? { subject: target.subject } : {}),
+    };
+  }
+}
+
         return updated;
       });
     } catch (err) {
