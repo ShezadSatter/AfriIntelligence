@@ -6,7 +6,6 @@ import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
 import GlossaryPage from "./pages/GlossaryPage";
 import PastPapersPage from "./pages/PastPapersPage";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -16,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "../context/userContext"; // add .tsx extension for Node ESM
 import "./styles/styles.css";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import StudentAI from "./pages/StudentAi";
 
 import { handleTranslate } from "./utils/handleTranslate";
 import { translatePage } from "./utils/translatePage";
@@ -62,7 +62,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserContextProvider>
-        <Navbar />
+        
 
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
@@ -73,6 +73,7 @@ const App: React.FC = () => {
           <Route path="/translate" element={<TranslateDocument />} />
           <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/past-papers" element={<PastPapersPage />} />
+          <Route path="/afri-ai" element={<StudentAI />} />
             <Route path="/" element={<Home />} />
 
           <Route path="/register" element={<Register />} />
