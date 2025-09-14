@@ -21,7 +21,8 @@ const StudentAI: React.FC = () => {
   const [fontSize, setFontSize] = useState<number>(16);
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [autoScroll] = useState<boolean>(true);
-  const [showPromptSuggestions, setShowPromptSuggestions] = useState<boolean>(true);
+  const [showPromptSuggestions, setShowPromptSuggestions] =
+    useState<boolean>(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -101,8 +102,6 @@ const StudentAI: React.FC = () => {
     ],
   };
 
-
-  
   const scrollToBottom = useCallback(() => {
     if (autoScroll) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -169,7 +168,9 @@ const StudentAI: React.FC = () => {
         const otherModels: string[] = [];
 
         modelIds.forEach((modelId: string) => {
-          const isPreferred = preferredPatterns.some(pattern => pattern.test(modelId));
+          const isPreferred = preferredPatterns.some((pattern) =>
+            pattern.test(modelId)
+          );
           if (isPreferred) {
             preferredModels.push(modelId);
           } else {
@@ -179,24 +180,31 @@ const StudentAI: React.FC = () => {
 
         // Sort preferred models by the order of patterns
         preferredModels.sort((a, b) => {
-          const aIndex = preferredPatterns.findIndex(pattern => pattern.test(a));
-          const bIndex = preferredPatterns.findIndex(pattern => pattern.test(b));
+          const aIndex = preferredPatterns.findIndex((pattern) =>
+            pattern.test(a)
+          );
+          const bIndex = preferredPatterns.findIndex((pattern) =>
+            pattern.test(b)
+          );
           return aIndex - bIndex;
         });
 
         const sortedModels = [...preferredModels, ...otherModels];
         setAvailableModels(sortedModels);
-        
-        if (sortedModels.length > 0) {
-  setSelectedModel(sortedModels[0] ?? "");
-  setStatus(`Select a model to begin. Recommended: ${sortedModels[0]}`);
-} else {
-  setStatus("No models available in WebLLM configuration");
-}
 
+        if (sortedModels.length > 0) {
+          setSelectedModel(sortedModels[0] ?? "");
+          setStatus(`Select a model to begin. Recommended: ${sortedModels[0]}`);
+        } else {
+          setStatus("No models available in WebLLM configuration");
+        }
       } catch (err) {
         console.error("Failed to load models:", err);
-        setStatus(`Error loading models: ${err instanceof Error ? err.message : "Unknown error"}`);
+        setStatus(
+          `Error loading models: ${
+            err instanceof Error ? err.message : "Unknown error"
+          }`
+        );
       }
     };
 
@@ -212,7 +220,7 @@ const StudentAI: React.FC = () => {
       setEngine(null);
       setMessages([]);
       setProgressPercent(0);
-      
+
       console.log(`Loading model: ${modelId}`);
       setStatus(`Initializing ${modelId}...`);
 
@@ -271,7 +279,11 @@ What would you like to study today?`,
       setStatus(`✅ Ready with ${modelId}`);
     } catch (err) {
       console.error("Model loading failed:", err);
-      setStatus(`Error loading ${modelId}: ${err instanceof Error ? err.message : "Unknown error"}`);
+      setStatus(
+        `Error loading ${modelId}: ${
+          err instanceof Error ? err.message : "Unknown error"
+        }`
+      );
       setIsModelReady(false);
     } finally {
       setIsLoadingModel(false);
@@ -336,19 +348,18 @@ What would you like to study today?`,
     saveCurrentSession();
   }, [messages, currentSessionId]);
 
- const deleteSession = (sessionId: string) => {
-  setStudySessions((prev) => prev.filter((s) => s.id !== sessionId));
-  if (currentSessionId === sessionId) {
-    const remaining = studySessions.filter((s) => s.id !== sessionId);
-    const next = remaining[0];
-    if (next) {
-      loadSession(next.id);
-    } else {
-      startNewSession();
+  const deleteSession = (sessionId: string) => {
+    setStudySessions((prev) => prev.filter((s) => s.id !== sessionId));
+    if (currentSessionId === sessionId) {
+      const remaining = studySessions.filter((s) => s.id !== sessionId);
+      const next = remaining[0];
+      if (next) {
+        loadSession(next.id);
+      } else {
+        startNewSession();
+      }
     }
-  }
-};
-
+  };
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || !engine || isGenerating) return;
@@ -376,7 +387,7 @@ What would you like to study today?`,
         userMessage.content.toLowerCase().includes("write about") ||
         userMessage.content.length > 100;
 
-      const tokenLimit = isLongRequest ? 1500 : 600; 
+      const tokenLimit = isLongRequest ? 1500 : 600;
 
       const systemMessage = {
         role: "system" as const,
@@ -471,9 +482,13 @@ What would you like to study today?`,
         const updated = [...prev];
         const targetIndex = updated.findIndex((m) => m.id === messageId);
         if (targetIndex !== -1) {
+          const target = updated[targetIndex];
           updated[targetIndex] = {
-            ...updated[targetIndex],
-            content: updated[targetIndex].content + "\n\n" + continuation,
+            id: target.id,
+            role: target.role,
+            timestamp: target.timestamp,
+            subject: target.subject,
+            content: target.content + "\n\n" + continuation,
             isTruncated: stillTruncated,
             finishReason,
           };
@@ -540,7 +555,14 @@ What would you like to study today?`,
           }}
         >
           <div>
-            <h1 style={{ margin: "1rem", fontSize: "1.8rem", fontWeight: "700", color: "white" }}>
+            <h1
+              style={{
+                margin: "1rem",
+                fontSize: "1.8rem",
+                fontWeight: "700",
+                color: "white",
+              }}
+            >
               📚 Afri AI
             </h1>
           </div>
@@ -606,8 +628,16 @@ What would you like to study today?`,
               flexWrap: "wrap",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <label style={{ fontSize: "0.9rem", fontWeight: "500", color: "white" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+            >
+              <label
+                style={{
+                  fontSize: "0.9rem",
+                  fontWeight: "500",
+                  color: "white",
+                }}
+              >
                 🤖 Select Model:
               </label>
               <select
@@ -637,16 +667,27 @@ What would you like to study today?`,
               disabled={!selectedModel || isLoadingModel || isModelReady}
               style={{
                 padding: "0.5rem 1rem",
-                backgroundColor: isModelReady ? "#10b981" : (isLoadingModel ? "#9ca3af" : "#3b82f6"),
+                backgroundColor: isModelReady
+                  ? "#10b981"
+                  : isLoadingModel
+                  ? "#9ca3af"
+                  : "#3b82f6",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
-                cursor: (!selectedModel || isLoadingModel || isModelReady) ? "not-allowed" : "pointer",
+                cursor:
+                  !selectedModel || isLoadingModel || isModelReady
+                    ? "not-allowed"
+                    : "pointer",
                 fontSize: "0.9rem",
                 fontWeight: "500",
               }}
             >
-              {isLoadingModel ? "Loading..." : (isModelReady ? "✅ Loaded" : "🚀 Load Model")}
+              {isLoadingModel
+                ? "Loading..."
+                : isModelReady
+                ? "✅ Loaded"
+                : "🚀 Load Model"}
             </button>
 
             {isModelReady && (
@@ -677,7 +718,9 @@ What would you like to study today?`,
 
         {/* Progress Bar */}
         {progressPercent > 0 && progressPercent < 100 && (
-          <div style={{ marginBottom: "1rem", maxWidth: "500px", margin: "1rem" }}>
+          <div
+            style={{ marginBottom: "1rem", maxWidth: "500px", margin: "1rem" }}
+          >
             <div
               style={{
                 width: "100%",
@@ -704,7 +747,13 @@ What would you like to study today?`,
                 {progressPercent.toFixed(1)}%
               </div>
             </div>
-            <div style={{ fontSize: "0.9rem", marginTop: "0.5rem", color: "white" }}>
+            <div
+              style={{
+                fontSize: "0.9rem",
+                marginTop: "0.5rem",
+                color: "white",
+              }}
+            >
               {status}
             </div>
           </div>
@@ -736,8 +785,6 @@ What would you like to study today?`,
               flexWrap: "wrap",
             }}
           >
-            
-
             <select
               value={studyMode}
               onChange={(e) => setStudyMode(e.target.value as StudyMode)}
