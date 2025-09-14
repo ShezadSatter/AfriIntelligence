@@ -1233,31 +1233,30 @@ if (targetIndex !== -1) {
   );
 
   if (currentSession && currentSession.messages.length > 0) {
-    // Take the first message and ensure all required fields exist
-    const firstMessage: Message = {
-      id: currentSession.messages[0].id,
-      role: currentSession.messages[0].role,
-      content: currentSession.messages[0].content,
-      timestamp: currentSession.messages[0].timestamp,
-      subject: currentSession.messages[0].subject ?? studyMode,
-      isTruncated: currentSession.messages[0].isTruncated ?? false,
-      finishReason: currentSession.messages[0].finishReason ?? undefined,
-    };
-    setMessages([firstMessage]);
-  } else {
+  const firstMessage: Message = {
+    id: currentSession.messages[0].id,
+    role: currentSession.messages[0].role,
+    content: currentSession.messages[0].content,
+    timestamp: currentSession.messages[0].timestamp,
+    subject: currentSession.messages[0].subject ?? studyMode,
+    isTruncated: currentSession.messages[0].isTruncated ?? false,
+    // omit finishReason if undefined
+  };
+  setMessages([firstMessage]);
+}
+ else {
     setMessages([
-      {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: `Chat cleared! I'm ready to help you with ${studyModes[
-          studyMode
-        ].toLowerCase()}. What would you like to work on?`,
-        timestamp: new Date(),
-        subject: studyMode, // required field
-        isTruncated: false,
-        finishReason: undefined,
-      },
-    ]);
+  {
+    id: Date.now().toString(),
+    role: "assistant",
+    content: `Chat cleared! I'm ready to help you with ${studyModes[studyMode].toLowerCase()}. What would you like to work on?`,
+    timestamp: new Date(),
+    subject: studyMode,
+    isTruncated: false,
+    // finishReason is optional — just omit it if there’s no value
+  },
+]);
+
   }
 }}
 
