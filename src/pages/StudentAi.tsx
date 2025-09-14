@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { CreateMLCEngine } from "@mlc-ai/web-llm";
-import type { InitProgressReport, MLCEngineInterface } from "@mlc-ai/web-llm";
+
+type MLCEngineInterface = any; // fallback type
+type InitProgressReport = any; // fallback type
 
 const StudentAI: React.FC = () => {
   const [status, setStatus] = useState<string>("Loading available models...");
@@ -100,6 +101,8 @@ const StudentAI: React.FC = () => {
     ],
   };
 
+
+  
   const scrollToBottom = useCallback(() => {
     if (autoScroll) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -211,6 +214,8 @@ const StudentAI: React.FC = () => {
       
       console.log(`Loading model: ${modelId}`);
       setStatus(`Initializing ${modelId}...`);
+
+      const { CreateMLCEngine } = await import("@mlc-ai/web-llm");
 
       const engine = await CreateMLCEngine(modelId, {
         initProgressCallback: (progress: InitProgressReport) => {
