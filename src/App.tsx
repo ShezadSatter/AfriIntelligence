@@ -6,7 +6,6 @@ import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
 import GlossaryPage from "./pages/GlossaryPage";
 import PastPapersPage from "./pages/PastPapersPage";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -63,7 +62,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserContextProvider>
-        <Navbar />
+        
 
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
