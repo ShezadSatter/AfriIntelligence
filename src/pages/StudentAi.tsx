@@ -1227,38 +1227,42 @@ if (targetIndex !== -1) {
               </button>
 
               <button
-                onClick={() => {
+               onClick={() => {
   const currentSession = studySessions.find(
     (s) => s.id === currentSessionId
   );
 
   if (currentSession && currentSession.messages.length > 0) {
-  const firstMessage: Message = {
-    id: currentSession.messages[0].id,
-    role: currentSession.messages[0].role,
-    content: currentSession.messages[0].content,
-    timestamp: currentSession.messages[0].timestamp,
-    subject: currentSession.messages[0].subject ?? studyMode,
-    isTruncated: currentSession.messages[0].isTruncated ?? false,
-    // omit finishReason if undefined
-  };
-  setMessages([firstMessage]);
-}
- else {
+    const firstMessage = currentSession.messages[0];
+    if (firstMessage) {
+      setMessages([
+        {
+          id: firstMessage.id,
+          role: firstMessage.role,
+          content: firstMessage.content,
+          timestamp: firstMessage.timestamp,
+          subject: firstMessage.subject ?? studyMode,
+          isTruncated: firstMessage.isTruncated ?? false,
+          // omit finishReason if undefined
+        },
+      ]);
+    } else {
+      startNewSession(); // fallback if messages array is empty
+    }
+  } else {
     setMessages([
-  {
-    id: Date.now().toString(),
-    role: "assistant",
-    content: `Chat cleared! I'm ready to help you with ${studyModes[studyMode].toLowerCase()}. What would you like to work on?`,
-    timestamp: new Date(),
-    subject: studyMode,
-    isTruncated: false,
-    // finishReason is optional — just omit it if there’s no value
-  },
-]);
-
+      {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: `Chat cleared! I'm ready to help you with ${studyModes[studyMode].toLowerCase()}. What would you like to work on?`,
+        timestamp: new Date(),
+        subject: studyMode,
+        isTruncated: false,
+      },
+    ]);
   }
 }}
+
 
 
                 style={{
