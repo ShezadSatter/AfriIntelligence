@@ -188,11 +188,12 @@ const StudentAI: React.FC = () => {
         setAvailableModels(sortedModels);
         
         if (sortedModels.length > 0) {
-          setSelectedModel(sortedModels[0]); // Set first preferred model as default
-          setStatus(`Select a model to begin. Recommended: ${sortedModels[0]}`);
-        } else {
-          setStatus("No models available in WebLLM configuration");
-        }
+  setSelectedModel(sortedModels[0] ?? "");
+  setStatus(`Select a model to begin. Recommended: ${sortedModels[0]}`);
+} else {
+  setStatus("No models available in WebLLM configuration");
+}
+
       } catch (err) {
         console.error("Failed to load models:", err);
         setStatus(`Error loading models: ${err instanceof Error ? err.message : "Unknown error"}`);
