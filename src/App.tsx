@@ -16,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "../context/userContext"; // add .tsx extension for Node ESM
 import "./styles/styles.css";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import StudentAI from "./pages/StudentAi";
 
 import { handleTranslate } from "./utils/handleTranslate";
 import { translatePage } from "./utils/translatePage";
@@ -73,6 +74,7 @@ const App: React.FC = () => {
           <Route path="/translate" element={<TranslateDocument />} />
           <Route path="/glossary" element={<GlossaryPage />} />
           <Route path="/past-papers" element={<PastPapersPage />} />
+          <Route path="/afri-ai" element={<StudentAI />} />
             <Route path="/" element={<Home />} />
 
           <Route path="/register" element={<Register />} />
