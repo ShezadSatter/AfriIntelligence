@@ -207,134 +207,137 @@ const TeacherDashboard: React.FC = () => {
         </button>
       </div>
 
-      {/* Upload Document */}
-      <form
-        id="docForm"
-        className={styles.uploadForm}
-        onSubmit={handleDocSubmit}
-      >
-        <h2>Upload Document (Past Paper)</h2>
+      <div className={styles.selectioncontainer}>
+        {/* Upload Document */}
+              <form
+                id="docForm"
+                className={styles.uploadForm}
+                onSubmit={handleDocSubmit}
+              >
+                <h2>Upload Document (Past Paper)</h2>
 
-        <select
-          name="grade"
-          value={docForm.grade}
-          onChange={handleDocChange}
-          required
+                <select
+                  name="grade"
+                  value={docForm.grade}
+                  onChange={handleDocChange}
+                  required
+                >
+                  <option value="">Select Grade</option>
+                  {renderOptions(grades)}
+                </select>
+
+                <select
+                  name="subject"
+                  value={docForm.subject}
+                  onChange={handleDocChange}
+                  required
+                >
+                  <option value="">Select Subject</option>
+                  {renderOptions(subjects)}
+                </select>
+
+                <select
+                  name="year"
+                  value={docForm.year}
+                  onChange={handleDocChange}
+                  required
+                >
+                  {renderOptions(years)}
+                </select>
+
+                <select
+                  name="paperType"
+                  value={docForm.paperType}
+                  onChange={handleDocChange}
+                  required
+                >
+                  <option value="p1">P1</option>
+                  <option value="p2">P2</option>
+                </select>
+
+                <select
+                  name="language"
+                  value={docForm.language}
+                  onChange={handleDocChange}
+                  required
+                >
+                  <option value="">Select Language</option>
+                  {renderOptions(languages)}
+                </select>
+
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                  required
+                />
+                <button type="submit" disabled={docLoading}>
+                  {docLoading ? "Uploading..." : "Submit"}
+                </button>
+              </form>
+
+              {/* Upload Glossary */}
+        {/* Upload Glossary */}
+        <form
+          id="glossaryForm"
+          className={styles.uploadForm}
+          onSubmit={handleGlossarySubmit}
         >
-          <option value="">Select Grade</option>
-          {renderOptions(grades)}
-        </select>
+          <h2>Upload Glossary Item</h2>
 
-        <select
-          name="subject"
-          value={docForm.subject}
-          onChange={handleDocChange}
-          required
-        >
-          <option value="">Select Subject</option>
-          {renderOptions(subjects)}
-        </select>
+          <select
+            name="subject"
+            value={glossaryForm.subject}
+            onChange={handleGlossaryChange}
+            required
+          >
+            <option value="">Select Subject</option>
+            {renderOptions(subjects)}
+          </select>
 
-        <select
-          name="year"
-          value={docForm.year}
-          onChange={handleDocChange}
-          required
-        >
-          {renderOptions(years)}
-        </select>
+          <select
+            name="grade"
+            value={glossaryForm.grade}
+            onChange={handleGlossaryChange}
+            required
+          >
+            <option value="">Select Grade</option>
+            {renderOptions(grades)}
+          </select>
 
-        <select
-          name="paperType"
-          value={docForm.paperType}
-          onChange={handleDocChange}
-          required
-        >
-          <option value="p1">P1</option>
-          <option value="p2">P2</option>
-        </select>
+          <input
+            type="text"
+            name="title"
+            placeholder="Topic Title"
+            value={glossaryForm.title}
+            onChange={handleGlossaryChange}
+            required
+          />
 
-        <select
-          name="language"
-          value={docForm.language}
-          onChange={handleDocChange}
-          required
-        >
-          <option value="">Select Language</option>
-          {renderOptions(languages)}
-        </select>
+          <input
+            type="text"
+            name="id"
+            placeholder="Topic ID (no spaces or special chars)"
+            value={glossaryForm.id}
+            onChange={handleGlossaryChange}
+            required
+          />
 
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={handleFileChange}
-          required
-        />
-        <button type="submit" disabled={docLoading}>
-          {docLoading ? "Uploading..." : "Submit"}
-        </button>
-      </form>
+          {/* Terms input: simple example for now */}
+          <textarea
+            name="terms"
+            placeholder='Enter terms as JSON array: [{"term":"Demand","definition":"..."}]'
+            value={glossaryForm.terms}
+            onChange={handleGlossaryChange}
+            required
+          />
 
-      {/* Upload Glossary */}
-{/* Upload Glossary */}
-<form
-  id="glossaryForm"
-  className={styles.uploadForm}
-  onSubmit={handleGlossarySubmit}
->
-  <h2>Upload Glossary Item</h2>
+          <button type="submit" disabled={glossaryLoading}>
+            {glossaryLoading ? "Uploading..." : "Submit"}
+          </button>
+        </form>
+      </div>
 
-  <select
-    name="subject"
-    value={glossaryForm.subject}
-    onChange={handleGlossaryChange}
-    required
-  >
-    <option value="">Select Subject</option>
-    {renderOptions(subjects)}
-  </select>
-
-  <select
-    name="grade"
-    value={glossaryForm.grade}
-    onChange={handleGlossaryChange}
-    required
-  >
-    <option value="">Select Grade</option>
-    {renderOptions(grades)}
-  </select>
-
-  <input
-    type="text"
-    name="title"
-    placeholder="Topic Title"
-    value={glossaryForm.title}
-    onChange={handleGlossaryChange}
-    required
-  />
-
-  <input
-    type="text"
-    name="id"
-    placeholder="Topic ID (no spaces or special chars)"
-    value={glossaryForm.id}
-    onChange={handleGlossaryChange}
-    required
-  />
-
-  {/* Terms input: simple example for now */}
-  <textarea
-    name="terms"
-    placeholder='Enter terms as JSON array: [{"term":"Demand","definition":"..."}]'
-    value={glossaryForm.terms}
-    onChange={handleGlossaryChange}
-    required
-  />
-
-  <button type="submit" disabled={glossaryLoading}>
-    {glossaryLoading ? "Uploading..." : "Submit"}
-  </button>
-</form>
 
 
     </div>

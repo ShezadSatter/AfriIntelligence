@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from '../styles/PastPaperPage.module.css';
 
 const PastPapersPage: React.FC = () => {
   const [grade, setGrade] = useState('');
@@ -78,10 +79,10 @@ const previewUrl = filePath
   : null;
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1 style={{color: "white"}}>Past Papers</h1>
+    <div className = {styles.container}>
+      <h1>Past Papers</h1>
 
-      <div style={{ marginBottom: 10 }}>
+      <div>
         <label style={{color : "white"}}>
           Grade:{' '}
           <select value={grade} onChange={e => setGrade(e.target.value)}>

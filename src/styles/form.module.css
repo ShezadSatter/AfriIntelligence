@@ -44,3 +44,128 @@
 .form button:hover {
   background-color: #45a049;
 }
+
+.login_box{
+  background-color: #133A1F;
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.child_element_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 250px;
+  padding: 50px;
+  background-color: #F5F5F580;
+  width: 951px;
+  height: 575px;
+  border-radius: 30px;
+}
+
+.overlay{
+  margin-left: 330px;
+  margin-bottom: 20px;
+}
+.overlay h1 {
+  font-family: League Spartan;
+  color: #133A1F;
+}
+
+.overlay small{
+  font-family: League Spartan;
+  font-weight: bold;
+}
+
+.inputs {
+  margin-left: 300px;
+}
+
+.inputs input{
+  display: flex;
+  background-color: white;
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  font-family: League Spartan;
+  text-align: center;
+}
+
+.role{
+  color: #133A1F;
+  margin-left: 90px;
+}
+
+.inputs button{
+  width: 700px;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 30px;
+  background-color: #205631;
+  color: #fff;
+  margin-left: 55px;
+}
+
+.loginsection {
+  background-color: #133A1F;
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.logincontainer{
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px;
+  padding: 50px;
+  background-color: #F5F5F580;
+  width: 951px;
+  height: 575px;
+  border-radius: 30px;
+}
+
+.logintitle h1{
+  font-family: League Spartan;
+  color: #133A1F;
+  margin-left: 300px;
+  margin-top: 60px;
+}
+
+.logintitle h2{
+  font-family: League Spartan;
+  color: #133A1F;
+  margin-left: 300px;
+  margin-bottom: 50px;
+}
+
+.loginform{
+  margin-left: 260px;
+}
+
+.loginform input{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  font-family: League Spartan;
+  text-align: center;
+}
+
+
+.loginform button{
+  width: 700px;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 30px;
+  background-color: #205631;
+  color: #fff;
+  margin-left: 55px;
+  margin-top: 30px;
+}

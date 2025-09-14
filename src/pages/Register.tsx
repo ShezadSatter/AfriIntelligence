@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "../../axiosConfig";
 import { UserContext } from "../../context/userContext";
-import '../styles/form.module.css';
+import styles from '../styles/form.module.css';
 
 interface RegisterForm {
   name: string;
@@ -62,19 +62,18 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="login-box">
-      <div className="child-element left">
-        <div className="overlay">
-          <h1>Create an<br />Account</h1>
-          <br />
+    <div className={styles.login_box}>
+      <div className={styles.child_element_left}>
+        <div className={styles.overlay}>
+          <h1>Create Account</h1>
           <small>Already have an account?</small>
           <br />
           <small><Link to="/login">Login here</Link></small>
         </div>
-      </div>
+      
 
-      <div className="child-element right">
-        <form className="inputs" onSubmit={registerUser}>
+      
+        <form className={styles.inputs} onSubmit={registerUser}>
           <input
             type="text"
             name="name"
@@ -99,7 +98,7 @@ const Register: React.FC = () => {
             onChange={handleChange}
           />
           <br />
-          <div style={{ marginTop: "10px" }}>
+          <div className={styles.role}>
             <p>Role: <strong>{selectedRole || "Not selected"}</strong></p>
           </div>
           <br />

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../../context/userContext";
 import axios from "../../axiosConfig";
-import '../styles/form.module.css';
+import styles from  '../styles/form.module.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -45,23 +45,36 @@ const Login: React.FC = () => {
   };
 
   return (
-    <form onSubmit={loginUser}>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={data.email}
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={data.password}
-        onChange={handleChange}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className={styles.loginsection}>
+
+      <div className={styles.logincontainer}>
+
+        <div className={styles.logintitle}>
+          <h1>Welcome Back !</h1>
+          <h2>Please enter you login details.</h2>
+        </div>
+
+        <form className={styles.loginform} onSubmit={loginUser}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={data.email}
+            onChange={handleChange}
+          />
+          <br/>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={data.password}
+            onChange={handleChange}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+    </div>
   );
 };
 

@@ -1,36 +1,65 @@
 /* Home Page Styles */
 .home {
-  display: flex;
+  padding-top: 80px;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('path/to/your/image.jpg');
   background-size: cover;
+  background-color: #133A1F;
   background-position: center;
   color: #e0e0e0;
   text-align: center;
 }
 
-h1 {
-  font-size: 36px;
-  margin-bottom: 1rem;
+img{
+  width:122px ;
+  height: 122px;
+  border-radius: 30px;
+  margin-bottom: 50px;
+}
+
+.heading{
+  font-size: 30px;
+  font-family: League Spartan;
+}
+
+hr{
+  width: 300px;
+  margin-left: 593px;
+  margin-bottom: 20px;
+}
+
+h2{
+  font-size: 20px;
+  font-family: League Spartan;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 26px;
+  font-family: League Spartan;
+  margin-top: 50px;
 }
 
 .home .buttons {
   display: flex;
+  flex-direction: column;
+  margin-left: 650px;
+  margin-top: 25px;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
 .home .buttons button {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  background-color: #4CAF50;
+  width: 700px;
+  height: 70px;
+  font-size: 16px;
+  border-radius: 30px;
+  background-color: #205631;
   color: #fff;
   transition: background-color 0.3s ease;
 }
 
 .home .buttons button:hover {
-  background-color: #45a049;
+  background-color: #408243;
 }
