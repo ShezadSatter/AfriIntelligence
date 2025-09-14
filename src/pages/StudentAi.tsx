@@ -1228,24 +1228,32 @@ if (targetIndex !== -1) {
 
               <button
                 onClick={() => {
-                  const currentSession = studySessions.find(
-                    (s) => s.id === currentSessionId
-                  );
-                  if (currentSession && currentSession.messages.length > 1) {
-                    setMessages([currentSession.messages[0]]);
-                  } else {
-                    setMessages([
-                      {
-                        id: Date.now().toString(),
-                        role: "assistant",
-                        content: `Chat cleared! I'm ready to help you with ${studyModes[
-                          studyMode
-                        ].toLowerCase()}. What would you like to work on?`,
-                        timestamp: new Date(),
-                      },
-                    ]);
-                  }
-                }}
+  const currentSession = studySessions.find(
+    (s) => s.id === currentSessionId
+  );
+
+  if (currentSession && currentSession.messages.length > 0) {
+    // Ensure subject is defined to satisfy exactOptionalPropertyTypes
+    const firstMessage: Message = {
+      ...currentSession.messages[0],
+      subject: currentSession.messages[0].subject ?? studyMode,
+    };
+    setMessages([firstMessage]);
+  } else {
+    setMessages([
+      {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: `Chat cleared! I'm ready to help you with ${studyModes[
+          studyMode
+        ].toLowerCase()}. What would you like to work on?`,
+        timestamp: new Date(),
+        subject: studyMode, // add subject here too
+      },
+    ]);
+  }
+}}
+
                 style={{
                   padding: "0.75rem 1rem",
                   backgroundColor: "#ef4444",
