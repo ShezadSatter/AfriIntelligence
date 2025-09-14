@@ -336,17 +336,19 @@ What would you like to study today?`,
     saveCurrentSession();
   }, [messages, currentSessionId]);
 
-  const deleteSession = (sessionId: string) => {
-    setStudySessions((prev) => prev.filter((s) => s.id !== sessionId));
-    if (currentSessionId === sessionId) {
-      const remaining = studySessions.filter((s) => s.id !== sessionId);
-      if (remaining.length > 0) {
-        loadSession(remaining[0].id);
-      } else {
-        startNewSession();
-      }
+ const deleteSession = (sessionId: string) => {
+  setStudySessions((prev) => prev.filter((s) => s.id !== sessionId));
+  if (currentSessionId === sessionId) {
+    const remaining = studySessions.filter((s) => s.id !== sessionId);
+    const next = remaining[0];
+    if (next) {
+      loadSession(next.id);
+    } else {
+      startNewSession();
     }
-  };
+  }
+};
+
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || !engine || isGenerating) return;
