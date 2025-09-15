@@ -1,13 +1,12 @@
 /* Global Styles */
 * {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background-color: #121212;
+  background-color: #133A1F;
   color: #e0e0e0;
   line-height: 1.6;
   font-size: 16px;

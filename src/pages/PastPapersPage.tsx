@@ -80,13 +80,14 @@ const previewUrl = filePath
 
   return (
     <div className = {styles.container}>
+      <img src="/assets/images/logo.jpg" alt="logo" />
       <h1>Past Papers</h1>
-
+      <div className={styles.menucontainer}>
       <div>
         <label style={{color : "white"}}>
           Grade:{' '}
           <select value={grade} onChange={e => setGrade(e.target.value)}>
-            <option value="">Select Grade</option>
+            <option  value="">Select Grade</option>
             {grades.map(g => (
               <option key={g} value={g}>
                 {g}
@@ -137,7 +138,7 @@ const previewUrl = filePath
     </select>
   </label>
 </div>
-
+</div>
 
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}

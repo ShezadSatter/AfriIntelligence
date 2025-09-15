@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   };
   return (
     <div className={styles.home}>
-      <img src="C:\Users\ntsan\Documents\GitHub\AfriIntelligence\src\assets\images\logo.jpg" ></img>
+        <img src="/assets/images/logo.jpg" alt="logo" />
       <h1 className={styles.heading}>Welcome to Afri-Intelligence</h1>
       <hr></hr>
       <h2>Your AI powered transaltion assistant for African languages.</h2>

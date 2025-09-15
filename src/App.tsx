@@ -22,6 +22,7 @@ import { translatePage } from "./utils/translatePage";
 import { initFileUpload } from "./utils/fileUploadHandler";
 import { initSpeech } from "./utils/speechHandler";
 import { fetchSubjectList } from "./utils/glossaryApi";
+import Navbar from "./components/Navbar";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -62,25 +63,23 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserContextProvider>
-        
+        <Navbar/>
+          <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
-        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-
-        <Routes>
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/selection" element={<SelectionPage />} />
-          <Route path="/tts" element={<TextToSpeech />} />
-          <Route path="/translate" element={<TranslateDocument />} />
-          <Route path="/glossary" element={<GlossaryPage />} />
-          <Route path="/past-papers" element={<PastPapersPage />} />
-          <Route path="/afri-ai" element={<StudentAI />} />
+          <Routes>
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/selection" element={<SelectionPage />} />
+            <Route path="/tts" element={<TextToSpeech />} />
+            <Route path="/translate" element={<TranslateDocument />} />
+            <Route path="/glossary" element={<GlossaryPage />} />
+            <Route path="/past-papers" element={<PastPapersPage />} />
+            <Route path="/afri-ai" element={<StudentAI />} />
             <Route path="/" element={<Home />} />
-
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
-        </Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+          </Routes>
       </UserContextProvider>
     </Router>
   );

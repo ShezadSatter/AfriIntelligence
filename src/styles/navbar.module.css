@@ -1,27 +1,12 @@
 /* Navbar Container */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 1rem 2.5rem;
-  background: linear-gradient(90deg, #1f1f1f, #2c2c2c);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-
-/* Logo */
-.logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #4CAF50;
-  letter-spacing: 1px;
-  transition: transform 0.2s ease;
-}
-
-.logo:hover {
-  transform: scale(1.05);
 }
 
 /* Nav Links */
