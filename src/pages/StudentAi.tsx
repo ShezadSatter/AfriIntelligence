@@ -156,8 +156,9 @@ const StudentAI: React.FC = () => {
 
         // Prioritize smaller, faster models for better student experience
         const preferredPatterns = [
-          /phi.*3.*mini/i,
           /qwen.*0\.5b/i,
+          /phi.*3.*mini/i,
+          
           /qwen.*1\.8b/i,
           /llama.*3\.2.*1b/i,
           /gemma.*2b/i,
@@ -566,7 +567,7 @@ if (targetIndex !== -1) {
                 color: "white",
               }}
             >
-              📚 Afri AI
+              📚 Afri Api
             </h1>
           </div>
 
@@ -581,6 +582,7 @@ if (targetIndex !== -1) {
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontSize: "0.9rem",
+                overflow: "hidden",
               }}
             >
               📁 Sessions ({studySessions.length})
@@ -595,6 +597,7 @@ if (targetIndex !== -1) {
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
+                width: "max-content",
               }}
             >
               {darkMode ? "☀️" : "🌙"}
@@ -610,6 +613,7 @@ if (targetIndex !== -1) {
                 border: `1px solid ${themeStyles.border}`,
                 borderRadius: "6px",
                 fontSize: "0.9rem",
+                width: "fit-content",
               }}
             >
               <option value={14}>font: Small</option>
