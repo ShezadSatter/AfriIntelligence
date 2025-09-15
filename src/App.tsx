@@ -22,6 +22,7 @@ import { translatePage } from "./utils/translatePage";
 import { initFileUpload } from "./utils/fileUploadHandler";
 import { initSpeech } from "./utils/speechHandler";
 import { fetchSubjectList } from "./utils/glossaryApi";
+import Navbar from "./components/Navbar";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -63,9 +64,7 @@ const App: React.FC = () => {
     <Router>
       <UserContextProvider>
         
-
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-
         <Routes>
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/selection" element={<SelectionPage />} />

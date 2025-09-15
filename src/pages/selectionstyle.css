@@ -12,6 +12,7 @@ body {
   background-image: url('../assets/images/bg.png');
   background-size: cover;
   background-position: center;
+  background-color: #133A1F;
   min-height: 100vh;
   overflow-y: auto;
   display: flex;

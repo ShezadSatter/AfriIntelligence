@@ -46,6 +46,7 @@
 }
 
 .login_box{
+  margin-top: 190px;
   background-color: #133A1F;
   background-size: cover;
   height: 100vh;
@@ -110,6 +111,7 @@
 }
 
 .loginsection {
+  margin-top: 190px;
   background-color: #133A1F;
   background-size: cover;
   height: 100vh;
