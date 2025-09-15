@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import styles from "../styles/teacherDashboard.module.css";
 import { UserContext } from "../../context/userContext";
 
@@ -113,48 +113,48 @@ const TeacherDashboard: React.FC = () => {
     }
   };
 
-  const handleGlossaryChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setGlossaryForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleGlossarySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
- let parsedTerms;
   try {
-    parsedTerms = JSON.parse(glossaryForm.terms);
-    if (!Array.isArray(parsedTerms)) throw new Error("Terms must be an array");
-  } catch (err) {
-    return alert("Terms field must be a valid JSON array");
+  setGlossaryLoading(true);
+  await axios.post(
+    `${import.meta.env.VITE_API_BASE_URL}/api/glossary/upload`,
+    {
+      subject: glossaryForm.subject,
+      grade: glossaryForm.grade,
+      title: glossaryForm.title,
+      id: glossaryForm.id,
+      terms: parsedTerms,
+    }
+  );
+  alert("Glossary topic uploaded!");
+  setGlossaryForm({
+    subject: "",
+    grade: "",
+    title: "",
+    id: "",
+    terms: "",
+    definition: "",
+  });
+} catch (err: unknown) {
+  if (axios.isAxiosError(err)) {
+    console.error("Glossary upload error (Axios):", err);
+
+    if (err.response) {
+      console.error("Error Response Data:", err.response.data);
+      console.error("Error Response Status:", err.response.status);
+      console.error("Error Response Headers:", err.response.headers);
+    } else if (err.request) {
+      console.error("No response received. Request:", err.request);
+    } else {
+      console.error("Axios Error Message:", err.message);
+    }
+  } else {
+    console.error("Unexpected Error:", err);
   }
 
-   try {
-    setGlossaryLoading(true);
-    await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/api/glossary/upload`,
-      {
-        subject: glossaryForm.subject,
-        grade: glossaryForm.grade,
-        title: glossaryForm.title,
-        id: glossaryForm.id,
-        terms: parsedTerms,
-      }
-    );
-    alert("Glossary topic uploaded!");
-    setGlossaryForm({ subject: "", grade: "", title: "", id: "", terms: "", definition: "" });
-  } catch (err) {
-    console.error(err);
-    alert("Glossary upload failed.");
-  } finally {
-    setGlossaryLoading(false);
-  }
-};
-
+  alert("Glossary upload failed. Check console for details.");
+} finally {
+  setGlossaryLoading(false);
+}
   // --- Helper to render dropdown safely ---
   const renderOptions = (items: any[]) =>
     items.map((item, index) => {
