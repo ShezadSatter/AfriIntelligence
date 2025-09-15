@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import styles from "../styles/teacherDashboard.module.css";
 import { UserContext } from "../../context/userContext";
 
@@ -113,48 +113,48 @@ const TeacherDashboard: React.FC = () => {
     }
   };
 
-  try {
-  setGlossaryLoading(true);
-  await axios.post(
-    `${import.meta.env.VITE_API_BASE_URL}/api/glossary/upload`,
-    {
-      subject: glossaryForm.subject,
-      grade: glossaryForm.grade,
-      title: glossaryForm.title,
-      id: glossaryForm.id,
-      terms: parsedTerms,
-    }
-  );
-  alert("Glossary topic uploaded!");
-  setGlossaryForm({
-    subject: "",
-    grade: "",
-    title: "",
-    id: "",
-    terms: "",
-    definition: "",
-  });
-} catch (err: unknown) {
-  if (axios.isAxiosError(err)) {
-    console.error("Glossary upload error (Axios):", err);
+  const handleGlossaryChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setGlossaryForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-    if (err.response) {
-      console.error("Error Response Data:", err.response.data);
-      console.error("Error Response Status:", err.response.status);
-      console.error("Error Response Headers:", err.response.headers);
-    } else if (err.request) {
-      console.error("No response received. Request:", err.request);
-    } else {
-      console.error("Axios Error Message:", err.message);
-    }
-  } else {
-    console.error("Unexpected Error:", err);
+  const handleGlossarySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+ let parsedTerms;
+  try {
+    parsedTerms = JSON.parse(glossaryForm.terms);
+    if (!Array.isArray(parsedTerms)) throw new Error("Terms must be an array");
+  } catch (err) {
+    return alert("Terms field must be a valid JSON array");
   }
 
-  alert("Glossary upload failed. Check console for details.");
-} finally {
-  setGlossaryLoading(false);
-}
+   try {
+    setGlossaryLoading(true);
+    await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/glossary/upload`,
+      {
+        subject: glossaryForm.subject,
+        grade: glossaryForm.grade,
+        title: glossaryForm.title,
+        id: glossaryForm.id,
+        terms: parsedTerms,
+      }
+    );
+    alert("Glossary topic uploaded!");
+    setGlossaryForm({ subject: "", grade: "", title: "", id: "", terms: "", definition: "" });
+  } catch (err) {
+    console.error(err);
+    alert("Glossary upload failed.");
+  } finally {
+    setGlossaryLoading(false);
+  }
+};
+
   // --- Helper to render dropdown safely ---
   const renderOptions = (items: any[]) =>
     items.map((item, index) => {
@@ -179,6 +179,33 @@ const TeacherDashboard: React.FC = () => {
   return (
     <div className={styles.dashboard}>
       <h1>Welcome Educator {user.name}</h1>
+
+      <div className={styles.actions}>
+        <button
+          onClick={() =>
+            document
+              .getElementById("docForm")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          Upload New Material
+        </button>
+        <button
+          onClick={() =>
+            document
+              .getElementById("glossaryForm")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          Upload Glossary
+        </button>
+        <button onClick={() => (window.location.href = "/glossary")}>
+          Glossary Page
+        </button>
+        <button onClick={() => (window.location.href = "/pastpapers")}>
+          My Library
+        </button>
+      </div>
 
       <div className={styles.selectioncontainer}>
         {/* Upload Document */}
