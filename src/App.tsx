@@ -63,23 +63,23 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserContextProvider>
-        
-        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-        <Routes>
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/selection" element={<SelectionPage />} />
-          <Route path="/tts" element={<TextToSpeech />} />
-          <Route path="/translate" element={<TranslateDocument />} />
-          <Route path="/glossary" element={<GlossaryPage />} />
-          <Route path="/past-papers" element={<PastPapersPage />} />
-          <Route path="/afri-ai" element={<StudentAI />} />
-            <Route path="/" element={<Home />} />
+        <Navbar/>
+          <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
-        </Routes>
+          <Routes>
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/selection" element={<SelectionPage />} />
+            <Route path="/tts" element={<TextToSpeech />} />
+            <Route path="/translate" element={<TranslateDocument />} />
+            <Route path="/glossary" element={<GlossaryPage />} />
+            <Route path="/past-papers" element={<PastPapersPage />} />
+            <Route path="/afri-ai" element={<StudentAI />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+          </Routes>
       </UserContextProvider>
     </Router>
   );

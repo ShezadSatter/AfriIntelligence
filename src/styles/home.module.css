@@ -3,6 +3,7 @@
   padding-top: 80px;
   justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   background-size: cover;
   background-color: #133A1F;
@@ -25,8 +26,8 @@ img{
 
 hr{
   width: 300px;
-  margin-left: 593px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 h2{
@@ -45,7 +46,8 @@ h2{
 .home .buttons {
   display: flex;
   flex-direction: column;
-  margin-left: 650px;
+  justify-content: center;
+  align-items: center;
   margin-top: 25px;
   gap: 2rem;
 }

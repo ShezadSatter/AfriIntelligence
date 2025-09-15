@@ -6,11 +6,9 @@ import '../styles/navbar.module.css';
 const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
-          <div className="menu">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </div>
+      <ul>
+        <li><Link to="/">Home 🏡</Link></li>
+      </ul>
     </nav>
   );
 };
