@@ -57,7 +57,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
 
   // Load subjects
   useEffect(() => {
-    fetch(`${API_BASE}/subjects`)
+    fetch(`${API_BASE}/api/subjects`)
       .then(res => res.json())
       .then(setSubjects)
       .catch(console.error);
