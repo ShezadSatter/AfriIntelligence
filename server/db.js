@@ -152,6 +152,54 @@ const gradeSchema = new mongoose.Schema(
 // ----------------------------
 // Content Schema (Glossary/Definitions)
 // ----------------------------
+const contentSchema = new mongoose.Schema(
+  {
+    subject: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "Subject", 
+      required: true 
+    },
+    grade: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "Grade", 
+      required: true 
+    },
+    term: requiredString, // The glossary term/word
+    definition: requiredString, // Definition of the term
+    example: optionalString, // Example usage
+    context: optionalString, // Additional context
+    category: optionalString, // Category/topic grouping
+    
+    // Language support
+    languageCode: { 
+      type: String, 
+      default: "en", 
+      trim: true 
+    },
+    
+    // Nested terms (if this content has multiple related terms)
+    terms: [{
+      term: requiredString,
+      definition: requiredString,
+      example: optionalString,
+      context: optionalString
+    }],
+    
+    // Metadata
+    uploadedBy: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User" 
+    },
+    isActive: { type: Boolean, default: true },
+  },
+  ts
+);
+
+// Indexes for content
+contentSchema.index({ subject: 1, grade: 1 });
+contentSchema.index({ term: 1 });
+contentSchema.index({ subject: 1, grade: 1, term: 1 }, { unique: true }); // Prevent duplicate terms per subject/grade
+contentSchema.index({ term: "text", definition: "text" }); // Text search
 
 
 
@@ -349,6 +397,7 @@ export const models = {
   User: mongoose.models.User || mongoose.model("User", userSchema),
   Subject: mongoose.models.Subject || mongoose.model("Subject", subjectSchema),
   Grade: mongoose.models.Grade || mongoose.model("Grade", gradeSchema),
+  Content: mongoose.models.Content || mongoose.model("Content", contentSchema),
   DocumentFile: mongoose.models.DocumentFile || mongoose.model("DocumentFile", documentFileSchema),
   PastPaper: mongoose.models.PastPaper || mongoose.model("PastPaper", pastPaperSchema),
   Language: mongoose.models.Language || mongoose.model("Language", languageSchema),
