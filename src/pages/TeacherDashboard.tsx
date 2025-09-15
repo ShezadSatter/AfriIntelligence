@@ -180,32 +180,7 @@ const TeacherDashboard: React.FC = () => {
     <div className={styles.dashboard}>
       <h1>Welcome Educator {user.name}</h1>
 
-      <div className={styles.actions}>
-        <button
-          onClick={() =>
-            document
-              .getElementById("docForm")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          Upload New Material
-        </button>
-        <button
-          onClick={() =>
-            document
-              .getElementById("glossaryForm")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          Upload Glossary
-        </button>
-        <button onClick={() => (window.location.href = "/glossary")}>
-          Glossary Page
-        </button>
-        <button onClick={() => (window.location.href = "/pastpapers")}>
-          My Library
-        </button>
-      </div>
+      
 
       <div className={styles.selectioncontainer}>
         {/* Upload Document */}
