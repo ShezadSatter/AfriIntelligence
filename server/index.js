@@ -155,7 +155,7 @@ app.get("/api/content", async (req, res) => {
 });
 
 // Create new content (for teachers)
-app.post("/api/glosssary", async (req, res) => {
+app.post("/glosssary", async (req, res) => {
   try {
     const { subjectId, gradeId, term, definition, example, context, category } = req.body;
     
