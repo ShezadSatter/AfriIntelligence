@@ -18,7 +18,7 @@ interface Language {
   name?: string;
   code?: string;
 }
-
+// --- Main Component ---
 const TeacherDashboard: React.FC = () => {
   const { user } = useContext(UserContext)!;
 
