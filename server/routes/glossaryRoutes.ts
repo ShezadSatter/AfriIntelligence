@@ -24,7 +24,7 @@ const isValidName = (str: string) => /^[a-zA-Z0-9-_]+$/.test(str);
 // ----------------------------
 // Get all subjects
 // ----------------------------
-router.get("/api/subjects", async (req, res) => {
+router.get("/subjects", async (req, res) => {
   try {
     const subjects = await dbServices.getSubjects();
     res.json(subjects);
