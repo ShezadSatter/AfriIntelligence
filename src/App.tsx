@@ -81,8 +81,12 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
         </Routes>
+
+        
       </UserContextProvider>
     </Router>
+
+
   );
 };
 

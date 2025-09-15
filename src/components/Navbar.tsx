@@ -9,7 +9,6 @@ const Navbar: React.FC = () => {
       <div className="logo">Welcome to Afri-Intelligence</div>
       <div>
         <ul className="nav-links">
-          <input type="checkbox" id="checkbox_toggle" />
           <label htmlFor="checkbox_toggle" className="hamburger">
             &#9776;
           </label>

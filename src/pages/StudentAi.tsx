@@ -156,10 +156,12 @@ const StudentAI: React.FC = () => {
 
         // Prioritize smaller, faster models for better student experience
         const preferredPatterns = [
-          /phi.*3.*mini/i,
+         
+          /tiny.*llama.*1b/i,
           /qwen.*0\.5b/i,
           /qwen.*1\.8b/i,
           /llama.*3\.2.*1b/i,
+           /phi.*3.*mini/i,
           /gemma.*2b/i,
         ];
 
@@ -525,6 +527,7 @@ if (targetIndex !== -1) {
     assistantBg: darkMode ? "#374151" : "#f1f5f9",
     border: darkMode ? "#374151" : "#e2e8f0",
     inputBg: darkMode ? "#374151" : "#f9fafb",
+    
   };
 
   return (
@@ -561,7 +564,7 @@ if (targetIndex !== -1) {
             <h1
               style={{
                 margin: "1rem",
-                fontSize: "1.8rem",
+                fontSize: "4em",
                 fontWeight: "700",
                 color: "white",
               }}
@@ -575,12 +578,18 @@ if (targetIndex !== -1) {
               onClick={() => setShowSessions(!showSessions)}
               style={{
                 padding: "0.5rem 1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 backgroundColor: showSessions ? "#10b981" : themeStyles.border,
                 color: showSessions ? "white" : themeStyles.color,
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontSize: "0.9rem",
+                width: "max-content",
+                overflow: "hidden",
+
               }}
             >
               📁 Sessions ({studySessions.length})
@@ -595,6 +604,7 @@ if (targetIndex !== -1) {
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
+                width: 'fit-content',
               }}
             >
               {darkMode ? "☀️" : "🌙"}
@@ -608,6 +618,7 @@ if (targetIndex !== -1) {
                 backgroundColor: themeStyles.inputBg,
                 color: themeStyles.color,
                 border: `1px solid ${themeStyles.border}`,
+                width: "fit-content",
                 borderRadius: "6px",
                 fontSize: "0.9rem",
               }}
