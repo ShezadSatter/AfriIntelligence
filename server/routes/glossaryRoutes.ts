@@ -126,7 +126,7 @@ const content = contents[0];
 // ----------------------------
 // Add new content
 // ----------------------------
-router.post("/upload", async (req, res) => {
+router.post("/glossary/upload", async (req, res) => {
   try {
     const { subjectId, gradeId, term, definition, example, context, category } = req.body;
 
