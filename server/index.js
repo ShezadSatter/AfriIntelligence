@@ -300,13 +300,9 @@ app.get("/api/past-papers/:id/download", async (req, res) => {
   }
 });
 
-// ----------------------------
-// Legacy API Routes (for backward compatibility)
-// ----------------------------
-app.use("/api/glossary", glossaryRoutes);
 
 
-
+/* 
 
 // Master glossary index (returns subjects list)
 app.get("/api/glossary/index.json", async (req, res) => {
@@ -354,7 +350,7 @@ app.get("/api/glossary/:subject/index.json", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch subject glossary" });
   }
 });
-
+ */
 // ----------------------------
 // Translation Routes
 // ----------------------------
