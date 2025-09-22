@@ -20,6 +20,28 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
+// Start server
+async function startServer() {
+  try {
+    // Initialize DB once
+    const dbInit = await initDB();
+    dbModels = dbInit.models;
+    dbServices = dbInit.services;
+    console.log("✅ Database initialized successfully");
+
+    // Start Express
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
+
+
 // Load environment variables
 dotenv.config();
 
@@ -980,25 +1002,6 @@ app.use((error, req, res, next) => {
 // Server Startup
 // ----------------------------
 
-// Start server
-async function startServer() {
-  try {
-    // Initialize DB once
-    const dbInit = await initDB();
-    dbModels = dbInit.models;
-    dbServices = dbInit.services;
-    console.log("✅ Database initialized successfully");
 
-    // Start Express
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("❌ Failed to start server:", error);
-    process.exit(1);
-  }
-}
-
-startServer();
 
 export default app;
