@@ -1,8 +1,10 @@
 /* Home Page Styles */
 .home {
+  display: flex;
   padding-top: 80px;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   background-size: cover;
   background-color: #133A1F;
@@ -25,7 +27,6 @@ img{
 
 hr{
   width: 300px;
-  margin-left: 593px;
   margin-bottom: 20px;
 }
 
@@ -45,7 +46,6 @@ h2{
 .home .buttons {
   display: flex;
   flex-direction: column;
-  margin-left: 650px;
   margin-top: 25px;
   gap: 2rem;
 }

@@ -1,7 +1,7 @@
 /* Form Page Styles */
 .form-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-color: #1a1a1a;
@@ -46,6 +46,7 @@
 }
 
 .login_box{
+  display: flex;
   background-color: #133A1F;
   background-size: cover;
   height: 100vh;
@@ -56,8 +57,8 @@
 .child_element_left {
   display: flex;
   flex-direction: column;
+  flex-direction: column;
   justify-content: center;
-  margin-left: 250px;
   padding: 50px;
   background-color: #F5F5F580;
   width: 951px;
@@ -66,7 +67,9 @@
 }
 
 .overlay{
-  margin-left: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
 }
 .overlay h1 {
@@ -80,8 +83,9 @@
 }
 
 .inputs {
-  margin-left: 300px;
-}
+  display: flex;
+  flex-direction: column;
+align-items: center;}
 
 .inputs input{
   display: flex;
@@ -96,7 +100,6 @@
 
 .role{
   color: #133A1F;
-  margin-left: 90px;
 }
 
 .inputs button{
@@ -106,49 +109,54 @@
   border-radius: 30px;
   background-color: #205631;
   color: #fff;
-  margin-left: 55px;
 }
 
 .loginsection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
   background-color: #133A1F;
   background-size: cover;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
 }
 
 .logincontainer{
   display: flex;
   flex-direction: column;
-  margin-left: 250px;
+  align-items: center;
+  justify-content: center;
   padding: 50px;
   background-color: #F5F5F580;
-  width: 951px;
-  height: 575px;
+  width: 523px;
+  height: 525px;
   border-radius: 30px;
 }
 
 .logintitle h1{
   font-family: League Spartan;
   color: #133A1F;
-  margin-left: 300px;
-  margin-top: 60px;
+    align-items: center;
+
 }
 
 .logintitle h2{
   font-family: League Spartan;
   color: #133A1F;
-  margin-left: 300px;
   margin-bottom: 50px;
 }
 
 .loginform{
-  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loginform input{
   display: flex;
   flex-direction: column;
+    align-items: center;
+
   background-color: white;
   width: 300px;
   height: 50px;
@@ -166,6 +174,5 @@
   border-radius: 30px;
   background-color: #205631;
   color: #fff;
-  margin-left: 55px;
   margin-top: 30px;
 }

@@ -7,9 +7,11 @@
   background: linear-gradient(90deg, #1f1f1f, #2c2c2c);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: sticky;
-  top: 0;
+  top: 2rem;
+  margin: 1rem;
   z-index: 1000;
 }
+
 
 /* Logo */
 .logo {
