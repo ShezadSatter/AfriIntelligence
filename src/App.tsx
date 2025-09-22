@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SelectionPage from "./pages/SelectionPage";
+import Navbar from "./components/Navbar";
 import TranslateDocument from "./pages/TranslateDocument";
 import TextToSpeech from "./pages/TextToSpeech";
 import HomePage from "./pages/HomePage";
@@ -63,7 +64,7 @@ const App: React.FC = () => {
     <Router>
       <UserContextProvider>
         
-
+<Navbar/>
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
         <Routes>
