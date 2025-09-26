@@ -601,14 +601,14 @@ export const services = {
 
   // Utility services
   async getSubjects() {
-    const { Subject } = models;
-    return Subject.find({ isActive: true }).sort({ name: 1 });
-  },
+  const { Subject } = models;
+  return Subject.find({ isActive: true }).select('_id name slug').sort({ name: 1 }).lean();
+},
 
-  async getGrades() {
-    const { Grade } = models;
-    return Grade.find({ isActive: true }).sort({ level: 1 });
-  },
+async getGrades() {
+  const { Grade } = models;
+  return Grade.find({ isActive: true }).select('_id level description').sort({ level: 1 }).lean();
+},
 
   async getLanguages() {
     const { Language } = models;

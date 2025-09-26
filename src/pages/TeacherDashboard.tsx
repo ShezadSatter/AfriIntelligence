@@ -48,14 +48,17 @@ const TeacherDashboard: React.FC = () => {
   const [glossaryLoading, setGlossaryLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers/filters`)
-      .then((res) => {
-        setGrades(res.data.grades || []);
-        setSubjects(res.data.subjects || []);
-        setYears(res.data.years || [2025, 2024, 2023]);
-      })
-      .catch(() => alert("Failed to load filter options"));
+  axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/past-papers/filters`)
+    .then((res) => {
+      setGrades(res.data.grades || []);
+      setSubjects(res.data.subjects || []);
+      setYears(res.data.years || [2025, 2024, 2023]);
+      
+      // Debug log to see what we're getting
+      console.log("Subjects received:", res.data.subjects);
+      console.log("Grades received:", res.data.grades);
+    })
+    .catch(() => alert("Failed to load filter options"));
 
     axios
       .get(`${import.meta.env.VITE_API_BASE_URL}/api/languages`)
@@ -123,9 +126,9 @@ const TeacherDashboard: React.FC = () => {
   };
 
   const handleGlossarySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
- let parsedTerms;
+  let parsedTerms;
   try {
     parsedTerms = JSON.parse(glossaryForm.terms);
     if (!Array.isArray(parsedTerms)) throw new Error("Terms must be an array");
@@ -133,9 +136,9 @@ const TeacherDashboard: React.FC = () => {
     return alert("Terms field must be a valid JSON array");
   }
 
-   try {
+  try {
     setGlossaryLoading(true);
-    await axios.post(
+    const response = await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/api/glossary/upload`,
       {
         subject: glossaryForm.subject,
@@ -143,13 +146,20 @@ const TeacherDashboard: React.FC = () => {
         title: glossaryForm.title,
         id: glossaryForm.id,
         terms: parsedTerms,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true, // If you need authentication
       }
     );
     alert("Glossary topic uploaded!");
     setGlossaryForm({ subject: "", grade: "", title: "", id: "", terms: "", definition: "" });
   } catch (err) {
-    console.error(err);
-    alert("Glossary upload failed.");
+    console.error("Upload error:", err);
+    console.error("Error response:", err.response?.data);
+    alert(`Glossary upload failed: ${err.response?.data?.error || err.message}`);
   } finally {
     setGlossaryLoading(false);
   }
@@ -157,24 +167,24 @@ const TeacherDashboard: React.FC = () => {
 
   // --- Helper to render dropdown safely ---
   const renderOptions = (items: any[]) =>
-    items.map((item, index) => {
-      if (typeof item === "string")
-        return (
-          <option key={index} value={item}>
-            {item}
-          </option>
-        );
-      if (typeof item === "object" && item !== null)
-        return (
-          <option
-            key={item._id ?? index}
-            value={item._id ?? item.name ?? index}
-          >
-            {item.name ?? item.code ?? `Item ${index + 1}`}
-          </option>
-        );
-      return null;
-    });
+  items.map((item, index) => {
+    if (typeof item === "string")
+      return (
+        <option key={index} value={item}>
+          {item}
+        </option>
+      );
+    if (typeof item === "object" && item !== null)
+      return (
+        <option
+          key={item._id ?? index}
+          value={item._id}  // ALWAYS use _id for the value
+        >
+          {item.name ?? item.level ?? item.code ?? `Item ${index + 1}`}  // Display name but value is _id
+        </option>
+      );
+    return null;
+  });
 
   return (
     <div className={styles.dashboard}>
