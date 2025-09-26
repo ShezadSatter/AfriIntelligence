@@ -1,4 +1,4 @@
-// db.js - Consolidated Database Configuration
+// db.js - Consolidated Database Configuration(reupload)
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";

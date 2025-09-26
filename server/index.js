@@ -1,4 +1,4 @@
-// Move the server startup to the top and register routes after DB init
+// Move the server startup to the top and register routes after DB init(reupload)
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
