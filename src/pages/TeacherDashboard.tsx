@@ -108,9 +108,10 @@ const TeacherDashboard: React.FC = () => {
         language: "",
         file: null,
       });
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
-      alert("Upload failed.");
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      alert(`Upload failed: ${errorMessage}`);
     } finally {
       setDocLoading(false);
     }
@@ -132,8 +133,9 @@ const TeacherDashboard: React.FC = () => {
   try {
     parsedTerms = JSON.parse(glossaryForm.terms);
     if (!Array.isArray(parsedTerms)) throw new Error("Terms must be an array");
-  } catch (err) {
-    return alert("Terms field must be a valid JSON array");
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Invalid JSON format';
+    return alert(`Terms field error: ${errorMessage}`);
   }
 
   try {
@@ -156,10 +158,19 @@ const TeacherDashboard: React.FC = () => {
     );
     alert("Glossary topic uploaded!");
     setGlossaryForm({ subject: "", grade: "", title: "", id: "", terms: "", definition: "" });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error("Upload error:", err);
-    console.error("Error response:", err.response?.data);
-    alert(`Glossary upload failed: ${err.response?.data?.error || err.message}`);
+  
+    let errorMessage = 'An unknown error occurred';
+    if (err && typeof err === 'object' && 'response' in err) {
+      const axiosError = err as any;
+      console.error("Error response:", axiosError.response?.data);
+      errorMessage = axiosError.response?.data?.error || axiosError.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+  
+    alert(`Glossary upload failed: ${errorMessage}`);
   } finally {
     setGlossaryLoading(false);
   }
