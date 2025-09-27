@@ -47,6 +47,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3001",
   "https://afri-intelligence.vercel.app",
+  "https://afri-intelligence.onrender.com",
 ];
 
 app.use(cors({
@@ -162,6 +163,7 @@ app.get("/api/debug/database", async (req, res) => {
   // ----------------------------
   // Glossary Routes (your main issue)
   // ----------------------------
+  app.use("/api", glossaryRoutes);
   // Add debugging middleware for glossary uploads
   app.use('/api/glossary/upload', (req, res, next) => {
   console.log('🔍 Upload request received:');
@@ -172,7 +174,7 @@ app.get("/api/debug/database", async (req, res) => {
   next();
 });
 
-  app.use("/api", glossaryRoutes);
+  
 
   // ----------------------------
   // API Routes - Grades
