@@ -189,26 +189,31 @@ app.get("/api/debug/database", async (req, res) => {
     }
   });
 
- // Get grades for a specific subject
+// Get grades for a specific subject (quick fix: return all active grades)
 app.get("/api/grades/:subject", async (req, res) => {
   try {
     const { subject } = req.params;
 
-    // Look up the subject first
+    // Optional: check if subject exists
     const subj = await dbModels.Subject.findOne({ slug: subject });
     if (!subj) {
       return res.status(404).json({ error: "Subject not found" });
     }
 
-    // Find all grades linked to that subject
-    const grades = await dbModels.Grade.find({ subjects: subj._id }).lean();
+    // Return all active grades
+    const grades = await dbModels.Grade.find({ isActive: true })
+      .sort({ level: 1 })
+      .lean();
 
-    res.json(grades);
+    res.json(grades); // <-- this returns an array for frontend .map()
   } catch (error) {
-    console.error("Error fetching subject grades:", error);
-    res.status(500).json({ error: "Failed to fetch grades for subject" });
+    console.error("Error fetching grades:", error);
+    res.status(500).json({ error: "Failed to fetch grades" });
   }
 });
+
+
+
 
 
   // Get past papers filters
