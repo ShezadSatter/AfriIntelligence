@@ -188,32 +188,35 @@ app.get("/api/debug/database", async (req, res) => {
       res.status(500).json({ error: "Failed to fetch grades" });
     }
   });
-/*
+
 // Get grades for a specific subject (quick fix: return all active grades)
+// Add this in your registerRoutes() function in index.js
 app.get("/api/grades/:subject", async (req, res) => {
   try {
     const { subject } = req.params;
+    console.log("📍 Grades route hit for subject:", subject);
 
-    // Optional: check if subject exists
-const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
+    // Check if subject exists
+    const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
     if (!subj) {
+      console.log("❌ Subject not found:", subject);
       return res.status(404).json({ error: "Subject not found" });
     }
+
+    console.log("✅ Subject found:", subj.name);
 
     // Return all active grades
     const grades = await dbModels.Grade.find({ isActive: true })
       .sort({ level: 1 })
       .lean();
 
-    res.json(grades); // <-- this returns an array for frontend .map()
+    console.log("✅ Grades found:", grades.length);
+    res.json(grades);
   } catch (error) {
-    console.error("Error fetching grades:", error);
+    console.error("❌ Error fetching grades:", error);
     res.status(500).json({ error: "Failed to fetch grades" });
   }
 });
-
-*/
-
 
 
   // Get past papers filters
