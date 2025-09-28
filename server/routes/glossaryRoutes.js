@@ -50,28 +50,7 @@ router.get("/grades/:subject", async (req, res) => {
   }
 });
 
-// ----------------------------
-// Get all grades for a subject (alternative route - keeping for compatibility)
-// ----------------------------
-router.get("/grades/:subjectSlug", async (req, res) => {
-  try {
-    const { subjectSlug } = req.params;
-    const subject = await Subject.findOne({ slug: subjectSlug });
 
-    if (!subject) {
-      return res.status(404).json({ error: "Subject not found" });
-    }
-
-    const grades = await Grade.find({ isActive: true })
-      .select("_id level description")
-      .sort({ level: 1 });
-
-    res.json(grades);
-  } catch (err) {
-    console.error("Failed to load grades:", err);
-    res.status(500).json({ error: "Failed to load grades" });
-  }
-});
 
 // ----------------------------
 // Get topics for a subject + grade
