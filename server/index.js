@@ -381,68 +381,78 @@ app.get("/api/test-filters", async (req, res) => {
   });
 
   app.post("/api/translate-file", upload.single("file"), async (req, res) => {
-    const file = req.file;
-    const targetLang = req.body.target;
+  const file = req.file;
+  const targetLang = req.body.target;
 
-    if (!file) return res.status(400).json({ error: "No file uploaded" });
-    if (!targetLang) {
-      await fs.remove(file.path).catch(() => {});
-      return res.status(400).json({ error: "No target language specified" });
-    }
+  if (!file) return res.status(400).json({ error: "No file uploaded" });
+  if (!targetLang) {
+    await fs.remove(file.path).catch(() => {});
+    return res.status(400).json({ error: "No target language specified" });
+  }
 
-    try {
-      let text = "";
+  try {
+    let text = "";
 
-      if (file.mimetype === "application/pdf") {
-  const dataBuffer = await fs.readFile(file.path);
-  const { default: pdfParse } = await import("pdf-parse");
-  const pdfData = await pdfParse(dataBuffer); // <-- Note: pass buffer directly, not as object
-  text = pdfData.text;
-} else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-        const mammoth = await import("mammoth");
-        const result = await mammoth.extractRawText({ path: file.path });
-        text = result.value;
-      } else {
-        throw new Error("Unsupported file type");
-      }
-
-      if (!text.trim()) {
-        throw new Error("No text found in uploaded file");
-      }
-
-      const translatedResult = await translate(text, { to: targetLang });
-      const translatedText = translatedResult.text;
-
-      const doc = new Document({
-        sections: [
-          {
-            children: translatedText
-              .split("\n")
-              .filter(line => line.trim() !== "")
-              .map(line => new Paragraph(line.trim())),
-          },
-        ],
-      });
-
-      await fs.ensureDir(path.join(__dirname, "uploads"));
-      const outputPath = path.join(__dirname, "uploads", `translated_${Date.now()}.docx`);
-      const buffer = await Packer.toBuffer(doc);
-      await fs.writeFile(outputPath, buffer);
-
-      res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
+    if (file.mimetype === "application/pdf") {
+      try {
+        const dataBuffer = await fs.readFile(file.path);
+        const { default: pdfParse } = await import("pdf-parse");
+        const pdfData = await pdfParse(dataBuffer);
+        text = pdfData.text;
+      } catch (pdfError) {
+        console.error("PDF parsing failed:", pdfError);
         await fs.remove(file.path).catch(() => {});
-        await fs.remove(outputPath).catch(() => {});
-        if (err) console.error("Download error:", err);
-      });
-    } catch (err) {
-      console.error("Translation error:", err);
-      if (file?.path) await fs.remove(file.path).catch(() => {});
-      res.status(500).json({
-        error: "Translation failed",
-        message: err.message,
-      });
+        return res.status(500).json({
+          error: "PDF processing failed",
+          message: "PDF parsing is not available in this environment. Please try with a Word document instead."
+        });
+      }
+    } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+      const mammoth = await import("mammoth");
+      const result = await mammoth.extractRawText({ path: file.path });
+      text = result.value;
+    } else {
+      throw new Error("Unsupported file type");
     }
-  });
+
+    // Rest of your existing code remains the same...
+    if (!text.trim()) {
+      throw new Error("No text found in uploaded file");
+    }
+
+    const translatedResult = await translate(text, { to: targetLang });
+    const translatedText = translatedResult.text;
+
+    const doc = new Document({
+      sections: [
+        {
+          children: translatedText
+            .split("\n")
+            .filter(line => line.trim() !== "")
+            .map(line => new Paragraph(line.trim())),
+        },
+      ],
+    });
+
+    await fs.ensureDir(path.join(__dirname, "uploads"));
+    const outputPath = path.join(__dirname, "uploads", `translated_${Date.now()}.docx`);
+    const buffer = await Packer.toBuffer(doc);
+    await fs.writeFile(outputPath, buffer);
+
+    res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
+      await fs.remove(file.path).catch(() => {});
+      await fs.remove(outputPath).catch(() => {});
+      if (err) console.error("Download error:", err);
+    });
+  } catch (err) {
+    console.error("Translation error:", err);
+    if (file?.path) await fs.remove(file.path).catch(() => {});
+    res.status(500).json({
+      error: "Translation failed",
+      message: err.message,
+    });
+  }
+});
 
   // ----------------------------
   // Migration Routes
