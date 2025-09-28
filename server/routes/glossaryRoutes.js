@@ -14,15 +14,15 @@ const isValidName = (str) => /^[a-zA-Z0-9-_]+$/.test(str);
 // ----------------------------
 // Get all subjects
 // ----------------------------
-router.get("/subjects", async (req, res) => {
-  try {
-    const subjects = await Subject.find().select('name slug');
-    res.json(subjects);
-  } catch (error) {
-    console.error("Error fetching subjects:", error);
-    res.status(500).json({ error: "Failed to fetch subjects" });
-  }
-});
+ router.get("/subjects", async (req, res) => {
+    try {
+      const subjects = await Subject.find({ isActive: true }).select("name slug").lean();
+      res.json(subjects);
+    } catch (err) {
+      console.error("Error fetching subjects:", err);
+      res.status(500).json({ error: "Failed to fetch subjects" });
+    }
+  });
 
 // ----------------------------
 // Get all grades for a subject
@@ -36,9 +36,10 @@ router.get("/grades/:subjectSlug", async (req, res) => {
       return res.status(404).json({ error: "Subject not found" });
     }
 
-    const grades = await Grade.find({ subject: subject._id })
-      .select("_id level description")
-      .sort({ level: 1 });
+  const grades = await Grade.find({ isActive: true })
+  .select("_id level description")
+  .sort({ level: 1 });
+
 
     res.json(grades);
   } catch (err) {
