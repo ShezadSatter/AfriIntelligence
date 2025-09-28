@@ -475,11 +475,38 @@ app.get("/api/test-filters", async (req, res) => {
       throw new Error("No text found in uploaded file");
     }
 
-    console.log("🔄 Starting translation...");
-    const translatedResult = await translate(text, { to: targetLang });
-    console.log("✅ Translation completed");
-    
-    // Rest of your code...
+   console.log("🔄 Starting translation...");
+const translatedResult = await translate(text, { to: targetLang });
+const translatedText = translatedResult.text;
+console.log("✅ Translation completed");
+
+console.log("🔄 Creating Word document...");
+const doc = new Document({
+  sections: [{
+    children: translatedText
+      .split("\n")
+      .filter(line => line.trim() !== "")
+      .map(line => new Paragraph(line.trim())),
+  }],
+});
+
+console.log("📁 Ensuring upload directory exists...");
+await fs.ensureDir(path.join(__dirname, "uploads"));
+
+const outputPath = path.join(__dirname, "uploads", `translated_${Date.now()}.docx`);
+console.log("💾 Converting to buffer...");
+const buffer = await Packer.toBuffer(doc);
+
+console.log("📝 Writing file...");
+await fs.writeFile(outputPath, buffer);
+
+console.log("⬇️ Starting download...");
+res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
+  console.log("🧹 Cleaning up files...");
+  await fs.remove(file.path).catch(() => {});
+  await fs.remove(outputPath).catch(() => {});
+  if (err) console.error("Download error:", err);
+});
     
   } catch (err) {
     console.error("❌ Translation route error:", err);
