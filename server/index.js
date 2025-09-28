@@ -409,22 +409,41 @@ app.get("/api/test-filters", async (req, res) => {
     const { default: PDF2JSON } = await import("pdf2json");
     const pdfParser = new PDF2JSON();
     
-    text = await new Promise((resolve, reject) => {
-      pdfParser.on("pdfParser_dataError", (errData) => {
-        reject(new Error(errData.parserError));
-      });
+    // Add timeout to prevent hanging
+    const parseTimeout = 30000; // 30 seconds
+    
+    text = await Promise.race([
+      new Promise((resolve, reject) => {
+        pdfParser.on("pdfParser_dataError", (errData) => {
+          console.log("PDF parser error:", errData);
+          reject(new Error(errData.parserError));
+        });
+        
+        pdfParser.on("pdfParser_dataReady", (pdfData) => {
+          console.log("PDF data received, processing text...");
+          try {
+            const extractedText = pdfData.Pages.map(page => 
+              page.Texts.map(textItem => 
+                textItem.R.map(r => decodeURIComponent(r.T)).join('')
+              ).join(' ')
+            ).join('\n');
+            console.log("Text extraction completed, length:", extractedText.length);
+            resolve(extractedText);
+          } catch (textError) {
+            console.log("Text extraction error:", textError);
+            reject(textError);
+          }
+        });
+        
+        console.log("Starting PDF parsing...");
+        pdfParser.loadPDF(file.path);
+      }),
       
-      pdfParser.on("pdfParser_dataReady", (pdfData) => {
-        const extractedText = pdfData.Pages.map(page => 
-          page.Texts.map(textItem => 
-            textItem.R.map(r => decodeURIComponent(r.T)).join('')
-          ).join(' ')
-        ).join('\n');
-        resolve(extractedText);
-      });
-      
-      pdfParser.loadPDF(file.path);
-    });
+      // Timeout promise
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("PDF parsing timeout after 30 seconds")), parseTimeout)
+      )
+    ]);
     
     console.log("PDF parsed successfully, text length:", text.length);
   } catch (pdfError) {
