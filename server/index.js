@@ -175,19 +175,30 @@ app.get("/api/debug/database", async (req, res) => {
 });
 
   
-
-  // ----------------------------
-  // API Routes - Grades
-  // ----------------------------
-  app.get("/api/grades", async (req, res) => {
-    try {
-      const grades = await dbServices.getGrades();
-      res.json(grades);
-    } catch (error) {
-      console.error("Error fetching grades:", error);
-      res.status(500).json({ error: "Failed to fetch grades" });
+// Add this temporary debug route in your registerRoutes() function
+app.get("/api/debug/routes", (req, res) => {
+  const routes = [];
+  app._router.stack.forEach((middleware) => {
+    if (middleware.route) {
+      routes.push({
+        path: middleware.route.path,
+        methods: Object.keys(middleware.route.methods)
+      });
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach((handler) => {
+        if (handler.route) {
+          routes.push({
+            path: middleware.regexp.source + handler.route.path,
+            methods: Object.keys(handler.route.methods)
+          });
+        }
+      });
     }
   });
+  res.json(routes);
+});
+
+
 
 // Get grades for a specific subject (quick fix: return all active grades)
 // Add this in your registerRoutes() function in index.js
@@ -218,7 +229,18 @@ app.get("/api/grades/:subject", async (req, res) => {
   }
 });
 
-
+  // ----------------------------
+  // API Routes - Grades
+  // ----------------------------
+  app.get("/api/grades", async (req, res) => {
+    try {
+      const grades = await dbServices.getGrades();
+      res.json(grades);
+    } catch (error) {
+      console.error("Error fetching grades:", error);
+      res.status(500).json({ error: "Failed to fetch grades" });
+    }
+  });
   // Get past papers filters
  app.get("/api/past-papers/filters", async (req, res) => {
   try {
@@ -532,28 +554,6 @@ app.get("/api/test-filters", async (req, res) => {
   });
 }
 
-// Add this temporary debug route in your registerRoutes() function
-app.get("/api/debug/routes", (req, res) => {
-  const routes = [];
-  app._router.stack.forEach((middleware) => {
-    if (middleware.route) {
-      routes.push({
-        path: middleware.route.path,
-        methods: Object.keys(middleware.route.methods)
-      });
-    } else if (middleware.name === 'router') {
-      middleware.handle.stack.forEach((handler) => {
-        if (handler.route) {
-          routes.push({
-            path: middleware.regexp.source + handler.route.path,
-            methods: Object.keys(handler.route.methods)
-          });
-        }
-      });
-    }
-  });
-  res.json(routes);
-});
 
 
 
