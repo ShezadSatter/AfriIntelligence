@@ -43,6 +43,7 @@
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
     "pdf-parser": "^1.0.5",
+    "pdf2json": "^3.2.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

@@ -404,28 +404,31 @@ app.get("/api/test-filters", async (req, res) => {
     let text = "";
 
    if (file.mimetype === "application/pdf") {
-  console.log("Processing PDF file");
+  console.log("Processing PDF file with pdf2json");
   try {
-    const dataBuffer = await fs.readFile(file.path);
-    console.log("File read successfully, buffer size:", dataBuffer.length);
+    const { default: PDF2JSON } = await import("pdf2json");
+    const pdfParser = new PDF2JSON();
     
-    // Try importing without destructuring first
-    const pdfParseModule = await import("pdf-parse");
-    console.log("PDF parse module imported:", typeof pdfParseModule);
+    text = await new Promise((resolve, reject) => {
+      pdfParser.on("pdfParser_dataError", (errData) => {
+        reject(new Error(errData.parserError));
+      });
+      
+      pdfParser.on("pdfParser_dataReady", (pdfData) => {
+        const extractedText = pdfData.Pages.map(page => 
+          page.Texts.map(textItem => 
+            textItem.R.map(r => decodeURIComponent(r.T)).join('')
+          ).join(' ')
+        ).join('\n');
+        resolve(extractedText);
+      });
+      
+      pdfParser.loadPDF(file.path);
+    });
     
-    // Handle different export formats
-    const pdfParse = pdfParseModule.default || pdfParseModule;
-    console.log("PDF parser function:", typeof pdfParse);
-    
-    // Call with just the buffer (no wrapper object)
-    const pdfData = await pdfParse(dataBuffer);
-    console.log("PDF parsed successfully, text length:", pdfData.text.length);
-    
-    text = pdfData.text;
+    console.log("PDF parsed successfully, text length:", text.length);
   } catch (pdfError) {
     console.error("PDF processing failed:", pdfError);
-    console.error("PDF error stack:", pdfError.stack);
-    
     await fs.remove(file.path).catch(() => {});
     return res.status(500).json({
       error: "PDF processing failed",
