@@ -29,13 +29,25 @@ router.get("/subjects", async (req, res) => {
 // ----------------------------
 router.get("/grades/:subjectSlug", async (req, res) => {
   try {
-    const grades = await Grade.find();
-    res.json(grades.map(g => ({ id: g._id, level: g.level, description: g.description })));
+    const { subjectSlug } = req.params;
+    const subject = await Subject.findOne({ slug: subjectSlug });
+
+    if (!subject) {
+      return res.status(404).json({ error: "Subject not found" });
+    }
+
+    const grades = await Grade.find({ subject: subject._id });
+    res.json(grades.map(g => ({
+      id: g._id,
+      level: g.level,
+      description: g.description
+    })));
   } catch (err) {
     console.error("Failed to load grades:", err);
     res.status(500).json({ error: "Failed to load grades" });
   }
 });
+
 
 // ----------------------------
 // Get topics for a subject + grade
