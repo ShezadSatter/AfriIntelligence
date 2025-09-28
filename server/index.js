@@ -195,7 +195,7 @@ app.get("/api/grades/:subject", async (req, res) => {
     const { subject } = req.params;
 
     // Optional: check if subject exists
-    const subj = await dbModels.Subject.findOne({ slug: subject });
+const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
     if (!subj) {
       return res.status(404).json({ error: "Subject not found" });
     }
