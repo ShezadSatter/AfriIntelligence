@@ -403,33 +403,33 @@ app.get("/api/test-filters", async (req, res) => {
     console.log("🔄 Starting file processing...");
     let text = "";
 
-    if (file.mimetype === "application/pdf") {
-  console.log("📄 Processing PDF file");
+   if (file.mimetype === "application/pdf") {
+  console.log("Processing PDF file");
   try {
     const dataBuffer = await fs.readFile(file.path);
-    console.log("✅ File read successfully, buffer size:", dataBuffer.length);
+    console.log("File read successfully, buffer size:", dataBuffer.length);
     
-    // Add error handling around the import itself
-    let pdfParse;
-    try {
-      const pdfParseModule = await import("pdf-parse");
-      pdfParse = pdfParseModule.default;
-      console.log("✅ PDF parser imported successfully");
-    } catch (importError) {
-      console.error("❌ PDF parser import failed:", importError);
-      throw new Error("PDF parsing is not available in this environment");
-    }
+    // Try importing without destructuring first
+    const pdfParseModule = await import("pdf-parse");
+    console.log("PDF parse module imported:", typeof pdfParseModule);
     
+    // Handle different export formats
+    const pdfParse = pdfParseModule.default || pdfParseModule;
+    console.log("PDF parser function:", typeof pdfParse);
+    
+    // Call with just the buffer (no wrapper object)
     const pdfData = await pdfParse(dataBuffer);
-    console.log("✅ PDF parsed, text length:", pdfData.text.length);
+    console.log("PDF parsed successfully, text length:", pdfData.text.length);
     
     text = pdfData.text;
   } catch (pdfError) {
-    console.error("❌ PDF processing failed:", pdfError);
+    console.error("PDF processing failed:", pdfError);
+    console.error("PDF error stack:", pdfError.stack);
+    
     await fs.remove(file.path).catch(() => {});
     return res.status(500).json({
       error: "PDF processing failed",
-      message: "PDF parsing is not available in this environment. Please use a Word document instead."
+      message: `PDF parsing error: ${pdfError.message}`
     });
   }
 } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
