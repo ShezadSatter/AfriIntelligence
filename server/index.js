@@ -404,27 +404,35 @@ app.get("/api/test-filters", async (req, res) => {
     let text = "";
 
     if (file.mimetype === "application/pdf") {
-      console.log("📄 Processing PDF file");
-      try {
-        const dataBuffer = await fs.readFile(file.path);
-        console.log("✅ File read successfully, buffer size:", dataBuffer.length);
-        
-        const { default: pdfParse } = await import("pdf-parse");
-        console.log("✅ PDF parser imported");
-        
-        const pdfData = await pdfParse(dataBuffer);
-        console.log("✅ PDF parsed, text length:", pdfData.text.length);
-        
-        text = pdfData.text;
-      } catch (pdfError) {
-        console.error("❌ PDF parsing failed:", pdfError);
-        await fs.remove(file.path).catch(() => {});
-        return res.status(500).json({
-          error: "PDF processing failed",
-          message: pdfError.message
-        });
-      }
-    } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+  console.log("📄 Processing PDF file");
+  try {
+    const dataBuffer = await fs.readFile(file.path);
+    console.log("✅ File read successfully, buffer size:", dataBuffer.length);
+    
+    // Add error handling around the import itself
+    let pdfParse;
+    try {
+      const pdfParseModule = await import("pdf-parse");
+      pdfParse = pdfParseModule.default;
+      console.log("✅ PDF parser imported successfully");
+    } catch (importError) {
+      console.error("❌ PDF parser import failed:", importError);
+      throw new Error("PDF parsing is not available in this environment");
+    }
+    
+    const pdfData = await pdfParse(dataBuffer);
+    console.log("✅ PDF parsed, text length:", pdfData.text.length);
+    
+    text = pdfData.text;
+  } catch (pdfError) {
+    console.error("❌ PDF processing failed:", pdfError);
+    await fs.remove(file.path).catch(() => {});
+    return res.status(500).json({
+      error: "PDF processing failed",
+      message: "PDF parsing is not available in this environment. Please use a Word document instead."
+    });
+  }
+} else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
       console.log("📝 Processing Word document");
       try {
         const mammoth = await import("mammoth");
