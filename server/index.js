@@ -1,4 +1,4 @@
-// Move the server startup to the top and register routes after DB init(reupload)
+//index.js
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -188,7 +188,7 @@ app.get("/api/debug/database", async (req, res) => {
       res.status(500).json({ error: "Failed to fetch grades" });
     }
   });
-
+/*
 // Get grades for a specific subject (quick fix: return all active grades)
 app.get("/api/grades/:subject", async (req, res) => {
   try {
@@ -212,7 +212,7 @@ const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
   }
 });
 
-
+*/
 
 
 

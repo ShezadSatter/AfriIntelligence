@@ -1,5 +1,6 @@
+// server/routes/glossaryRoutes.js
+
 import express from "express"; // reupload
-// Remove the database initialization - it's already done in index.js
 import Content from "../models/content.js";
 import Subject from "../models/subject.js";
 import Grade from "../models/grade.js";
@@ -14,18 +15,43 @@ const isValidName = (str) => /^[a-zA-Z0-9-_]+$/.test(str);
 // ----------------------------
 // Get all subjects
 // ----------------------------
- router.get("/subjects", async (req, res) => {
-    try {
-      const subjects = await Subject.find({ isActive: true }).select("name slug").lean();
-      res.json(subjects);
-    } catch (err) {
-      console.error("Error fetching subjects:", err);
-      res.status(500).json({ error: "Failed to fetch subjects" });
-    }
-  });
+router.get("/subjects", async (req, res) => {
+  try {
+    const subjects = await Subject.find({ isActive: true }).select("name slug").lean();
+    res.json(subjects);
+  } catch (err) {
+    console.error("Error fetching subjects:", err);
+    res.status(500).json({ error: "Failed to fetch subjects" });
+  }
+});
 
 // ----------------------------
-// Get all grades for a subject
+// Get grades for a specific subject - MISSING ROUTE ADDED
+// ----------------------------
+router.get("/grades/:subject", async (req, res) => {
+  try {
+    const { subject } = req.params;
+
+    // Optional: check if subject exists
+    const subj = await Subject.findOne({ slug: subject.toLowerCase() });
+    if (!subj) {
+      return res.status(404).json({ error: "Subject not found" });
+    }
+
+    // Return all active grades (same as your index.js implementation)
+    const grades = await Grade.find({ isActive: true })
+      .sort({ level: 1 })
+      .lean();
+
+    res.json(grades); // <-- this returns an array for frontend .map()
+  } catch (error) {
+    console.error("Error fetching grades:", error);
+    res.status(500).json({ error: "Failed to fetch grades" });
+  }
+});
+
+// ----------------------------
+// Get all grades for a subject (alternative route - keeping for compatibility)
 // ----------------------------
 router.get("/grades/:subjectSlug", async (req, res) => {
   try {
@@ -36,10 +62,9 @@ router.get("/grades/:subjectSlug", async (req, res) => {
       return res.status(404).json({ error: "Subject not found" });
     }
 
-  const grades = await Grade.find({ isActive: true })
-  .select("_id level description")
-  .sort({ level: 1 });
-
+    const grades = await Grade.find({ isActive: true })
+      .select("_id level description")
+      .sort({ level: 1 });
 
     res.json(grades);
   } catch (err) {
@@ -47,8 +72,6 @@ router.get("/grades/:subjectSlug", async (req, res) => {
     res.status(500).json({ error: "Failed to load grades" });
   }
 });
-
-
 
 // ----------------------------
 // Get topics for a subject + grade
