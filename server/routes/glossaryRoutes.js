@@ -36,17 +36,17 @@ router.get("/grades/:subjectSlug", async (req, res) => {
       return res.status(404).json({ error: "Subject not found" });
     }
 
-    const grades = await Grade.find({ subject: subject._id });
-    res.json(grades.map(g => ({
-      id: g._id,
-      level: g.level,
-      description: g.description
-    })));
+    const grades = await Grade.find({ subject: subject._id })
+      .select("_id level description")
+      .sort({ level: 1 });
+
+    res.json(grades);
   } catch (err) {
     console.error("Failed to load grades:", err);
     res.status(500).json({ error: "Failed to load grades" });
   }
 });
+
 
 
 // ----------------------------
