@@ -12,7 +12,7 @@ import translate from "@iamtraction/google-translate";
 import authRoutes from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser';
 import glossaryRoutes from "./routes/glossaryRoutes.js"; // Note: change .ts to .js
-import pdfParse from "pdf-parse";
+//import pdfParse from "pdf-parse";
 import { initDB, models, services } from "./db.js";
 import pastPaperRoutes from './routes/pastPapers.js';
 
@@ -394,10 +394,11 @@ app.get("/api/test-filters", async (req, res) => {
       let text = "";
 
       if (file.mimetype === "application/pdf") {
-        const dataBuffer = await fs.readFile(file.path);
-        const pdfData = await pdfParse({ data: dataBuffer });
-        text = pdfData.text;
-      } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+  const dataBuffer = await fs.readFile(file.path);
+  const { default: pdfParse } = await import("pdf-parse");
+  const pdfData = await pdfParse(dataBuffer); // <-- Note: pass buffer directly, not as object
+  text = pdfData.text;
+} else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
         const mammoth = await import("mammoth");
         const result = await mammoth.extractRawText({ path: file.path });
         text = result.value;
