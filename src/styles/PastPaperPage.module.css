@@ -1,101 +1,133 @@
-/* /* PastPaperPage.module.css — uses only classes/tags present in your TSX 
+/* PastPaperPage.module.css */
 
-
-:root {
-  --bg: #133a1f;
-  --brand: #236738;
-  --brand-2: #2e7f49;
-  --text-on-dark: #ffffff;
-  --muted: #cfd8d0;
+/* Reset + page background */
+:global(html, body, #root) {
+  height: auto;
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  display: block;
+  overflow-y: auto;         /* scrolling works */
+  overflow-x: hidden;
+  background-color: #133a1f; /* dark page background */
+  font-family: 'League Spartan', sans-serif;
 }
 
+/* Main container card */
 .container {
-
-  min-height: 100svh; 
-  background-color: #214a2e; 
-  opacity: 0.8;  /* dark green background with slight overlay 
+  box-sizing: border-box;
+  width: 600px;
+  height: 400px;
+  background-color: #236738; /* brand green */
+  opacity: 0.9;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(8px, 2vh, 16px);
-  /* move the whole block slightly down 
-  padding: clamp(48px, 8vh, 72px) clamp(16px, 4vw, 32px) clamp(16px, 4vw, 32px);
-  
-  font-family: 'League Spartan', sans-serif;
-  border-radius: 12px;                  /* soft edges around the container 
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: max(24px, calc((100svh - 400px) / 2));
+  margin-bottom: max(24px, calc((100svh - 400px) / 2));
+  border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
-/* H1 (“Past Papers”) — white */
-/* .container > h1 {
-  color: var(--text-on-dark);
-  font-size: clamp(22px, 5vw, 34px);
+
+/* Heading */
+.container > h1 {
+  color: #ffffff;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: 0.2px;
   margin: 0 0 8px 0;
   text-align: center;
 }
 
-/* /* Filter labels (y ou already inline-color them white; this backs it up) 
+/* Filter labels */
 .container label {
-  color: var(--text-on-dark);
-  font-weight: 700;
-} */
-
-/* Selects – brand look; no extra classes needed 
-.container select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  margin-left: 8px;
-  padding: 10px 14px;
-  min-width: 220px;
-
-  border-radius: 30px;
-  border: 1px solid var(--brand);
-  background: #fff;
-  color: var(--brand);                 /* brand-colour text 
+  color: #ffffff;
+  font-weight: 600;
   font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
 
-/* Option text in the dropdown — brand colour 
+/* Select dropdowns */
+.container select {
+  margin-left: 8px;
+  padding: 8px 14px;
+  min-width: 200px;
+  border-radius: 30px;
+  border: 1px solid #236738;
+  background: #ffffff;
+  color: #236738;          /* brand color text */
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
 .container select option {
-  color: var(--brand);
+  color: #236738;
   font-weight: 600;
 }
 
-/* Focus ring 
 .container select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(35, 103, 56, 0.28);
-  border-color: var(--brand-2);
+  box-shadow: 0 0 0 3px rgba(35, 103, 56, 0.35);
+  border-color: #2e7f49;
 }
 
-/* Loading + error text polish (your inline colors still apply) 
-.container p {
-  margin: 6px 0;
-}
-
-/* “Available Papers” heading 
+/* Sub-heading (Available Papers) */
 .container h3 {
-  color: var(--text-on-dark);
-  font-size: clamp(16px, 3.6vw, 22px);
+  color: #ffffff;
+  font-size: 20px;
   margin: 16px 0 8px;
 }
 
-/* Make the results area align with filters width without new classes 
-.container > div {
-  width: min(100%, 900px);
+/* Result cards */
+.container div[style*="background-color"] {
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
 }
 
-/* Responsive tweak: smaller selects on small screens 
-@media (max-width: 600px) {
-  .container select {
-    min-width: 180px;
-    padding: 9px 12px;
-    font-size: 15px;
+.container h4 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 16px;
+}
+
+.container p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* Download link */
+.container a {
+  color: #4CAF50;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #4CAF50;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.container a:hover {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .container {
+    width: 90%;
+    height: auto; /* allow content to grow on small screens */
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
-}*/
+
+  .container select {
+    min-width: 160px;
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
