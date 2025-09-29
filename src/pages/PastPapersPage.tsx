@@ -127,16 +127,51 @@ const PastPapersPage: React.FC = () => {
     }
   };
 
+  // Enhanced file URL generation with multiple fallback strategies
   const getFileUrl = (paper: PastPaper) => {
-  if (paper.file?.filePath) {
-    // Use the filePath exactly as stored in the database
-    return `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.file.filePath)}`;
-  } else if (paper.fileUrl) {
-    // Legacy support
-    return `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.fileUrl)}`;
-  }
-  return null;
-};
+    console.log('Getting file URL for paper:', paper._id, paper);
+    
+    // Method 1: New system - use fileId if available
+    if (paper.file?._id) {
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?fileId=${paper.file._id}`;
+      console.log('Using fileId URL:', url);
+      return url;
+    } 
+    
+    // Method 2: New system - use filePath from file object
+    if (paper.file?.filePath) {
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.file.filePath)}`;
+      console.log('Using file.filePath URL:', url);
+      return url;
+    } 
+    
+    // Method 3: Legacy system - direct fileUrl
+    if (paper.fileUrl) {
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.fileUrl)}`;
+      console.log('Using legacy fileUrl:', url);
+      return url;
+    }
+    
+    // Method 4: Try to construct from paper metadata (fallback)
+    if (paper.subject?.name && paper.grade?.level && paper.year && paper.paperType) {
+      // Try common filename patterns
+      const patterns = [
+        `${paper.subject.name}_Grade${paper.grade.level}_${paper.paperType.toUpperCase()}_${paper.year}.pdf`,
+        `${paper.subject.name} ${paper.grade.level} ${paper.paperType.toUpperCase()} ${paper.year}.pdf`,
+        `${paper.subject.name}_${paper.year}_${paper.paperType.toUpperCase()}.pdf`
+      ];
+      
+      for (const pattern of patterns) {
+        const url = `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(pattern)}`;
+        console.log('Trying constructed pattern:', url);
+        // Return the first pattern - the backend will search for variations
+        return url;
+      }
+    }
+    
+    console.log('No file URL could be determined for paper:', paper._id);
+    return null;
+  };
 
   const handleDownload = async (paper: PastPaper) => {
     try {
@@ -217,6 +252,7 @@ const PastPapersPage: React.FC = () => {
           <h3 style={{ color: 'white' }}>Available Papers:</h3>
           {pastPapers.map(paper => {
             const fileUrl = getFileUrl(paper);
+            
             return (
               <div key={paper._id} style={{ 
                 marginBottom: 15, 
@@ -226,16 +262,29 @@ const PastPapersPage: React.FC = () => {
                 backgroundColor: 'rgba(255,255,255,0.1)'
               }}>
                 <h4 style={{ color: 'white', margin: 0 }}>
-                  {paper.title || `${paper.subject.name} ${paper.paperType.toUpperCase()} ${paper.year}`}
+                  {paper.title || `${paper.subject?.name || 'Unknown Subject'} ${paper.paperType?.toUpperCase() || 'Unknown Paper'} ${paper.year || 'Unknown Year'}`}
                 </h4>
                 <p style={{ color: '#ccc', margin: '5px 0' }}>
-                  Grade {paper.grade.level} | {paper.subject.name} | {paper.year} | Paper {paper.paperType.toUpperCase()}
+                  Grade {paper.grade?.level || 'Unknown'} | {paper.subject?.name || 'Unknown Subject'} | {paper.year || 'Unknown Year'} | Paper {paper.paperType?.toUpperCase() || 'Unknown'}
                 </p>
                 <p style={{ color: '#ccc', fontSize: '0.9em' }}>
-                  Downloaded {paper.downloadCount} times
+                  Downloaded {paper.downloadCount || 0} times
                 </p>
                 
-                {fileUrl && (
+                {/* Debug info in development */}
+                {import.meta.env.DEV && (
+                  <div style={{ color: '#888', fontSize: '0.8em', marginTop: 5 }}>
+                    Debug: {JSON.stringify({
+                      hasFile: !!paper.file,
+                      hasFileId: !!paper.file?._id,
+                      hasFilePath: !!paper.file?.filePath,
+                      hasLegacyUrl: !!paper.fileUrl,
+                      fileUrl: fileUrl
+                    })}
+                  </div>
+                )}
+                
+                {fileUrl ? (
                   <div style={{ marginTop: 10 }}>
                     <a 
                       href={fileUrl} 
@@ -255,7 +304,25 @@ const PastPapersPage: React.FC = () => {
                       Download PDF
                     </a>
                     
-                    {/* PDF Preview */}
+                    {/* Test file accessibility */}
+                    <a 
+                      href={`${import.meta.env.VITE_API_BASE_URL}/api/debug/file-paths?${paper.file?._id ? `fileId=${paper.file._id}` : `filePath=${encodeURIComponent(paper.file?.filePath || paper.fileUrl || '')}`}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ 
+                        color: '#ffa726', 
+                        textDecoration: 'none',
+                        marginRight: 15,
+                        padding: '5px 10px',
+                        border: '1px solid #ffa726',
+                        borderRadius: 3,
+                        fontSize: '0.8em'
+                      }}
+                    >
+                      Debug File
+                    </a>
+                    
+                    {/* PDF Preview with enhanced error handling */}
                     <div
                       style={{
                         border: '1px solid #ccc',
@@ -263,19 +330,81 @@ const PastPapersPage: React.FC = () => {
                         height: 400,
                         overflowY: 'auto',
                         marginTop: 10,
+                        position: 'relative'
                       }}
                     >
                       <iframe
-                        src={`${fileUrl}#toolbar=0`}
-                        title={`PDF Preview - ${paper.title}`}
+                        src={`${fileUrl}#toolbar=0&navpanes=0&scrollbar=1`}
+                        title={`PDF Preview - ${paper.title || paper._id}`}
                         style={{ width: '100%', height: '100%', border: 'none' }}
+                        onLoad={(e) => {
+                          console.log('PDF iframe loaded successfully for:', paper._id);
+                        }}
+                        onError={(e) => {
+                          console.error('PDF preview error for paper:', paper._id, e);
+                          const iframe = e.target as HTMLIFrameElement;
+                          const container = iframe.parentNode as HTMLElement;
+                          
+                          // Create error message
+                          const errorDiv = document.createElement('div');
+                          errorDiv.innerHTML = `
+                            <div style="padding: 20px; text-align: center; color: #ff6b6b; background: rgba(0,0,0,0.1);">
+                              <p><strong>PDF Preview Not Available</strong></p>
+                              <p style="font-size: 0.9em;">File: ${paper.file?.originalName || paper.fileUrl || 'Unknown'}</p>
+                              <p style="font-size: 0.8em;">Try downloading the file instead, or check the debug link above</p>
+                              <a href="${fileUrl}" target="_blank" style="color: #4CAF50;">Open in New Tab</a>
+                            </div>
+                          `;
+                          
+                          iframe.style.display = 'none';
+                          container.appendChild(errorDiv);
+                        }}
                       />
                     </div>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: 10, color: '#ff6b6b' }}>
+                    <p><strong>File not available</strong></p>
+                    <p style={{ fontSize: '0.9em' }}>
+                      No valid file path found for this paper. 
+                      {paper.file ? ' File object exists but path is invalid.' : ' No file object found.'}
+                      {paper.fileUrl ? ` Legacy URL: ${paper.fileUrl}` : ' No legacy URL.'}
+                    </p>
+                    <p style={{ fontSize: '0.8em', color: '#888' }}>
+                      Please contact support if this file should be available
+                    </p>
                   </div>
                 )}
               </div>
             );
           })}
+        </div>
+      )}
+      
+      {/* Debug panel for development */}
+      {import.meta.env.DEV && (
+        <div style={{ 
+          position: 'fixed', 
+          bottom: 10, 
+          right: 10, 
+          background: 'rgba(0,0,0,0.8)', 
+          color: 'white', 
+          padding: 10, 
+          borderRadius: 5,
+          fontSize: '0.8em',
+          maxWidth: 300
+        }}>
+          <h4>Debug Info</h4>
+          <p>Papers loaded: {pastPapers.length}</p>
+          <p>Grades: {grades.length}</p>
+          <p>Subjects: {subjects.length}</p>
+          <a 
+            href={`${import.meta.env.VITE_API_BASE_URL}/api/debug/list-files`} 
+            target="_blank" 
+            style={{color: '#4CAF50'}}
+          >
+            View All Files
+          </a>
         </div>
       )}
     </div>
