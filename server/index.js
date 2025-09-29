@@ -255,7 +255,8 @@ app.get("/api/grades/:subject", async (req, res) => {
       .sort({ name: 1 })
       .lean();
       
-    const years = [2025, 2024, 2023, 2022, 2021, 2020];
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({length: currentYear - 2009}, (_, i) => currentYear - i);
     
     console.log("Direct query - Grades:", grades);
     console.log("Direct query - Subjects:", subjects);
@@ -295,56 +296,164 @@ app.get("/api/test-filters", async (req, res) => {
  // ----------------------------
   // Past Papers Routes
   // ----------------------------
-  app.use('/api/past-papers', pastPaperRoutes);
-
-  // Upload new past paper
-  app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
+  
+  // Specific GET route for listing papers (must come BEFORE the general router)
+  app.get("/api/past-papers", async (req, res) => {
     try {
-      const { grade, subject, year, paper, language } = req.body;
-      const file = req.file;
+      const { subject, grade, year, paperType, limit = 50, page = 1 } = req.query;
       
-      if (!grade || !subject || !year || !paper || !language || !file) {
-        return res.status(400).json({ 
-          error: "Missing required fields: grade, subject, year, paper, language, and file" 
-        });
+      console.log("📝 Past papers query:", { subject, grade, year, paperType });
+      
+      // Build filter object
+      const filter = { isActive: true };
+      
+      // Handle subject (convert slug to ObjectId)
+      if (subject) {
+        const subjectDoc = await dbModels.Subject.findOne({ slug: subject });
+        if (subjectDoc) {
+          filter.subject = subjectDoc._id;
+        } else {
+          return res.status(404).json({ error: "Subject not found" });
+        }
       }
       
-      // Validate paper type
-      if (!['p1', 'p2', 'p3'].includes(paper)) {
-        return res.status(400).json({ error: "Invalid paperType. Must be p1, p2, or p3" });
+      // Handle grade (convert level to ObjectId)
+      if (grade) {
+        const gradeDoc = await dbModels.Grade.findOne({ level: parseInt(grade) });
+        if (gradeDoc) {
+          filter.grade = gradeDoc._id;
+        } else {
+          return res.status(404).json({ error: "Grade not found" });
+        }
       }
       
-      // Create document file record
-      const documentFile = await dbServices.createDocumentFile({
-        filename: file.filename,
-        originalName: file.originalname,
-        mimeType: file.mimetype,
-        size: file.size,
-        strategy: 'local',
-        filePath: file.path,
-        uploadedBy: req.user?._id
+      // Handle year and paperType
+      if (year) filter.year = parseInt(year);
+      if (paperType) filter.paperType = paperType.toLowerCase();
+      
+      console.log("🔍 Filter:", filter);
+      
+      // Query database
+      const papers = await dbModels.PastPaper.find(filter)
+        .populate('subject', 'name slug')
+        .populate('grade', 'level description')
+        .populate('file')
+        .sort({ year: -1, paperType: 1 })
+        .limit(parseInt(limit));
+        
+      console.log("📄 Found papers:", papers.length);
+      
+      res.json({
+        papers,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total: papers.length
+        }
       });
       
-      // Create past paper record
-      const pastPaper = await dbServices.createPastPaper({
-        subjectId: subject,
-        gradeId: grade,
-        year: parseInt(year),
-        paperType: paper,
-        fileId: documentFile._id,
-        uploadedBy: req.user?._id
-      });
-      
-      res.status(201).json({ message: "Past paper uploaded successfully", pastPaper });
     } catch (error) {
-      console.error("Error uploading past paper:", error);
-      if (req.file?.path) {
-        await fs.remove(req.file.path).catch(console.error);
-      }
-      res.status(500).json({ error: "Failed to upload past paper" });
+      console.error("❌ Error fetching past papers:", error);
+      res.status(500).json({ 
+        error: "Failed to fetch past papers",
+        message: error.message 
+      });
     }
   });
 
+  // Upload new past paper - SPECIFIC ROUTE FIRST
+app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
+  try {
+    const { grade, subject, year, paper, language } = req.body;
+    const file = req.file;
+    
+    console.log("Upload attempt:", { grade, subject, year, paper, language, file: file?.originalname });
+    
+    if (!grade || !subject || !year || !paper || !language || !file) {
+      return res.status(400).json({ 
+        error: "Missing required fields: grade, subject, year, paper, language, and file" 
+      });
+    }
+    
+    // Validate paper type
+    if (!['p1', 'p2', 'p3'].includes(paper.toLowerCase())) {
+      return res.status(400).json({ error: "Invalid paperType. Must be p1, p2, or p3" });
+    }
+    
+    // Create proper filename and move file to correct location
+    const targetDir = path.join(__dirname, "data", "pdfs", "DBE Past Papers");
+    await fs.ensureDir(targetDir);
+    
+    // Create a proper filename based on the paper details
+    const subjectDoc = await dbModels.Subject.findById(subject);
+    const gradeDoc = await dbModels.Grade.findById(grade);
+    
+    const properFilename = `${subjectDoc?.name || 'Unknown'} ${paper.toUpperCase()} ${year} ${file.originalname}`.replace(/[^a-zA-Z0-9.\-_\s]/g, '');
+    const targetPath = path.join(targetDir, properFilename);
+    
+    // Move file from temp location to proper location
+    await fs.move(file.path, targetPath);
+    
+    // Create document file record with relative path
+    console.log("Creating document file...");
+    const documentFile = await dbServices.createDocumentFile({
+      filename: properFilename,
+      originalName: file.originalname,
+      mimeType: file.mimetype,
+      size: file.size,
+      strategy: 'local',
+      filePath: properFilename, // Store just the filename, not full path
+      uploadedBy: req.user?._id
+    });
+    
+    console.log("Document file created:", documentFile._id);
+    
+    // Create past paper record
+    console.log("Creating past paper record...");
+    const pastPaper = await dbServices.createPastPaper({
+      subjectId: subject,
+      gradeId: grade,
+      year: parseInt(year),
+      paperType: paper.toLowerCase(),
+      fileId: documentFile._id,
+      uploadedBy: req.user?._id
+    });
+    
+    console.log("Past paper created:", pastPaper._id);
+    
+    res.status(201).json({ 
+      message: "Past paper uploaded successfully", 
+      pastPaper,
+      documentFile 
+    });
+  } catch (error) {
+    console.error("Error uploading past paper:", error);
+    console.error("Stack:", error.stack);
+    if (req.file?.path) {
+      await fs.remove(req.file.path).catch(console.error);
+    }
+    res.status(500).json({ 
+      error: "Failed to upload past paper",
+      message: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+});
+
+  // Download tracking route
+  app.post("/api/past-papers/:id/download", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await dbServices.recordDownload(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error recording download:", error);
+      res.status(500).json({ error: "Failed to record download" });
+    }
+  });
+
+  // Legacy routes from pastPapers.js - AFTER specific routes
+  app.use('/api/past-papers', pastPaperRoutes);
   // ----------------------------
   // Translation Routes
   // ----------------------------
