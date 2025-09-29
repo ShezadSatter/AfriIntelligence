@@ -26,7 +26,7 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
 /* H1 (“Past Papers”) — white */
-.container > h1 {
+/* .container > h1 {
   color: var(--text-on-dark);
   font-size: clamp(22px, 5vw, 34px);
   font-weight: 800;
@@ -35,11 +35,11 @@
   text-align: center;
 }
 
-/* Filter labels (you already inline-color them white; this backs it up) 
+/* /* Filter labels (y ou already inline-color them white; this backs it up) 
 .container label {
   color: var(--text-on-dark);
   font-weight: 700;
-}
+} */
 
 /* Selects – brand look; no extra classes needed 
 .container select {
