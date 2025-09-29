@@ -1,3 +1,5 @@
+// src/pages/TeacherDashboard.tsx
+
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styles from "../styles/teacherDashboard.module.css";
@@ -18,6 +20,11 @@ interface Language {
   _id?: string;
   name?: string;
   code?: string;
+}
+
+interface GlossaryTerm {
+  term: string;
+  definition: string;
 }
 
 const TeacherDashboard: React.FC = () => {
@@ -41,11 +48,12 @@ const TeacherDashboard: React.FC = () => {
   const [glossaryForm, setGlossaryForm] = useState({
     grade: "",
     subject: "",
-    terms: "",
     title: "",
     id: "",
-    definition: "",
   });
+  const [glossaryTerms, setGlossaryTerms] = useState<GlossaryTerm[]>([
+    { term: "", definition: "" }
+  ]);
   const [glossaryLoading, setGlossaryLoading] = useState(false);
 
   useEffect(() => {
@@ -118,24 +126,38 @@ const TeacherDashboard: React.FC = () => {
   };
 
   const handleGlossaryChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setGlossaryForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleTermChange = (index: number, field: keyof GlossaryTerm, value: string) => {
+    setGlossaryTerms(prev => 
+      prev.map((term, i) => 
+        i === index ? { ...term, [field]: value } : term
+      )
+    );
+  };
+
+  const addTerm = () => {
+    setGlossaryTerms(prev => [...prev, { term: "", definition: "" }]);
+  };
+
+  const removeTerm = (index: number) => {
+    if (glossaryTerms.length > 1) {
+      setGlossaryTerms(prev => prev.filter((_, i) => i !== index));
+    }
+  };
+
   const handleGlossarySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    let parsedTerms;
-    try {
-      parsedTerms = JSON.parse(glossaryForm.terms);
-      if (!Array.isArray(parsedTerms)) throw new Error("Terms must be an array");
-    } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : 'Invalid JSON format';
-      return alert(`Terms field error: ${errorMessage}`);
+    // Validate that all terms have both term and definition
+    const validTerms = glossaryTerms.filter(t => t.term.trim() && t.definition.trim());
+    
+    if (validTerms.length === 0) {
+      return alert("Please add at least one complete term with both name and definition.");
     }
 
     try {
@@ -147,7 +169,7 @@ const TeacherDashboard: React.FC = () => {
           grade: glossaryForm.grade,
           title: glossaryForm.title,
           id: glossaryForm.id,
-          terms: parsedTerms,
+          terms: validTerms, // This automatically converts to the JSON format your backend expects
         },
         {
           headers: {
@@ -157,7 +179,8 @@ const TeacherDashboard: React.FC = () => {
         }
       );
       alert("Glossary topic uploaded!");
-      setGlossaryForm({ subject: "", grade: "", title: "", id: "", terms: "", definition: "" });
+      setGlossaryForm({ subject: "", grade: "", title: "", id: "" });
+      setGlossaryTerms([{ term: "", definition: "" }]);
     } catch (err: unknown) {
       console.error("Upload error:", err);
     
@@ -331,13 +354,42 @@ const TeacherDashboard: React.FC = () => {
             required
           />
 
-          <textarea
-            name="terms"
-            placeholder='Enter terms as JSON array: [{"term":"Demand","definition":"..."}]'
-            value={glossaryForm.terms}
-            onChange={handleGlossaryChange}
-            required
-          />
+          {/* Dynamic Terms Section */}
+          <div className={styles.termsSection}>
+            <h3>Terms & Definitions</h3>
+            {glossaryTerms.map((termObj, index) => (
+              <div key={index} className={styles.termRow}>
+                <input
+                  type="text"
+                  placeholder="Term"
+                  value={termObj.term}
+                  onChange={(e) => handleTermChange(index, 'term', e.target.value)}
+                  required
+                />
+                <textarea
+                  placeholder="Definition"
+                  value={termObj.definition}
+                  onChange={(e) => handleTermChange(index, 'definition', e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => removeTerm(index)}
+                  disabled={glossaryTerms.length === 1}
+                  className={styles.removeBtn}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addTerm}
+              className={styles.addBtn}
+            >
+              Add Another Term
+            </button>
+          </div>
 
           <button type="submit" disabled={glossaryLoading}>
             {glossaryLoading ? "Uploading..." : "Submit"}
