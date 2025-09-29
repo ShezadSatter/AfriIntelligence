@@ -113,7 +113,7 @@ function registerRoutes() {
   // ----------------------------
   app.get("/", (req, res) => {
     res.json({ 
-      message: "AfriIntelligence API is running 🚀",
+      message: "AfriIntelligence API is running",
       timestamp: new Date().toISOString(),
       version: "2.0.0"
     });
@@ -137,23 +137,22 @@ function registerRoutes() {
     }
   });
 
-  // Add this route temporarily for debugging
-app.get("/api/debug/database", async (req, res) => {
-  try {
-    const subjects = await dbModels.Subject.find().limit(5);
-    const grades = await dbModels.Grade.find().limit(5);
-    
-    res.json({
-      subjects,
-      grades,
-      subjectCount: await dbModels.Subject.countDocuments(),
-      gradeCount: await dbModels.Grade.countDocuments()
-    });
-  } catch (error) {
-    console.error("Debug error:", error);
-    res.status(500).json({ error: error.message });
-  }
-}); 
+  app.get("/api/debug/database", async (req, res) => {
+    try {
+      const subjects = await dbModels.Subject.find().limit(5);
+      const grades = await dbModels.Grade.find().limit(5);
+      
+      res.json({
+        subjects,
+        grades,
+        subjectCount: await dbModels.Subject.countDocuments(),
+        gradeCount: await dbModels.Grade.countDocuments()
+      });
+    } catch (error) {
+      console.error("Debug error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  }); 
 
   // ----------------------------
   // Auth Routes
@@ -161,73 +160,65 @@ app.get("/api/debug/database", async (req, res) => {
   app.use('/auth', authRoutes);
 
   // ----------------------------
-  // Glossary Routes (your main issue)
+  // Glossary Routes
   // ----------------------------
   app.use("/api", glossaryRoutes);
-  // Add debugging middleware for glossary uploads
-  app.use('/api/glossary/upload', (req, res, next) => {
-  console.log('🔍 Upload request received:');
-  console.log('Headers:', req.headers);
-  console.log('Body type:', typeof req.body);
-  console.log('Body:', req.body);
-  console.log('Raw body length:', req.body ? Object.keys(req.body).length : 0);
-  next();
-});
-
   
-// Add this temporary debug route in your registerRoutes() function
-app.get("/api/debug/routes", (req, res) => {
-  const routes = [];
-  app._router.stack.forEach((middleware) => {
-    if (middleware.route) {
-      routes.push({
-        path: middleware.route.path,
-        methods: Object.keys(middleware.route.methods)
-      });
-    } else if (middleware.name === 'router') {
-      middleware.handle.stack.forEach((handler) => {
-        if (handler.route) {
-          routes.push({
-            path: middleware.regexp.source + handler.route.path,
-            methods: Object.keys(handler.route.methods)
-          });
-        }
-      });
+  app.use('/api/glossary/upload', (req, res, next) => {
+    console.log('Upload request received:');
+    console.log('Headers:', req.headers);
+    console.log('Body type:', typeof req.body);
+    console.log('Body:', req.body);
+    console.log('Raw body length:', req.body ? Object.keys(req.body).length : 0);
+    next();
+  });
+
+  app.get("/api/debug/routes", (req, res) => {
+    const routes = [];
+    app._router.stack.forEach((middleware) => {
+      if (middleware.route) {
+        routes.push({
+          path: middleware.route.path,
+          methods: Object.keys(middleware.route.methods)
+        });
+      } else if (middleware.name === 'router') {
+        middleware.handle.stack.forEach((handler) => {
+          if (handler.route) {
+            routes.push({
+              path: middleware.regexp.source + handler.route.path,
+              methods: Object.keys(handler.route.methods)
+            });
+          }
+        });
+      }
+    });
+    res.json(routes);
+  });
+
+  app.get("/api/grades/:subject", async (req, res) => {
+    try {
+      const { subject } = req.params;
+      console.log("Grades route hit for subject:", subject);
+
+      const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
+      if (!subj) {
+        console.log("Subject not found:", subject);
+        return res.status(404).json({ error: "Subject not found" });
+      }
+
+      console.log("Subject found:", subj.name);
+
+      const grades = await dbModels.Grade.find({ isActive: true })
+        .sort({ level: 1 })
+        .lean();
+
+      console.log("Grades found:", grades.length);
+      res.json(grades);
+    } catch (error) {
+      console.error("Error fetching grades:", error);
+      res.status(500).json({ error: "Failed to fetch grades" });
     }
   });
-  res.json(routes);
-});
-
-
-
-// Get grades for a specific subject (quick fix: return all active grades)
-// Add this in your registerRoutes() function in index.js
-app.get("/api/grades/:subject", async (req, res) => {
-  try {
-    const { subject } = req.params;
-    console.log("📍 Grades route hit for subject:", subject);
-
-    // Check if subject exists
-    const subj = await dbModels.Subject.findOne({ slug: subject.toLowerCase() });
-    if (!subj) {
-      console.log("❌ Subject not found:", subject);
-      return res.status(404).json({ error: "Subject not found" });
-    }
-
-    console.log("✅ Subject found:", subj.name);
-
-    // Return all active grades
-    const grades = await dbModels.Grade.find({ isActive: true })
-      .sort({ level: 1 })
-      .lean();
-
-    console.log("✅ Grades found:", grades.length);
-    res.json(grades);
-  } catch (error) {
-    console.error("❌ Error fetching grades:", error);
-    res.status(500).json({ error: "Failed to fetch grades" });
-  }
-});
 
   // ----------------------------
   // API Routes - Grades
@@ -241,127 +232,178 @@ app.get("/api/grades/:subject", async (req, res) => {
       res.status(500).json({ error: "Failed to fetch grades" });
     }
   });
-  // Get past papers filters
- app.get("/api/past-papers/filters", async (req, res) => {
-  try {
-    // Bypass services and query directly
-    const grades = await dbModels.Grade.find({ isActive: true })
-      .select('_id level description')
-      .sort({ level: 1 })
-      .lean();
-      
-    const subjects = await dbModels.Subject.find({ isActive: true })
-      .select('_id name slug')  
-      .sort({ name: 1 })
-      .lean();
-      
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({length: currentYear - 2009}, (_, i) => currentYear - i);
-    
-    console.log("Direct query - Grades:", grades);
-    console.log("Direct query - Subjects:", subjects);
-    
-    res.json({
-      grades,
-      subjects, 
-      years
-    });
-  } catch (error) {
-    console.error("Error fetching filters:", error);
-    res.status(500).json({ error: "Failed to fetch filters" });
-  }
-});
 
-// Add this as a test route
-app.get("/api/test-filters", async (req, res) => {
-  try {
-    // Direct database queries
-    const grades = await dbModels.Grade.find({ isActive: true }).lean();
-    const subjects = await dbModels.Subject.find({ isActive: true }).lean();
-    
-    console.log("Test route - Raw grades from DB:", grades);
-    console.log("Test route - Raw subjects from DB:", subjects);
-    
-    res.json({
-      grades: grades,
-      subjects: subjects,
-      message: "This is the test route with direct queries"
-    });
-  } catch (error) {
-    console.error("Test route error:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
- // ----------------------------
-  // Past Papers Routes
-  // ----------------------------
-  
-  // Specific GET route for listing papers (must come BEFORE the general router)
-  app.get("/api/past-papers", async (req, res) => {
+  app.get("/api/past-papers/filters", async (req, res) => {
     try {
-      const { subject, grade, year, paperType, limit = 50, page = 1 } = req.query;
-      
-      console.log("📝 Past papers query:", { subject, grade, year, paperType });
-      
-      // Build filter object
-      const filter = { isActive: true };
-      
-      // Handle subject (convert slug to ObjectId)
-      if (subject) {
-        const subjectDoc = await dbModels.Subject.findOne({ slug: subject });
-        if (subjectDoc) {
-          filter.subject = subjectDoc._id;
-        } else {
-          return res.status(404).json({ error: "Subject not found" });
-        }
-      }
-      
-      // Handle grade (convert level to ObjectId)
-      if (grade) {
-        const gradeDoc = await dbModels.Grade.findOne({ level: parseInt(grade) });
-        if (gradeDoc) {
-          filter.grade = gradeDoc._id;
-        } else {
-          return res.status(404).json({ error: "Grade not found" });
-        }
-      }
-      
-      // Handle year and paperType
-      if (year) filter.year = parseInt(year);
-      if (paperType) filter.paperType = paperType.toLowerCase();
-      
-      console.log("🔍 Filter:", filter);
-      
-      // Query database
-      const papers = await dbModels.PastPaper.find(filter)
-        .populate('subject', 'name slug')
-        .populate('grade', 'level description')
-        .populate('file')
-        .sort({ year: -1, paperType: 1 })
-        .limit(parseInt(limit));
+      const grades = await dbModels.Grade.find({ isActive: true })
+        .select('_id level description')
+        .sort({ level: 1 })
+        .lean();
         
-      console.log("📄 Found papers:", papers.length);
+      const subjects = await dbModels.Subject.find({ isActive: true })
+        .select('_id name slug')  
+        .sort({ name: 1 })
+        .lean();
+        
+      const currentYear = new Date().getFullYear();
+      const years = Array.from({length: currentYear - 2009}, (_, i) => currentYear - i);
+      
+      console.log("Direct query - Grades:", grades);
+      console.log("Direct query - Subjects:", subjects);
       
       res.json({
-        papers,
-        pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
-          total: papers.length
-        }
+        grades,
+        subjects, 
+        years
       });
-      
     } catch (error) {
-      console.error("❌ Error fetching past papers:", error);
-      res.status(500).json({ 
-        error: "Failed to fetch past papers",
-        message: error.message 
-      });
+      console.error("Error fetching filters:", error);
+      res.status(500).json({ error: "Failed to fetch filters" });
     }
   });
 
-  // Upload new past paper - SPECIFIC ROUTE FIRST
+  app.get("/api/test-filters", async (req, res) => {
+    try {
+      const grades = await dbModels.Grade.find({ isActive: true }).lean();
+      const subjects = await dbModels.Subject.find({ isActive: true }).lean();
+      
+      console.log("Test route - Raw grades from DB:", grades);
+      console.log("Test route - Raw subjects from DB:", subjects);
+      
+      res.json({
+        grades: grades,
+        subjects: subjects,
+        message: "This is the test route with direct queries"
+      });
+    } catch (error) {
+      console.error("Test route error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // ----------------------------
+// Past Papers Routes
+// ----------------------------
+
+// Enhanced file serving with intelligent path resolution
+app.get("/api/past-papers/file", async (req, res) => {
+  try {
+    const { filePath } = req.query;
+    
+    if (!filePath) {
+      console.log("No filePath provided in query");
+      return res.status(400).json({ error: "filePath is required" });
+    }
+    
+    console.log("Searching for file:", filePath);
+    
+    // Multiple possible locations with smart fallbacks
+    const possiblePaths = [
+      // Try as-is
+      path.join(__dirname, 'data', 'pdfs', filePath),
+      
+      // With DBE Past Papers
+      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', filePath),
+      
+      // Remove duplicate DBE Past Papers prefix
+      path.join(__dirname, 'data', 'pdfs', filePath.replace(/^DBE Past Papers[\/\\]/, '')),
+      
+      // Just filename in DBE Past Papers
+      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', path.basename(filePath)),
+      
+      // Just filename in root
+      path.join(__dirname, 'data', 'pdfs', path.basename(filePath)),
+    ];
+    
+    // Find the file
+    for (const testPath of possiblePaths) {
+      console.log("Testing path:", testPath);
+      if (await fs.pathExists(testPath)) {
+        console.log("File found at:", testPath);
+        
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'inline');
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+        return res.sendFile(testPath);
+      }
+    }
+    
+    console.log("File not found. Tried:", possiblePaths);
+    res.status(404).json({ 
+      error: "File not found",
+      requestedPath: filePath,
+      tried: possiblePaths.map(p => path.relative(__dirname, p))
+    });
+    
+  } catch (error) {
+    console.error("Error serving file:", error);
+    res.status(500).json({ 
+      error: "Failed to serve file", 
+      message: error.message 
+    });
+  }
+});
+
+// Fetch past papers with filters
+app.get("/api/past-papers", async (req, res) => {
+  try {
+    const { subject, grade, year, paperType, limit = 50, page = 1 } = req.query;
+    
+    console.log("Past papers query:", { subject, grade, year, paperType });
+    
+    const filter = { isActive: true };
+    
+    if (subject) {
+      const subjectDoc = await dbModels.Subject.findOne({ slug: subject });
+      if (subjectDoc) {
+        filter.subject = subjectDoc._id;
+      } else {
+        return res.status(404).json({ error: "Subject not found" });
+      }
+    }
+    
+    if (grade) {
+      const gradeDoc = await dbModels.Grade.findOne({ level: parseInt(grade) });
+      if (gradeDoc) {
+        filter.grade = gradeDoc._id;
+      } else {
+        return res.status(404).json({ error: "Grade not found" });
+      }
+    }
+    
+    if (year) filter.year = parseInt(year);
+    if (paperType) filter.paperType = paperType.toLowerCase();
+    
+    console.log("Filter:", filter);
+    
+    const papers = await dbModels.PastPaper.find(filter)
+      .populate('subject', 'name slug')
+      .populate('grade', 'level description')
+      .populate('file')
+      .sort({ year: -1, paperType: 1 })
+      .limit(parseInt(limit));
+      
+    console.log("Found papers:", papers.length);
+    
+    res.json({
+      papers,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total: papers.length
+      }
+    });
+    
+  } catch (error) {
+    console.error("Error fetching past papers:", error);
+    res.status(500).json({ 
+      error: "Failed to fetch past papers",
+      message: error.message 
+    });
+  }
+});
+
+// Upload past paper
 app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
   try {
     const { grade, subject, year, paper, language } = req.body;
@@ -375,40 +417,44 @@ app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
       });
     }
     
-    // Validate paper type
     if (!['p1', 'p2', 'p3'].includes(paper.toLowerCase())) {
       return res.status(400).json({ error: "Invalid paperType. Must be p1, p2, or p3" });
     }
     
-    // Create proper filename and move file to correct location
     const targetDir = path.join(__dirname, "data", "pdfs", "DBE Past Papers");
     await fs.ensureDir(targetDir);
     
-    // Create a proper filename based on the paper details
     const subjectDoc = await dbModels.Subject.findById(subject);
     const gradeDoc = await dbModels.Grade.findById(grade);
     
-    const properFilename = `${subjectDoc?.name || 'Unknown'} ${paper.toUpperCase()} ${year} ${file.originalname}`.replace(/[^a-zA-Z0-9.\-_\s]/g, '');
+    if (!subjectDoc || !gradeDoc) {
+      return res.status(400).json({ error: "Invalid subject or grade ID" });
+    }
+    
+    // Create clean filename using timestamp to ensure uniqueness
+    const fileExtension = path.extname(file.originalname);
+    const timestamp = Date.now();
+    const properFilename = `${subjectDoc.name}_Grade${gradeDoc.level}_${paper.toUpperCase()}_${year}_${timestamp}${fileExtension}`
+      .replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    
     const targetPath = path.join(targetDir, properFilename);
     
-    // Move file from temp location to proper location
-    await fs.move(file.path, targetPath);
+    console.log("Moving file to:", targetPath);
+    await fs.move(file.path, targetPath, { overwrite: true });
     
-    // Create document file record with relative path
-    console.log("Creating document file...");
+    console.log("Creating document file record...");
     const documentFile = await dbServices.createDocumentFile({
       filename: properFilename,
       originalName: file.originalname,
       mimeType: file.mimetype,
       size: file.size,
       strategy: 'local',
-      filePath: properFilename, // Store just the filename, not full path
+      filePath: `DBE Past Papers/${properFilename}`,
       uploadedBy: req.user?._id
     });
     
     console.log("Document file created:", documentFile._id);
     
-    // Create past paper record
     console.log("Creating past paper record...");
     const pastPaper = await dbServices.createPastPaper({
       subjectId: subject,
@@ -440,20 +486,21 @@ app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
   }
 });
 
-  // Download tracking route
-  app.post("/api/past-papers/:id/download", async (req, res) => {
-    try {
-      const { id } = req.params;
-      await dbServices.recordDownload(id);
-      res.json({ success: true });
-    } catch (error) {
-      console.error("Error recording download:", error);
-      res.status(500).json({ error: "Failed to record download" });
-    }
-  });
+// Record download
+app.post("/api/past-papers/:id/download", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await dbServices.recordDownload(id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error recording download:", error);
+    res.status(500).json({ error: "Failed to record download" });
+  }
+});
 
-  // Legacy routes from pastPapers.js - AFTER specific routes
-  app.use('/api/past-papers', pastPaperRoutes);
+// Additional past paper routes from pastPaperRoutes.js
+app.use('/api/past-papers', pastPaperRoutes);
+
   // ----------------------------
   // Translation Routes
   // ----------------------------
@@ -489,144 +536,142 @@ app.post("/api/past-papers/upload", upload.single('file'), async (req, res) => {
     }
   });
 
- app.post("/api/translate-file", upload.single("file"), async (req, res) => {
-  console.log("🔍 Translate-file route started");
-  console.log("File:", req.file);
-  console.log("Target language:", req.body.target);
-  
-  const file = req.file;
-  const targetLang = req.body.target;
-
-  if (!file) {
-    console.log("❌ No file uploaded");
-    return res.status(400).json({ error: "No file uploaded" });
-  }
-  
-  if (!targetLang) {
-    console.log("❌ No target language");
-    await fs.remove(file.path).catch(() => {});
-    return res.status(400).json({ error: "No target language specified" });
-  }
-
-  try {
-    console.log("🔄 Starting file processing...");
-    let text = "";
-
-   if (file.mimetype === "application/pdf") {
-  console.log("Processing PDF file with pdf2json");
-  try {
-    const { default: PDF2JSON } = await import("pdf2json");
-    const pdfParser = new PDF2JSON();
+  app.post("/api/translate-file", upload.single("file"), async (req, res) => {
+    console.log("Translate-file route started");
+    console.log("File:", req.file);
+    console.log("Target language:", req.body.target);
     
-    // Add timeout to prevent hanging
-    const parseTimeout = 30000; // 30 seconds
+    const file = req.file;
+    const targetLang = req.body.target;
+
+    if (!file) {
+      console.log("No file uploaded");
+      return res.status(400).json({ error: "No file uploaded" });
+    }
     
-    text = await Promise.race([
-      new Promise((resolve, reject) => {
-        pdfParser.on("pdfParser_dataError", (errData) => {
-          console.log("PDF parser error:", errData);
-          reject(new Error(errData.parserError));
-        });
-        
-        pdfParser.on("pdfParser_dataReady", (pdfData) => {
-          console.log("PDF data received, processing text...");
-          try {
-            const extractedText = pdfData.Pages.map(page => 
-              page.Texts.map(textItem => 
-                textItem.R.map(r => decodeURIComponent(r.T)).join('')
-              ).join(' ')
-            ).join('\n');
-            console.log("Text extraction completed, length:", extractedText.length);
-            resolve(extractedText);
-          } catch (textError) {
-            console.log("Text extraction error:", textError);
-            reject(textError);
-          }
-        });
-        
-        console.log("Starting PDF parsing...");
-        pdfParser.loadPDF(file.path);
-      }),
-      
-      // Timeout promise
-      new Promise((_, reject) => 
-        setTimeout(() => reject(new Error("PDF parsing timeout after 30 seconds")), parseTimeout)
-      )
-    ]);
-    
-    console.log("PDF parsed successfully, text length:", text.length);
-  } catch (pdfError) {
-    console.error("PDF processing failed:", pdfError);
-    await fs.remove(file.path).catch(() => {});
-    return res.status(500).json({
-      error: "PDF processing failed",
-      message: `PDF parsing error: ${pdfError.message}`
-    });
-  }
-} else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-      console.log("📝 Processing Word document");
-      try {
-        const mammoth = await import("mammoth");
-        const result = await mammoth.extractRawText({ path: file.path });
-        text = result.value;
-        console.log("✅ Word document processed, text length:", text.length);
-      } catch (wordError) {
-        console.error("❌ Word processing failed:", wordError);
-        throw wordError;
+    if (!targetLang) {
+      console.log("No target language");
+      await fs.remove(file.path).catch(() => {});
+      return res.status(400).json({ error: "No target language specified" });
+    }
+
+    try {
+      console.log("Starting file processing...");
+      let text = "";
+
+      if (file.mimetype === "application/pdf") {
+        console.log("Processing PDF file with pdf2json");
+        try {
+          const { default: PDF2JSON } = await import("pdf2json");
+          const pdfParser = new PDF2JSON();
+          
+          const parseTimeout = 30000;
+          
+          text = await Promise.race([
+            new Promise((resolve, reject) => {
+              pdfParser.on("pdfParser_dataError", (errData) => {
+                console.log("PDF parser error:", errData);
+                reject(new Error(errData.parserError));
+              });
+              
+              pdfParser.on("pdfParser_dataReady", (pdfData) => {
+                console.log("PDF data received, processing text...");
+                try {
+                  const extractedText = pdfData.Pages.map(page => 
+                    page.Texts.map(textItem => 
+                      textItem.R.map(r => decodeURIComponent(r.T)).join('')
+                    ).join(' ')
+                  ).join('\n');
+                  console.log("Text extraction completed, length:", extractedText.length);
+                  resolve(extractedText);
+                } catch (textError) {
+                  console.log("Text extraction error:", textError);
+                  reject(textError);
+                }
+              });
+              
+              console.log("Starting PDF parsing...");
+              pdfParser.loadPDF(file.path);
+            }),
+            
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error("PDF parsing timeout after 30 seconds")), parseTimeout)
+            )
+          ]);
+          
+          console.log("PDF parsed successfully, text length:", text.length);
+        } catch (pdfError) {
+          console.error("PDF processing failed:", pdfError);
+          await fs.remove(file.path).catch(() => {});
+          return res.status(500).json({
+            error: "PDF processing failed",
+            message: `PDF parsing error: ${pdfError.message}`
+          });
+        }
+      } else if (file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        console.log("Processing Word document");
+        try {
+          const mammoth = await import("mammoth");
+          const result = await mammoth.extractRawText({ path: file.path });
+          text = result.value;
+          console.log("Word document processed, text length:", text.length);
+        } catch (wordError) {
+          console.error("Word processing failed:", wordError);
+          throw wordError;
+        }
+      } else {
+        console.log("Unsupported file type:", file.mimetype);
+        throw new Error("Unsupported file type");
       }
-    } else {
-      console.log("❌ Unsupported file type:", file.mimetype);
-      throw new Error("Unsupported file type");
+
+      if (!text.trim()) {
+        console.log("No text extracted from file");
+        throw new Error("No text found in uploaded file");
+      }
+
+      console.log("Starting translation...");
+      const translatedResult = await translate(text, { to: targetLang });
+      const translatedText = translatedResult.text;
+      console.log("Translation completed");
+
+      console.log("Creating Word document...");
+      const doc = new Document({
+        sections: [{
+          children: translatedText
+            .split("\n")
+            .filter(line => line.trim() !== "")
+            .map(line => new Paragraph(line.trim())),
+        }],
+      });
+
+      console.log("Ensuring upload directory exists...");
+      await fs.ensureDir(path.join(__dirname, "uploads"));
+
+      const outputPath = path.join(__dirname, "uploads", `translated_${Date.now()}.docx`);
+      console.log("Converting to buffer...");
+      const buffer = await Packer.toBuffer(doc);
+
+      console.log("Writing file...");
+      await fs.writeFile(outputPath, buffer);
+
+      console.log("Starting download...");
+      res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
+        console.log("Cleaning up files...");
+        await fs.remove(file.path).catch(() => {});
+        await fs.remove(outputPath).catch(() => {});
+        if (err) console.error("Download error:", err);
+      });
+      
+    } catch (err) {
+      console.error("Translation route error:", err);
+      console.error("Error stack:", err.stack);
+      if (file?.path) await fs.remove(file.path).catch(() => {});
+      res.status(500).json({
+        error: "Translation failed",
+        message: err.message,
+      });
     }
-
-    if (!text.trim()) {
-      console.log("❌ No text extracted from file");
-      throw new Error("No text found in uploaded file");
-    }
-
-   console.log("🔄 Starting translation...");
-const translatedResult = await translate(text, { to: targetLang });
-const translatedText = translatedResult.text;
-console.log("✅ Translation completed");
-
-console.log("🔄 Creating Word document...");
-const doc = new Document({
-  sections: [{
-    children: translatedText
-      .split("\n")
-      .filter(line => line.trim() !== "")
-      .map(line => new Paragraph(line.trim())),
-  }],
-});
-
-console.log("📁 Ensuring upload directory exists...");
-await fs.ensureDir(path.join(__dirname, "uploads"));
-
-const outputPath = path.join(__dirname, "uploads", `translated_${Date.now()}.docx`);
-console.log("💾 Converting to buffer...");
-const buffer = await Packer.toBuffer(doc);
-
-console.log("📝 Writing file...");
-await fs.writeFile(outputPath, buffer);
-
-console.log("⬇️ Starting download...");
-res.download(outputPath, `translated_${file.originalname.replace(/\.[^/.]+$/, "")}.docx`, async (err) => {
-  console.log("🧹 Cleaning up files...");
-  await fs.remove(file.path).catch(() => {});
-  await fs.remove(outputPath).catch(() => {});
-  if (err) console.error("Download error:", err);
-});
-    
-  } catch (err) {
-    console.error("❌ Translation route error:", err);
-    console.error("❌ Error stack:", err.stack);
-    if (file?.path) await fs.remove(file.path).catch(() => {});
-    res.status(500).json({
-      error: "Translation failed",
-      message: err.message,
-    });
-  }
-});
+  });
 
   // ----------------------------
   // Migration Routes

@@ -129,10 +129,10 @@ const PastPapersPage: React.FC = () => {
 
   const getFileUrl = (paper: PastPaper) => {
   if (paper.file?.filePath) {
-    // Extract just the filename from the full path
-    const filename = paper.file.filePath.split(/[/\\]/).pop();
-    return `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=DBE Past Papers/${filename}`;
+    // Use the filePath exactly as stored in the database
+    return `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.file.filePath)}`;
   } else if (paper.fileUrl) {
+    // Legacy support
     return `${import.meta.env.VITE_API_BASE_URL}/api/past-papers/file?filePath=${encodeURIComponent(paper.fileUrl)}`;
   }
   return null;
