@@ -11,7 +11,7 @@
 
 .container {
 
-  min-height: 100svh; 
+  height: 100svh; 
   background-color: #214a2e; 
   opacity: 0.8;  /* dark green background with slight overlay */
   display: flex;
