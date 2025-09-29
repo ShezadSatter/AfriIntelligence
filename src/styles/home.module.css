@@ -1,6 +1,6 @@
 /* Home Page Styles */
 .home {
-  display: flex;
+/*   display: flex;
   padding-top: 80px;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,22 @@
   background-color: #133A1F;
   background-position: center;
   color: #e0e0e0;
+  text-align: center; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+
+  height: 100vh;
+  height: 100svh; /* fix mobile URL bar issue */
+  padding: 20px;
+  background-color: #133A1F;
+  background-size: cover;
+  background-position: center;
+
+  color: #e0e0e0;
 }
 
 img{

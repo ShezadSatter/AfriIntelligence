@@ -5,30 +5,34 @@ body {
   background-color: #133A1F;
   background-size: cover;
   background-position: center;
-   margin: 0;
- font-family: 'League Spartan', sans-serif;}
+  margin: 0;
+  font-family: 'League Spartan', sans-serif;}
 
 .home-page{
   background-image: url('images/bg.png');
   background-size: cover;
   background-position: center;
-   min-height: 100vh;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex; 
+  flex-direction: column;
 }
 
 .title {
-  padding-top: 30px;
+  padding-top: clamp(16px, 5vh, 30px);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
 .title h1 {
   font-size: 36px;
   color: white;
-  /*padding-left: 650px;*/
   text-align: center;
   font-family: League Spartan;
+  line-height: 1.15;
 }
 
 .title hr {
@@ -66,9 +70,9 @@ body {
   margin-top: 2rem;
   padding: 40px;
   border-radius: 30px;
-display: flex;
+  display: flex;
   flex-direction: column;
-    align-items: center;
+  align-items: center;
 }
 .home-section button {
   width: 300px;
@@ -138,7 +142,7 @@ display: flex;
 }*/
 
 
-@media (min-width: 430px) and (max-width: 768px) {
+/* @media (min-width: 430px) and (max-width: 768px) {
 
   .title h1,
   .home-section div h1 {
@@ -174,5 +178,53 @@ display: flex;
   .home-section-bg div ul {
     padding-bottom: 40px;
     padding-left: 50px;
+  }
+} */
+
+/* ===== Breakpoints ===== */
+
+/* Small phones (up to ~430px) are handled by the mobile-first rules above */
+
+/* 430px–768px (large phones / small tablets) */
+@media (min-width: 430px) and (max-width: 768px) {
+  .home-section-bg {
+    width: 95%;
+    padding: 24px;
+  }
+
+  .home-section button {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .home-section div ul {
+    padding-bottom: 32px;
+  }
+}
+
+/* ≥ 768px (tablets) */
+@media (min-width: 768px) {
+  .home-section-bg {
+    width: min(92%, 900px);
+    padding: clamp(28px, 5vw, 40px);
+  }
+
+  .home-section button {
+    width: min(100%, 420px);
+  }
+
+  /* If you want left-aligned text on tablet+ inside the card, uncomment:
+  .home-section-bg { text-align: left; align-items: flex-start; }
+  .home-section div ul { list-style-position: outside; padding-left: 20px; }
+  */
+}
+
+/* ≥ 1024px (desktop) — preserve original feel */
+@media (min-width: 1024px) {
+  .home-section-bg {
+    width: min(80%, 1000px);
+  }
+  .home-section button {
+    width: min(100%, 480px);
   }
 }

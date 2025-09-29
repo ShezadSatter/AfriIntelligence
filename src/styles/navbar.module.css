@@ -1,37 +1,55 @@
 /* Navbar Container */
-.navbar {
+:global(.navbar) {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 1rem 2.5rem;
-  background: linear-gradient(90deg, #1f1f1f, #2c2c2c);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  background: linear-gradient(180deg, #133A1F 0%);
   position: sticky;
-  top: 2rem;
-  margin: 1rem;
+  top: 0;
+  margin: 0;
   z-index: 1000;
+  min-height: 56px;
 }
 
 
-/* Logo */
-.logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #4CAF50;
-  letter-spacing: 1px;
-  transition: transform 0.2s ease;
-}
-
-.logo:hover {
-  transform: scale(1.05);
-}
 
 /* Nav Links */
-.nav-links {
+
+:global(.nav-links) {
   list-style: none;
   display: flex;
   align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
 }
+
+:global(.menu) {
+  display: flex;
+  gap: 0.6rem;
+}
+
+:global(.menu li) { list-style: none; }
+
+:global(.menu a) {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #205631;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  transition: background-color .2s ease, transform .06s ease, box-shadow .2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,.18);
+}
+:global(.menu a:hover) { background-color: #408243; box-shadow: 0 3px 10px rgba(0,0,0,.22); }
+:global(.menu a:active) { transform: translateY(1px) scale(.99); }
+:global(.menu a::after) { display: none !important; }
 
 /* Hide default checkbox */
 #checkbox_toggle {

@@ -6,6 +6,7 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow: hidden;
   font-family: "League Spartan", sans-serif;
   background-color: #133a1f;
   color: #000;
@@ -18,6 +19,7 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #133a1f;
+  overflow: hidden;
 }
 
 .background-img {
@@ -29,7 +31,7 @@ body {
 }
 
 .header {
-  margin-top: 2rem;
+  margin-top: 0rem;
   text-align: center;
 }
 
@@ -37,25 +39,28 @@ body {
   width: 64px;
   height: 64px;
   border-radius: 12px;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
 }
 
 .title {
   color: rgba(255, 255, 248, 0.9);
   font-size: 20px;
   font-weight: 800;
+  margin-top: 0;
 }
 
 .underline {
   width: 180px;
   height: 2px;
   background-color: white;
-  margin: 0.5rem auto;
+  margin: 0rem auto;
 }
 
 .main-card {
   width: 85%;
   max-width: 600px;
-  margin-top: 5rem;
+  margin-top: 2rem;
   background-color: rgba(255, 255, 248, 0.85);
   border: 1px solid #236738;
   border-radius: 12px;

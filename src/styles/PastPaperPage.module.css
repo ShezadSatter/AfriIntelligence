@@ -1,3 +1,101 @@
-.container{
-    
+/* PastPaperPage.module.css — uses only classes/tags present in your TSX */
+
+
+:root {
+  --bg: #133a1f;
+  --brand: #236738;
+  --brand-2: #2e7f49;
+  --text-on-dark: #ffffff;
+  --muted: #cfd8d0;
+}
+
+.container {
+
+  min-height: 100svh; 
+  background-color: #214a2e; 
+  opacity: 0.8;  /* dark green background with slight overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 2vh, 16px);
+  /* move the whole block slightly down */
+  padding: clamp(48px, 8vh, 72px) clamp(16px, 4vw, 32px) clamp(16px, 4vw, 32px);
+  
+  font-family: 'League Spartan', sans-serif;
+  border-radius: 12px;                  /* soft edges around the container */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+/* H1 (“Past Papers”) — white */
+.container > h1 {
+  color: var(--text-on-dark);
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+/* Filter labels (you already inline-color them white; this backs it up) */
+.container label {
+  color: var(--text-on-dark);
+  font-weight: 700;
+}
+
+/* Selects – brand look; no extra classes needed */
+.container select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  margin-left: 8px;
+  padding: 10px 14px;
+  min-width: 220px;
+
+  border-radius: 30px;
+  border: 1px solid var(--brand);
+  background: #fff;
+  color: var(--brand);                 /* brand-colour text */
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+/* Option text in the dropdown — brand colour */
+.container select option {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* Focus ring */
+.container select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(35, 103, 56, 0.28);
+  border-color: var(--brand-2);
+}
+
+/* Loading + error text polish (your inline colors still apply) */
+.container p {
+  margin: 6px 0;
+}
+
+/* “Available Papers” heading */
+.container h3 {
+  color: var(--text-on-dark);
+  font-size: clamp(16px, 3.6vw, 22px);
+  margin: 16px 0 8px;
+}
+
+/* Make the results area align with filters width without new classes */
+.container > div {
+  width: min(100%, 900px);
+}
+
+/* Responsive tweak: smaller selects on small screens */
+@media (max-width: 600px) {
+  .container select {
+    min-width: 180px;
+    padding: 9px 12px;
+    font-size: 15px;
+  }
 }

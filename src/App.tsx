@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import SelectionPage from "./pages/SelectionPage";
 import Navbar from "./components/Navbar";
 import TranslateDocument from "./pages/TranslateDocument";
@@ -26,6 +26,23 @@ import { fetchSubjectList } from "./utils/glossaryApi";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
+
+// --- Wrapper that decides when to show Navbar ---
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+
+  // List of paths where navbar should appear
+  const showNavbarOn = ["/tts", "/translate", "/glossary", "/past-papers", "/afri-ai"];
+
+  const shouldShowNavbar = showNavbarOn.includes(location.pathname);
+
+  return (
+    <>
+      {shouldShowNavbar && <Navbar />}
+      {children}
+    </>
+  );
+};
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -63,8 +80,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserContextProvider>
-        
-<Navbar/>
+
+        <Layout>
+
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
         <Routes>
@@ -82,6 +100,8 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
         </Routes>
+
+        </Layout>
 
         
       </UserContextProvider>
