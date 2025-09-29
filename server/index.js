@@ -285,54 +285,110 @@ function registerRoutes() {
 // Past Papers Routes
 // ----------------------------
 
-// Enhanced file serving with intelligent path resolution
+// Replace your existing /api/past-papers/file route with this enhanced version
 app.get("/api/past-papers/file", async (req, res) => {
   try {
-    const { filePath } = req.query;
+    const { filePath, fileId } = req.query;
     
-    if (!filePath) {
-      console.log("No filePath provided in query");
-      return res.status(400).json({ error: "filePath is required" });
+    if (!filePath && !fileId) {
+      console.log("No filePath or fileId provided in query");
+      return res.status(400).json({ error: "filePath or fileId is required" });
     }
     
-    console.log("Searching for file:", filePath);
+    let targetFilePath = null;
     
-    // Multiple possible locations with smart fallbacks
+    // Handle fileId (new system)
+    if (fileId) {
+      console.log("Looking up file by ID:", fileId);
+      try {
+        const documentFile = await dbModels.DocumentFile.findById(fileId);
+        if (!documentFile) {
+          console.log("DocumentFile not found for ID:", fileId);
+          return res.status(404).json({ error: "File not found" });
+        }
+        targetFilePath = documentFile.filePath;
+        console.log("Found file path from DB:", targetFilePath);
+      } catch (dbError) {
+        console.error("Database error looking up file:", dbError);
+        return res.status(500).json({ error: "Database error" });
+      }
+    } else {
+      // Handle filePath (legacy system)
+      targetFilePath = filePath;
+    }
+    
+    console.log("Searching for file:", targetFilePath);
+    
+    // Comprehensive search paths for different storage patterns
     const possiblePaths = [
-      // Try as-is
-      path.join(__dirname, 'data', 'pdfs', filePath),
+      // 1. Try exact path as-is (handles absolute paths)
+      targetFilePath.startsWith('/') ? targetFilePath : null,
       
-      // With DBE Past Papers
-      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', filePath),
+      // 2. Standard data/pdfs structure
+      path.join(__dirname, 'data', 'pdfs', targetFilePath),
       
-      // Remove duplicate DBE Past Papers prefix
-      path.join(__dirname, 'data', 'pdfs', filePath.replace(/^DBE Past Papers[\/\\]/, '')),
+      // 3. With DBE Past Papers folder (new uploads)
+      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', targetFilePath),
       
-      // Just filename in DBE Past Papers
-      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', path.basename(filePath)),
+      // 4. Remove duplicate DBE Past Papers prefix if it exists in targetFilePath
+      targetFilePath.includes('DBE Past Papers') 
+        ? path.join(__dirname, 'data', 'pdfs', targetFilePath.replace(/^DBE Past Papers[\/\\]/, ''))
+        : null,
       
-      // Just filename in root
-      path.join(__dirname, 'data', 'pdfs', path.basename(filePath)),
-    ];
+      // 5. Just filename in DBE Past Papers (for renamed files)
+      path.join(__dirname, 'data', 'pdfs', 'DBE Past Papers', path.basename(targetFilePath)),
+      
+      // 6. Just filename in root pdfs folder
+      path.join(__dirname, 'data', 'pdfs', path.basename(targetFilePath)),
+      
+      // 7. Legacy paths - direct from root if path already contains 'data'
+      targetFilePath.includes('data') ? path.join(__dirname, targetFilePath) : null,
+      
+      // 8. Legacy paths - pdfs folder variations
+      path.join(__dirname, 'pdfs', targetFilePath),
+      path.join(__dirname, 'pdfs', path.basename(targetFilePath)),
+      
+      // 9. Uploads folder (temporary storage)
+      path.join(__dirname, 'uploads', targetFilePath),
+      path.join(__dirname, 'uploads', path.basename(targetFilePath)),
+      
+      // 10. Handle Windows vs Unix path separators
+      path.join(__dirname, 'data', 'pdfs', targetFilePath.replace(/\\/g, '/')),
+      path.join(__dirname, 'data', 'pdfs', targetFilePath.replace(/\//g, '\\')),
+      
+      // 11. Handle case where targetFilePath might have extra path components
+      targetFilePath.includes('/') 
+        ? path.join(__dirname, 'data', 'pdfs', targetFilePath.split('/').pop())
+        : null,
+    ].filter(Boolean); // Remove null entries
     
     // Find the file
     for (const testPath of possiblePaths) {
       console.log("Testing path:", testPath);
-      if (await fs.pathExists(testPath)) {
-        console.log("File found at:", testPath);
-        
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'inline');
-        res.setHeader('Cache-Control', 'public, max-age=86400');
-        return res.sendFile(testPath);
+      try {
+        if (await fs.pathExists(testPath)) {
+          console.log("File found at:", testPath);
+          
+          // Set appropriate headers for PDF viewing
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'inline');
+          res.setHeader('Cache-Control', 'public, max-age=86400');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+          
+          return res.sendFile(testPath);
+        }
+      } catch (pathError) {
+        console.log("Error checking path:", testPath, pathError.message);
+        continue;
       }
     }
     
-    console.log("File not found. Tried:", possiblePaths);
+    console.log("File not found. Tried:", possiblePaths.map(p => path.relative(__dirname, p)));
     res.status(404).json({ 
       error: "File not found",
-      requestedPath: filePath,
-      tried: possiblePaths.map(p => path.relative(__dirname, p))
+      requestedPath: targetFilePath,
+      searchedPaths: possiblePaths.map(p => path.relative(__dirname, p))
     });
     
   } catch (error) {
