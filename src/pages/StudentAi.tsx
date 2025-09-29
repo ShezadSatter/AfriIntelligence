@@ -818,22 +818,22 @@ if (targetIndex !== -1) {
               ))}
             </select>
 
-            {showPromptSuggestions && (
-              <button
-                onClick={() => setShowPromptSuggestions(!showPromptSuggestions)}
-                style={{
-                  padding: "0.5rem",
-                  backgroundColor: "#fbbf24",
-                  color: "#92400e",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  fontSize: "0.9rem",
-                }}
-              >
-                💡 Suggestions
-              </button>
-            )}
+            <button
+  onClick={() => setShowPromptSuggestions(!showPromptSuggestions)}
+  style={{
+    padding: "0.5rem",
+    backgroundColor: "#fbbf24",
+    color: "#92400e",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "0.9rem",
+  }}
+>
+  💡 Suggestions
+</button>
+
+
           </div>
         )}
       </div>
@@ -845,7 +845,7 @@ if (targetIndex !== -1) {
             backgroundColor: themeStyles.chatBg,
             border: `1px solid ${themeStyles.border}`,
             borderRadius: "8px",
-            padding: "1rem",
+            padding: "0.5rem",
             margin: "1rem",
             maxHeight: "200px",
             overflowY: "auto",
@@ -980,7 +980,7 @@ if (targetIndex !== -1) {
             </div>
           </div>
         )}
-
+ 
       {isModelReady && (
         <>
           {/* Enhanced Chat Area */}
