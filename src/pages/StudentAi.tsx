@@ -941,10 +941,10 @@ if (targetIndex !== -1) {
               backgroundColor: "#fef3c7",
               border: "1px solid #f59e0b",
               borderRadius: "8px",
-              padding: "1rem",
+              padding: "0.25rem",
               marginLeft: "2rem",
               marginRight: "2rem",
-              marginBottom: "1rem",
+              marginBottom: "0.5rem",
               marginTop: "0",
             }}
           >
@@ -972,6 +972,10 @@ if (targetIndex !== -1) {
                     cursor: "pointer",
                     fontSize: "0.85rem",
                     transition: "all 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    
+                    
                   }}
                 >
                   {suggestion}
