@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
+import logo from "../assets/images/afri-ai.png";
 
 type MLCEngineInterface = any; // fallback type
 type InitProgressReport = any; // fallback type
@@ -568,8 +569,7 @@ if (targetIndex !== -1) {
                 fontWeight: "700",
                 color: "white",
               }}
-            >
-              📚 Afri AI
+            ><img style={{width: "150px", height: "150px"}}className="app-icon" src={logo} alt="Logo" />Afri AI
             </h1>
           </div>
 
