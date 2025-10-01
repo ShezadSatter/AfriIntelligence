@@ -308,7 +308,7 @@
   }
 
   .glossary-sidebar {
-    max-height: none;
+    max-height: 30%;
     flex-direction: row;
     flex: grid;
   }
@@ -353,19 +353,33 @@ flex: 1 1 auto;
     padding: 0;        /* reduce vertical padding */
     margin: 0;    /* less space before the list */
   }
-
-  .topic-heading {
+.glossary-wrapper .term-divider{
+    margin: 0;
+    height: ;    /* slightly less gap */
+}
+  .glossary-wrapper .topic-heading {
     font-size: 1.2rem;
     margin: 0;        /* smaller heading */
     margin-bottom: 0.5rem;    /* less gap below */
   }
 
-  .language-selector {
-    margin-bottom: 0.3rem;    /* tighter spacing */
+  .glossary-wrapper .language-selector {
+    margin: 0;
+    margin-bottom: 0.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .language-selector select {
+ .glossary-wrapper .language-selector select {
     padding: 0.3rem 0.6rem;   /* smaller select box */
     font-size: 0.9rem;
+    text-align: right;
+    width: fit-content;
+    
+  }
+  .glossary-wrapper .language-selector label {
+    font-size: 1em;
   }
 }
