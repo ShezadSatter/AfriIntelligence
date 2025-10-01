@@ -2,19 +2,24 @@
   padding: 2rem;
   background-color: #133A1F;
   color: white;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
 }
 
 .dashboard h1{
   font-family: League Spartan;
-  margin-left: 550px;
 }
 
 .actions {
   display: flex;
   gap: 50px;
   flex-wrap: wrap;
-  margin-left: 280px;
   margin-bottom: 2rem;
 }
 
@@ -35,7 +40,6 @@
 
 .selectioncontainer{
   display: flex;
-  margin-left: 200px;
   gap: 100px;
 }
 
@@ -192,4 +196,16 @@
   text-align: center;
   margin-top: 50px;
   font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .selectioncontainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .uploadForm {
+    width: 100%;
+    max-width: 100%;
+  }
 }

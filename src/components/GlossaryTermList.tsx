@@ -43,7 +43,10 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
     setLoadingIndexes((prev) => new Set(prev).add(index));
     try {
       const [translatedDefinition, translatedContext, translatedExample] =
-        await handleMultiTranslate([definition, context, example], selectedLanguage);
+        await handleMultiTranslate(
+          [definition, context, example],
+          selectedLanguage
+        );
 
       setTranslatedTerms((prev) => ({
         ...prev,
@@ -92,14 +95,25 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
         return (
           <div key={term.term || idx} className="term-card">
             <h3 className="term-title">🧠 {term.term}</h3>
-            <p><strong>Definition:</strong> {term.definition}</p>
-            <p><strong>Context:</strong> {term.context}</p>
-            <p><strong>Example:</strong> {term.example}</p>
+            <p>
+              <strong>Definition:</strong> {term.definition}
+            </p>
+            <p>
+              <strong>Context:</strong> {term.context}
+            </p>
+            <p>
+              <strong>Example:</strong> {term.example}
+            </p>
 
             <button
               className="translate-button"
               onClick={() =>
-                handleTranslate(term.definition, term.context, term.example, idx)
+                handleTranslate(
+                  term.definition,
+                  term.context,
+                  term.example,
+                  idx
+                )
               }
               disabled={isLoading}
             >
@@ -111,14 +125,22 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
             </button>
 
             {isTranslated && (
-  <details className="translation">
-    <summary>🗣️ View Translation</summary>
-    <p><strong>Definition:</strong> {translatedTerms[idx]?.definition ?? ""}</p>
-    <p><strong>Context:</strong> {translatedTerms[idx]?.context ?? ""}</p>
-    <p><strong>Example:</strong> {translatedTerms[idx]?.example ?? ""}</p>
-  </details>
-)}
-
+              <details className="translation">
+                <summary>🗣️ View Translation</summary>
+                <p>
+                  <strong>Definition:</strong>{" "}
+                  {translatedTerms[idx]?.definition ?? ""}
+                </p>
+                <p>
+                  <strong>Context:</strong>{" "}
+                  {translatedTerms[idx]?.context ?? ""}
+                </p>
+                <p>
+                  <strong>Example:</strong>{" "}
+                  {translatedTerms[idx]?.example ?? ""}
+                </p>
+              </details>
+            )}
           </div>
         );
       })}

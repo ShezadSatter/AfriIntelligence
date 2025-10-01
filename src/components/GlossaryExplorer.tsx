@@ -6,8 +6,8 @@ import "../pages/glossary.css";
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 interface Topic {
-  id: string;          // JSON file identifier
-  title: string;       // Human-readable title
+  id: string; // JSON file identifier
+  title: string; // Human-readable title
   description?: string;
 }
 
@@ -31,14 +31,15 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
   initialGrade = "",
   initialTopic = "",
 }) => {
-
-
-
-  const [subjects, setSubjects] = useState<{ id: string; name: string; slug: string }[]>([]);
-  const [grades, setGrades] = useState<{ id: string; level: number; description?: string }[]>([]);
+  const [subjects, setSubjects] = useState<
+    { id: string; name: string; slug: string }[]
+  >([]);
+  const [grades, setGrades] = useState<
+    { id: string; level: number; description?: string }[]
+  >([]);
   const [topics, setTopics] = useState<Topic[]>([]);
-// Change from a single TermContent to an array
-const [terms, setTerms] = useState<TermContent[]>([]);
+  // Change from a single TermContent to an array
+  const [terms, setTerms] = useState<TermContent[]>([]);
 
   const [selectedSubject, setSelectedSubject] = useState(initialSubject);
   const [selectedGrade, setSelectedGrade] = useState(initialGrade);
@@ -58,7 +59,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
   // Load subjects
   useEffect(() => {
     fetch(`${API_BASE}/api/subjects`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(setSubjects)
       .catch(console.error);
   }, []);
@@ -71,7 +72,7 @@ const [terms, setTerms] = useState<TermContent[]>([]);
       return;
     }
     fetch(`${API_BASE}/api/grades/${selectedSubject}`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(setGrades)
       .catch(console.error);
   }, [selectedSubject]);
@@ -84,31 +85,31 @@ const [terms, setTerms] = useState<TermContent[]>([]);
       return;
     }
     fetch(`${API_BASE}/api/topics/${selectedSubject}/${selectedGrade}`)
-      .then(res => res.json())
-      .then(data => setTopics(Array.isArray(data) ? data : []))
+      .then((res) => res.json())
+      .then((data) => setTopics(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, [selectedSubject, selectedGrade]);
 
   // Load term content when topic changes
-useEffect(() => {
-  if (!selectedSubject || !selectedGrade || !selectedTopic) {
-    setTerms([]);
-    return;
-  }
-
-  fetch(`${API_BASE}/api/terms/${selectedSubject}/${selectedGrade}/${selectedTopic}`)
-    .then(res => res.json())
-    .then((data: TermContent[]) => {
-      // Ensure data is an array
-      setTerms(Array.isArray(data) ? data : []);
-    })
-    .catch(err => {
-      console.error("Failed to fetch terms:", err);
+  useEffect(() => {
+    if (!selectedSubject || !selectedGrade || !selectedTopic) {
       setTerms([]);
-    });
-}, [selectedSubject, selectedGrade, selectedTopic]);
+      return;
+    }
 
-
+    fetch(
+      `${API_BASE}/api/terms/${selectedSubject}/${selectedGrade}/${selectedTopic}`
+    )
+      .then((res) => res.json())
+      .then((data: TermContent[]) => {
+        // Ensure data is an array
+        setTerms(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch terms:", err);
+        setTerms([]);
+      });
+  }, [selectedSubject, selectedGrade, selectedTopic]);
 
   return (
     <div className="glossary-container">
@@ -116,7 +117,7 @@ useEffect(() => {
         <section className="glossary-section">
           <h2>Subjects</h2>
           <div className="button-group">
-            {subjects.map(s => (
+            {subjects.map((s) => (
               <button
                 key={s.id}
                 className={s.slug === selectedSubject ? "active" : ""}
@@ -137,7 +138,7 @@ useEffect(() => {
         <section className="glossary-section">
           <h2>Grades</h2>
           <div className="button-group">
-            {grades.map(g => (
+            {grades.map((g) => (
               <button
                 key={g.id}
                 className={g.level.toString() === selectedGrade ? "active" : ""}
@@ -156,31 +157,34 @@ useEffect(() => {
         <section className="glossary-section">
           <h2>Topics</h2>
           <div className="topic-grid">
-            {topics.map(topic => (
-  <button key={topic.id} onClick={() => setSelectedTopic(topic.id)}>
-    {topic.title}  {/* <- will show the topic name */}
-  </button>
-))}
-
+            {topics.map((topic) => (
+              <button key={topic.id} onClick={() => setSelectedTopic(topic.id)}>
+                {topic.title} {/* <- will show the topic name */}
+              </button>
+            ))}
           </div>
         </section>
       </aside>
 
       <main className="glossary-main">
         {terms.length > 0 ? (
-<GlossaryTermList
-  terms={terms.map(t => ({
-    id: t.id,
-    term: t.term,
-    definition: t.definition,
-    context: t.context || "",
-    example: t.example || "",
-    category: t.category || "",
-  }))}
-  selectedTopic={topics.find(t => t.id === selectedTopic)?.title || ""}/>
-
+          <GlossaryTermList
+            terms={terms.map((t) => ({
+              id: t.id,
+              term: t.term,
+              definition: t.definition,
+              context: t.context || "",
+              example: t.example || "",
+              category: t.category || "",
+            }))}
+            selectedTopic={
+              topics.find((t) => t.id === selectedTopic)?.title || ""
+            }
+          />
         ) : (
-          <p className="placeholder-text">Select a topic to view glossary terms.</p>
+          <p className="placeholder-text">
+            Select a topic to view glossary terms.
+          </p>
         )}
       </main>
     </div>

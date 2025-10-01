@@ -27,8 +27,13 @@
   border-radius: 8px;
   padding: 1rem 2rem;
   box-shadow: 0 0 12px rgba(0, 80, 0, 0.15);
-  overflow-y: auto;
+
+  display: flex;             /* critical: column flex parent */
+  flex-direction: column;    /* header+controls above, list grows below */
+  overflow: hidden;          /* prevent parent scrolling — child will handle it */
   max-height: 90vh;
+  min-height: 0;             /* allow children to shrink inside the flex container */
+  box-sizing: border-box;
 }
 
 .glossary-section {
@@ -119,6 +124,13 @@
 /* === GlossaryTermList styles === */
 .glossary-wrapper .term-list {
   margin-top: 2rem;
+  flex: 1 1 auto;            /* take remaining vertical space */
+  min-height: 0;             /* 👈 critical for flexbox scrolling to work */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  padding-right: 0.4rem;     /* avoid content being hidden behind scrollbar */
+  box-sizing: border-box;
+  scrollbar-gutter: stable both-edges; /* reduces layout shift when scrollbar appears */
 }
 
 .glossary-wrapper .topic-heading {
@@ -263,11 +275,17 @@
 
   .glossary-sidebar {
     max-height: none;
-    flex: none;
+    flex-direction: row;
+    flex: grid;
   }
 
-  .glossary-main {
-    max-height: none;
+   .glossary-main {
+    max-height: none;    /* allow natural document height on small screens */
+    /* still a flex column and overflow hidden so the term-list scroll works */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
   }
 
   .term-title {
@@ -277,5 +295,11 @@
   .translate-button {
     width: 100%;
     justify-content: center;
+  }
+
+ .glossary-wrapper .term-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
   }
 }
