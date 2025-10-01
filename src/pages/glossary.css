@@ -355,7 +355,6 @@ flex: 1 1 auto;
   }
 .glossary-wrapper .term-divider{
     margin: 0;
-    height: ;    /* slightly less gap */
 }
   .glossary-wrapper .topic-heading {
     font-size: 1.2rem;
