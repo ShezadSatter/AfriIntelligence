@@ -550,7 +550,7 @@ if (targetIndex !== -1) {
       <div
         style={{
           borderBottom: `2px solid ${themeStyles.border}`,
-          margin: "1rem",
+          margin: "0.25rem",
         }}
       >
         <div
@@ -558,7 +558,7 @@ if (targetIndex !== -1) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "1rem",
+            marginBottom: "0.5rem",
           }}
         >
           <div>
@@ -568,6 +568,8 @@ if (targetIndex !== -1) {
                 fontSize: "4em",
                 fontWeight: "700",
                 color: "white",
+                display: "flex",
+                alignItems: "center",
               }}
             ><img style={{width: "150px", height: "150px"}}className="app-icon" src={logo} alt="Logo" />Afri AI
             </h1>
