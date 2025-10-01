@@ -344,7 +344,9 @@ flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-right: 0.4rem;
+    margin: 0;
+    padding:0;
+
     }
 
    .term-list-header {
@@ -353,7 +355,8 @@ flex: 1 1 auto;
   }
 
   .topic-heading {
-    font-size: 1.2rem;        /* smaller heading */
+    font-size: 1.2rem;
+    margin: 0;        /* smaller heading */
     margin-bottom: 0.5rem;    /* less gap below */
   }
 
