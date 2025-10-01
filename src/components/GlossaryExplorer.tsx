@@ -167,26 +167,29 @@ const GlossaryExplorer: React.FC<GlossaryExplorerProps> = ({
       </aside>
 
       <main className="glossary-main">
-        {terms.length > 0 ? (
-          <GlossaryTermList
-            terms={terms.map((t) => ({
-              id: t.id,
-              term: t.term,
-              definition: t.definition,
-              context: t.context || "",
-              example: t.example || "",
-              category: t.category || "",
-            }))}
-            selectedTopic={
-              topics.find((t) => t.id === selectedTopic)?.title || ""
-            }
-          />
-        ) : (
-          <p className="placeholder-text">
-            Select a topic to view glossary terms.
-          </p>
-        )}
-      </main>
+  {terms.length > 0 ? (
+    <div className="glossary-wrapper">
+      <GlossaryTermList
+        terms={terms.map((t) => ({
+          id: t.id,
+          term: t.term,
+          definition: t.definition,
+          context: t.context || "",
+          example: t.example || "",
+          category: t.category || "",
+        }))}
+        selectedTopic={
+          topics.find((t) => t.id === selectedTopic)?.title || ""
+        }
+      />
+    </div>
+  ) : (
+    <p className="placeholder-text">
+      Select a topic to view glossary terms.
+    </p>
+  )}
+</main>
+
     </div>
   );
 };

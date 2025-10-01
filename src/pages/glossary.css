@@ -122,15 +122,44 @@
 }
 
 /* === GlossaryTermList styles === */
+.glossary-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;   /* critical so term-list can scroll */
+  overflow: hidden;
+}
+
+
+
 .glossary-wrapper .term-list {
+    display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0; /* allow scroll section to shrink */
   margin-top: 2rem;
-  flex: 1 1 auto;            /* take remaining vertical space */
-  min-height: 0;             /* 👈 critical for flexbox scrolling to work */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
   padding-right: 0.4rem;     /* avoid content being hidden behind scrollbar */
   box-sizing: border-box;
   scrollbar-gutter: stable both-edges; /* reduces layout shift when scrollbar appears */
+}
+
+.term-list-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.term-list-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: white; /* or inherit card background */
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #d8f3dc;
 }
 
 .glossary-wrapper .topic-heading {
@@ -139,6 +168,7 @@
   color: #2d6a4f;
   text-align: center;
 }
+
 
 .glossary-wrapper .language-selector {
   margin-bottom: 1rem;
@@ -270,7 +300,11 @@
 /* === RESPONSIVE TWEAKS === */
 @media (max-width: 768px) {
   .glossary-container {
-    flex-direction: column;
+   flex-direction: column;
+    height: 100dvh;      /* full dynamic viewport height */
+    min-height: 0;
+    overflow: hidden;
+    box-sizing: border-box; 
   }
 
   .glossary-sidebar {
@@ -280,13 +314,15 @@
   }
 
    .glossary-main {
-    max-height: none;    /* allow natural document height on small screens */
-    /* still a flex column and overflow hidden so the term-list scroll works */
+     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    min-height: 0;           /* critical for scrolling children */
     overflow: hidden;
-    min-height: 0;
-  }
+    box-sizing: border-box;
+        margin-bottom: 4rem;
+
+   }
 
   .term-title {
     font-size: 1.2rem;
@@ -296,10 +332,37 @@
     width: 100%;
     justify-content: center;
   }
-
+.glossary-wrapper {
+   flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
  .glossary-wrapper .term-list {
-    flex: 1 1 auto;
+flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 0.4rem;
+    }
+
+   .term-list-header {
+    padding: 0;        /* reduce vertical padding */
+    margin: 0;    /* less space before the list */
+  }
+
+  .topic-heading {
+    font-size: 1.2rem;        /* smaller heading */
+    margin-bottom: 0.5rem;    /* less gap below */
+  }
+
+  .language-selector {
+    margin-bottom: 0.3rem;    /* tighter spacing */
+  }
+
+  .language-selector select {
+    padding: 0.3rem 0.6rem;   /* smaller select box */
+    font-size: 0.9rem;
   }
 }

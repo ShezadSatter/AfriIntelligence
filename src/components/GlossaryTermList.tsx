@@ -67,8 +67,9 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
     }
   };
 
-  return (
-    <div className="term-list">
+ return (
+  <div className="term-list">
+    <div className="term-list-header">
       <h2 className="topic-heading">{selectedTopic}</h2>
 
       <div className="language-selector">
@@ -87,7 +88,9 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
       </div>
 
       <hr className="term-divider" />
+    </div>
 
+    <div className="term-list-scroll">
       {terms.map((term, idx) => {
         const isLoading = loadingIndexes.has(idx);
         const isTranslated = translatedTerms[idx];
@@ -145,7 +148,9 @@ const GlossaryTermList: React.FC<{ terms: Term[]; selectedTopic: string }> = ({
         );
       })}
     </div>
-  );
+  </div>
+);
+
 };
 
 export default GlossaryTermList;
